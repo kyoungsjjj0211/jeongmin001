@@ -44,7 +44,7 @@ git init
    뭘저장했는지 이름붙이고 저장  ★
 #### 6-6.  git  remote  add  origin   `깃허브주소(원격저장소-공유작업)`
 ```bash
-git  remote  add  origin  https://github.com/sally03915/fullstack_20250825.git
+git  remote  add  origin https://github.com/kyoungsjjj0211/jeongmin001.git
 ```
 #### 6-7.  git  remote  -v  연결확인
 #### 6-8.  git  push origin master   원격저장소에 올리기
@@ -205,4 +205,5 @@ git commit -am "git 수정 후 다시올리기"
     - 명령어: `git config --list`
  
 
- 
+ 16. 수정할 작업입니다.
+      -이렇게 정하세요 :
