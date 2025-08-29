@@ -1,0 +1,37 @@
+1. readmd에서 트러블슈팅을 정리하고 있는데 위의 문제 코드에  1. 문제점, 2.해결방안 3. 느낌점 작성해줘   ```
+2. 내용수정
+
+### 트러블슈팅 (1)
+```bash
+TJ-BU-703-P03@DESKTOP-5CVIKGS MINGW64 /c/KIMYOUNGMIN/workspace (master)
+$ git commit -m "git 수정 후 다시올리기"
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)       
+        modified:   day001.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+```
+
+### 트러블슈팅 (2)
+```bash
+TJ-BU-703-강사PC@DESKTOP-2Q95R1R MINGW64 /d/hyojung/workspace (master)
+$ git pull  origin master 
+remote: Enumerating objects: 5, done.
+remote: Counting objects: 100% (5/5), done.
+remote: Compressing objects: 100% (3/3), done.
+remote: Total 3 (delta 1), reused 0 (delta 0), pack-reused 0 (from 0)     
+Unpacking objects: 100% (3/3), 1.03 KiB | 15.00 KiB/s, done.
+From https://github.com/sally03915/fullstack_20250825
+ * branch            master     -> FETCH_HEAD
+   031d931..5ac68d8  master     -> origin/master
+Auto-merging day002.md
+CONFLICT (content): Merge conflict in day002.md
+t the result.
+
+
+### 트러블슈팅 (3)
+```bash
+TJ-BU-703-강사PC@DESKTOP-2Q95R1R MINGW64 /d/hyojung/workspace (master|MERGING) $ git pull origin master error: You have not concluded your merge (MERGE_HEAD exists). hint: Please, commit your changes before merging. fatal: Exiting because of unfinished merge.
+```
