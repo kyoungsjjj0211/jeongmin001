@@ -30,6 +30,5 @@ public class DataType001 {
 		double dper3 = 1.1111111111111111; // 1 15개 + 1 = 16개 -> 근사값 
 		System.out.println(dper1 + "\t" + dper2 + "\t" + dper3);
 		
-		
 	}
 }
