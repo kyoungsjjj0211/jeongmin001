@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<config date="1756351052638" transient="false">
+<config date="1756795114990" transient="false">
 	<site updateable="true" url="file:/C:/Users/TJ-BU-703-004PC/.p2/pool/" enabled="true" policy="MANAGED-ONLY">
 		<feature id="org.eclipse.wst.server_adapters.feature" version="3.36.0.v202503251436" url="features/org.eclipse.wst.server_adapters.feature_3.36.0.v202503251436/">
 		</feature>
