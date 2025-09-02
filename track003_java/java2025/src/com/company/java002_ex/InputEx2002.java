@@ -5,11 +5,8 @@ import java.util.Scanner;
 public class InputEx2002 {
 	public static void main(String[] args) {
 		// 변수
-		int 국어=0;
-		int 영어=0;
-		int 수학=0;
-		int 총점=0;
-	    double 평균=0.0;
+		int 국어, 영어, 수학, 총점;
+	    double 평균;
 		Scanner scanner = new Scanner(System.in);
 		// 입력
 		System.out.println("국어점수를 입력하시오 >");
