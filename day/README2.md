@@ -1,60 +1,28 @@
+📌  Track002-web basic [README2.md]
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TAG-users</title>
-    <style>
-      /* Q0. 전체여백빼기  */ 
+    <style>  
       *{margin:0; padding:0; }
-      /* Q1. body  글꼴 : Segoe UI, 배경 : 그라디언트 #fdfbfb → #ebedee */
       body {font-family : 'Segoe UI', sans-serif; background:linear-gradient(135deg, #fef3f9, #eadcf5);}
-      /* Q2. h1 중앙정렬, 글자색상 : #e1306c, 아래쪽여백 : 40px */
       h1 {text-align:center; color:#e1306c; margin-bottom:40px;}
-      /* Q3. .card 너비 : 250px, 여백 : 아래쪽 30px 중앙정렬, 테두리 둥글게 : 20px, 그림자효과, 중앙정렬, 안쪽여백 : 20px, 트랜지션 : 0.3초 부드럽게 */
       .card {width:250px; margin:30px auto; border-radius:20px; box-shadow:0 4px 12px rgba(0,0,0,0.1);  padding:20px; transition: all 0.3s ease; text-align:center;}
-      /* Q4. .card:hover  transform:translate(x,y)위로 이동 : 5px, 그림자 강조 */
       .card:hover {transform:translateY(-5px); box-shadow:0 12px 24px rgba(0,0,0,0.2)}
-      /* Q5. .jack 배경 : 그라디언트 #dbeafe → #f0f9ff */
       .jack {background:linear-gradient(to bottom, #8ccf76, #f0f9ff);}
-      /* Q6. .june 배경 : 그라디언트 #ffe0f0 → #fff0f5 */
       .june {background:linear-gradient(to bottom, #a7e6ff, #eefff8);}
-      /* Q7. .mina 배경 : 그라디언트 #ede9fe → #f5f3ff */
       .mina {background:linear-gradient(to bottom, #f2fd8e,#f5f3ff);}
-      /* Q8. .card img 너비/높이 : 90px, 원형처리, 이미지 비율 유지, 테두리 : 3px 실선 #e1306c */
       .card img {width: 90px; height: 90px; object-fit: cover; border-radius: 50%; border: 3px solid #e1306c;}
-      /* Q9. .card h2 여백 : 위10px 아래5px, 글자크기 : 18px, 글자색상 : #333 */
       .card h2 {margin-top: 10px; margin-bottom: 5px; font-size: 18px; color: #333;}
-      /* Q10. .card p 글자크기 : 14px, 글자색상 : #444, 아래쪽여백 : 10px */
       .card p {font-size:14px; color:#444; margin-bottom:10px;}
-      /* Q11. .card a 글자크기 : 13px, 글자색상 : #e1306c, 밑줄 제거 */
       .card a {font-size:13px; color:#e1306c; text-decoration:none;}
-      /* Q12. .card h3 위쪽여백 : 20px, 글자크기 : 16px, 글자색상 : #333 */
       .card h3 {margin-top:20px; font-size:16px; color:#333;}
-      /* Q13. .card ul, ol, dl 왼쪽정렬, 왼쪽 안쪽여백 : 20px, 글자색상 : #333, 여백제거 */
       .card ul,.card ol,.card dl {text-align:left; padding-left:20px; color:#333; margin:0 auto;}
-      /* Q14. .card dt 글자굵기 : 굵게 */
       .card dt {font-weight:bold;}
-      /* Q15. .card dd 여백 : 아래쪽 10px */
       .card dd {margin-bottom:10px;}
-
-
-      /* Q1. body  글꼴 : Segoe UI, 배경 : 그라디언트 #fdfbfb → #ebedee */
-      /* Q2. h1 중앙정렬, 글자색상 : #e1306c, 아래쪽여백 : 40px */
-      /* Q3. .card 너비 : 250px, 여백 : 아래쪽 30px 중앙정렬, 테두리 둥글게 : 20px, 그림자효과, 중앙정렬, 안쪽여백 : 20px, 트랜지션 : 0.3초 부드럽게 */
-      /* Q4. .card:hover 위로 이동 : 5px, 그림자 강조 */
-      /* Q5. .jack 배경 : 그라디언트 #dbeafe → #f0f9ff */
-      /* Q6. .june 배경 : 그라디언트 #ffe0f0 → #fff0f5 */
-      /* Q7. .mina 배경 : 그라디언트 #ede9fe → #f5f3ff */
-      /* Q8. .card img 너비/높이 : 90px, 원형처리, 이미지 비율 유지, 테두리 : 3px 실선 #e1306c */
-      /* Q9. .card h2 여백 : 위10px 아래5px, 글자크기 : 18px, 글자색상 : #333 */
-      /* Q10. .card p 글자크기 : 14px, 글자색상 : #444, 아래쪽여백 : 10px */
-      /* Q11. .card a 글자크기 : 13px, 글자색상 : #e1306c, 밑줄 제거 */
-      /* Q12. .card h3 위쪽여백 : 20px, 글자크기 : 16px, 글자색상 : #333 */
-      /* Q13. .card ul, ol, dl 왼쪽정렬, 왼쪽 안쪽여백 : 20px, 글자색상 : #333, 여백제거 */
-      /* Q14. .card dt 글자굵기 : 굵게 */
-      /* Q15. .card dd 여백 : 아래쪽 10px */
-
     </style>
 </head>
 <body>
@@ -70,8 +38,7 @@
           <ul>
             <li>Node js</li> <li>MongoDB</li> <li>Docker</li>
           </ul>
-       </div><!--end div1 -->
-
+       </div>
        <div class="card june">
           <p><img src="./img/one4.png" alt="June 프로필사진"/></p>  
           <h2>June</h2>
@@ -83,7 +50,6 @@
             <li>HTML & CSS</li> <li>JavaScript</li> <li>React</li>
           </ol>
        </div><!--end div2 -->
-
        <div class="card mina">
           <p><img src="./img/one6.png" alt="Mina 프로필사진"/></p>  
           <h2>Mina</h2>
