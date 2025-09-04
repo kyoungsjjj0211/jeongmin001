@@ -9,7 +9,7 @@ public class A002 {
 		// 한줄로만드는 방법은?
 		System.out.println("A\nAB\nABC");  // 줄바꿈  \n
 		
-		// 포맷형식  %s , %d
+		// 포맷형식  %s , %d , %f
 		System.out.printf("이름 : %s  나이: %d " , "길동"  , 12 );
 	}
 }
