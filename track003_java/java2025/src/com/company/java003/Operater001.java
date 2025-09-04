@@ -48,12 +48,33 @@ public class Operater001 {
 		//4. 삼항연산자 (조건)? 참 : 거짓
 		System.out.println(a == 10 ? "10이다" : "10이 아니다");
 		// Q3. 숫자를 입력받아 0보다 크면 양수, 0보다 작으면 음수, 아니라면 0
+		/*
 		Scanner scanner = new Scanner(System.in);
 		System.out.print("숫자를 입력하세요 >");
 		int q3 = scanner.nextInt();
 		//              조건    ?  참    :  거짓
 		String result = q3 > 0 ? "양수" :       q3 < 0 ? "음수" : "0";
         System.out.println("입력한 숫자는 " + result + "입니다.");
-
+		*/
+		
+        //5. 대입연산자
+        a=10; b=3;
+        System.out.println("1: " +    (a+=b) );  //1)a+b 2_ a=13
+        System.out.println("2: " +    (a-=b) );  //1)a+b 2_ a=13
+        
+        //6. 단항
+        int a1 = 1, b1=1, c1=1, d1=1;
+        System.out.println(++a1); //2 증가출력
+        System.out.println( a1); //2 출력
+        System.out.println(b1++); //1 출력증가
+        System.out.println(b1); //2
+        
+        System.out.println(--c1); //0 감소출력
+        System.out.println(c1); //0 
+        System.out.println(d1--);//1 출력감소
+        System.out.println(d1); //0
+        
+        
+        
 	}
 }
