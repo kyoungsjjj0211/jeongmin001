@@ -3,22 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <title>나의 포트폴리오</title>
-  <style>
+  <style >
+  
+  body {background: linear-gradient(135deg, #f0f9ff, #e0f7fa); font-family: Arial, sans-serif; padding: 30px; margin: 0;}
+
 /* Q1: 페이지 전체에 배경 그라디언트를 적용하고 기본 글꼴과 안쪽 여백을 주려면?
    - 배경: 135도 방향의 그라디언트 (#f0f9ff → #e0f7fa)
    - 글꼴: Arial
    - 안쪽 여백: 30px */
- 
+ h1 {text-align:center; color:#00796b; margin-bottom : 40px;}
 
 /* Q2: 제목(h1)을 가운데 정렬하고 색상과 아래 여백을 주려면?
    - 정렬: 가운데
    - 글자 색상: #00796b (청록색 계열)
    - 아래 여백: 40px */
- 
+ .content-box{ width:50%; margin:0 auto;}
 /* Q3: 콘텐츠 박스를 가운데 배치하고 너비를 50%로 설정하려면?
    - 너비: 50%
    - 좌우 자동 마진으로 가운데 정렬 */
- 
+.card {
+  float: left; width: 250px; margin: 20px; padding: 20px; background-color: #ffffff; border-radius: 15px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); position: relative; text-align: center; border: 3px solid transparent; background-clip: padding-box; transform: translateY(20px); opacity: 0; animation: fadeUp 0.6s ease-out forwards;}
+
 /* Q4: 카드 박스를 가로로 배치하고 시각적 스타일을 주려면?
    - float: left (가로 정렬)
    - 너비: 250px
@@ -31,11 +36,11 @@
    - 텍스트 가운데 정렬
    - 애니메이션: 등장 시 아래에서 위로 이동 (translateY)
    - 테두리: 투명 3px, 배경 클립 설정 */
- 
+ .card:nth-child(3) {animation-delay:0.3s;}
 
 /* Q5: 두 번째 카드에 애니메이션 지연을 주려면?
    - 지연 시간: 0.3초 */
- 
+ .card:hover{transform: translateY(-5px); box-shadow:0 0 15px rgba(0,0,0,0.2); border-color:#00796b;}
 
 /* Q6: 카드에 마우스를 올렸을 때 효과를 주려면?
    - 위로 이동: 5px
