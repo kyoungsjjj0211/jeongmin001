@@ -165,7 +165,6 @@ CONFLICT (content): Merge conflict in day002.md
 ```bash
 $ git pull origin master
 error: You have not concluded your merge (MERGE_HEAD exists).
-```
 
 - **문제점**  
   이전 병합이 완료되지 않은 상태에서 다시 Pull을 시도함. Git이 병합 중이라는 상태를 유지하고 있음.
@@ -181,6 +180,92 @@ error: You have not concluded your merge (MERGE_HEAD exists).
 - **느낌점**  
   Git은 상태 기반으로 동작한다는 걸 실감했다. 병합 중이라는 상태를 명확히 인식하고, 단계별로 처리해야 오류를 피할 수 있다. Git의 내부 동작을 더 깊이 이해하게 된 계기였다.
  
+
+```
+
+### ▶️ 트러블 슈팅 (4)
+``` bash
+Error: CSS: Parse Error.
+
+From line 15, column 76; to line 17, column 5
+
+tom:20px:}↩        /* 전체선택자 - 전체여백빼기 */↩     div{ba
+
+```
+- ** 문제점 **
+{tom:20px:} → CSS 속성명이 tom으로 되어 있는데 이는 유효하지 않은 속성입니다.
+
+:이 두 번 사용됨 → 문법 오류
+
+div{ba → ba는 속성명이 아니며, 미완성된 코드로 보입니다.
+
+- ** 해결 방법 ** 
+오타 수정
+
+tom:20px:} → 아마도 margin: 20px; 또는 padding: 20px;을 의도한 것일 수 있습니다.
+
+div {ba → div { background: ... } 또는 div { border: ... } }등으로 완성해야 합니다.
+
+- ** 문법 점검 **
+
+CSS는 선택자 { 속성: 값; } 형식으로 작성되어야 합니다.
+
+각 속성은 :으로 구분되고, 끝에는 ;가 있어야 합니다.
+
+- ** 코드 수정 ** 
+* {
+  margin: 0;
+  padding: 0;
+}
+
+div {
+  background-color: #f0f0f0;
+
+  : → ;
+}
+
+
+### ◇ 트러블 슈팅 (5)
+
+```  bash
+
+Error: CSS: background: "linear-gradient" is not a background value.
+
+From line 20, column 31; to line 20, column 47
+
+ackground:"linear-gradient"(to bo
+
+Error: CSS: Parse Error.
+
+At line 20, column 77
+
+5fefd, #a1c4fd);}↩          /*
+
+Error: CSS: Parse Error.
+
+From line 20, column 79; to line 22, column 8
+
+#a1c4fd);}↩          /* Q7. .project3 배경 : 그라디언트 #fbc2eb → #a6c1ee */↩        .proje
+
+```
+
+
+### ▶ 문제점 
+
+- 문제.
+
+"linear-gradient"가 문자열처럼 " " 안에 들어가 있음 → CSS에서는 함수처럼 써야 함
+
+background:"linear-gradient"(to bo... → 문법 오류)
+
+색상 값이 잘못된 위치에 있음 → #5fefd, #a1c4fd가 linear-gradient 안에 있어야 함
+
+- 문제 해결.
+올바른 문법 예시
+CSS에서 linear-gradient는 다음과 같이 사용해야 합니다:
+
+"" 사용 x
+
 
 
 <br/>
