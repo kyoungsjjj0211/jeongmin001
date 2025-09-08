@@ -192,27 +192,27 @@ From line 15, column 76; to line 17, column 5
 tom:20px:}↩        /* 전체선택자 - 전체여백빼기 */↩     div{ba
 
 ```
-- ** 문제점 **
+- **문제점**
 {tom:20px:} → CSS 속성명이 tom으로 되어 있는데 이는 유효하지 않은 속성입니다.
 
 :이 두 번 사용됨 → 문법 오류
 
 div{ba → ba는 속성명이 아니며, 미완성된 코드로 보입니다.
 
-- ** 해결 방법 ** 
+- **해결 방법** 
 오타 수정
 
 tom:20px:} → 아마도 margin: 20px; 또는 padding: 20px;을 의도한 것일 수 있습니다.
 
 div {ba → div { background: ... } 또는 div { border: ... } }등으로 완성해야 합니다.
 
-- ** 문법 점검 **
+- **문법 점검**
 
 CSS는 선택자 { 속성: 값; } 형식으로 작성되어야 합니다.
 
 각 속성은 :으로 구분되고, 끝에는 ;가 있어야 합니다.
 
-- ** 코드 수정 ** 
+- **코드 수정** 
 * {
   margin: 0;
   padding: 0;
@@ -250,9 +250,9 @@ From line 20, column 79; to line 22, column 8
 ```
 
 
-### ▶ 문제점 
+▶ 문제점 
 
-- 문제.
+- **문제점.**
 
 "linear-gradient"가 문자열처럼 " " 안에 들어가 있음 → CSS에서는 함수처럼 써야 함
 
@@ -260,11 +260,108 @@ background:"linear-gradient"(to bo... → 문법 오류)
 
 색상 값이 잘못된 위치에 있음 → #5fefd, #a1c4fd가 linear-gradient 안에 있어야 함
 
-- 문제 해결.
+- **문제 해결.**
 올바른 문법 예시
 CSS에서 linear-gradient는 다음과 같이 사용해야 합니다:
 
 "" 사용 x
+
+
+### ✝ 트러블 슈팅 (6)
+```bash
+package com.company.java005_ex;
+
+public class ForEx005_2 {
+	 public static void main(String[] args) {
+	     //변수   
+		 int Count = 0;
+	        
+	     System.out.print("모음 : ");
+	     //입력+처리
+			for (char ch = 'a'; ch <= 'z'; ch++) {
+				switch (ch) {
+				case 'a':
+				case 'e':
+				case 'i':
+				case 'o':
+				case 'u':
+					System.out.print(ch);
+					Count++;
+					break;
+				}
+	     //출력
+	        System.out.println(); 
+	        System.out.println("갯수 : " + Count + "개");
+	    }
+	 }
+}
+
+```
+- **문제점**
+원하는 결과물이 나오지않음.
+출력되는 결과물.
+모음 : a
+갯수 : 1개, 갯수 : 1개,갯수 : 1개, 갯수 : 1개
+e
+갯수 : 2개, 갯수 : 2개, 갯수 : 2개, 갯수 : 2개
+i
+갯수 : 3개, 갯수 : 3개, 갯수 : 3개, 갯수 : 3개
+o
+갯수 : 4개, 갯수 : 4개, 갯수 : 4개, 갯수 : 4개 
+u
+갯수 : 5개, 갯수 : 5개, 갯수 : 5개, 갯수 : 5개
+
+- 원하는 결과물
+
+모음 : aeiou
+갯수 : 5개
+
+- **문제해결**
+for 구문의 문장이 break에서 끝나는것이 아닌 출력 구문까지 이어지게 되어 출력에 문제가 발생하게 되었다.
+{}를 break에서 닫아주면 정상적으로 코드가 생성된다.
+
+## ♈ 트러블 슈팅 (7)
+```bash
+package com.company.java005_ex;
+
+public class ForEx005 {
+	 public static void main(String[] args) {
+	     //변수   
+		 int Count = 0;
+	     //입력 + 처리(1)
+		 //a가 모음이라면 (a,e,i,o,u) 카운트
+		 //b가 모음이라면 (a,e,i,o,u) 카운트
+		 //c가 모음이라면 (a,e,i,o,u) 카운트
+		 
+		 //입력 + 처리(2) 구조
+		 //if(a가 모음이라면 (a,e,i,o,u)){ 카운트}
+		 //if(b가 모음이라면 (a,e,i,o,u)){ 카운트}
+		 //if(c가 모음이라면 (a,e,i,o,u)){ 카운트}
+		 
+		 //입력 + 처리(3) 코드 작성 {반복}{변수}
+		 //if ('a'=='a'||'a'=='e'||'a'=='i'||'a'=='o'||'a'=='u'){Count++;}
+		 //if ('b'=='a'||'b'=='e'||'b'=='i'||'b'=='o'||'b'=='u'){Count++;}
+		 //if ('c'=='a'||'c'=='e'||'c'=='i'||'c'=='o'||'c'=='u'){Count++;}
+	     System.out.print("모음 : ");
+	     //입력+처리
+	     for (char ch = 'a'; ch <= 'z'; ch++) {
+	            if (ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u')
+	            {System.out.print(ch + ' ');Count++;}}
+	     //출력
+	        System.out.println(); 
+	        System.out.println("소문자 a~z까지 모음의 갯수 > " + Count);
+	    }
+	}
+
+  ```
+- **문제점**
+출력되는 값이 문자가 아닌 숫자로 표기됨
+
+- **해결방법**
+{System.out.print(ch + ' ');Count++;}} 출력 구문에서 ch (2byte) + '' (2byte) = 숫자로 표기되기에
+
+(int) "" 로 표기를 해주어야 문자열로 인식되기에 작은 ''이 아닌 ""(을)를 사용해주어야한다.
+
 
 
 
