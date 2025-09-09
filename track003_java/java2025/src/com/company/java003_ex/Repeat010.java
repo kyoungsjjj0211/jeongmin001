@@ -14,7 +14,7 @@ public class Repeat010 {
 		if (num == 1) {System.out.println("one");}
 		else if (num == 2 ) {System.out.println("two");}
 		else if (num == 3) {System.out.println("three");}
-		else              {System.out.println("입력한 값이  1,2,3 이 아닙니다.")}
+		else              {System.out.println("입력한 값이  1,2,3 이 아닙니다.");}
 		
 		
 	
