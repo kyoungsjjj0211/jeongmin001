@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<config date="1756795114990" transient="false">
+<config date="1757553786156" transient="false">
 	<site updateable="true" url="file:/C:/Users/TJ-BU-703-004PC/.p2/pool/" enabled="true" policy="MANAGED-ONLY">
 		<feature id="org.eclipse.wst.server_adapters.feature" version="3.36.0.v202503251436" url="features/org.eclipse.wst.server_adapters.feature_3.36.0.v202503251436/">
 		</feature>
@@ -71,7 +71,7 @@
 		</feature>
 		<feature id="org.eclipse.oomph.p2" version="1.34.0.v20250805-0700" url="features/org.eclipse.oomph.p2_1.34.0.v20250805-0700/">
 		</feature>
-		<feature id="org.eclipse.oomph.setup" version="1.37.0.v20250822-1000" url="features/org.eclipse.oomph.setup_1.37.0.v20250822-1000/">
+		<feature id="org.eclipse.oomph.setup" version="1.37.0.v20250831-0649" url="features/org.eclipse.oomph.setup_1.37.0.v20250831-0649/">
 		</feature>
 		<feature id="org.eclipse.emf.edit.ui" version="2.28.0.v20250405-0811" url="features/org.eclipse.emf.edit.ui_2.28.0.v20250405-0811/">
 		</feature>

@@ -752,7 +752,7 @@ org.eclipse.oomph.setup,1.32.0.v20250612-1417,file:/C:/Users/TJ-BU-703-004PC/.p2
 org.eclipse.oomph.setup.core,1.35.0.v20250805-0709,file:/C:/Users/TJ-BU-703-004PC/.p2/pool/plugins/org.eclipse.oomph.setup.core_1.35.0.v20250805-0709.jar,4,false
 org.eclipse.oomph.setup.doc,1.15.0.v20250302-1233,file:/C:/Users/TJ-BU-703-004PC/.p2/pool/plugins/org.eclipse.oomph.setup.doc_1.15.0.v20250302-1233.jar,4,false
 org.eclipse.oomph.setup.edit,1.19.0.v20250422-1311,file:/C:/Users/TJ-BU-703-004PC/.p2/pool/plugins/org.eclipse.oomph.setup.edit_1.19.0.v20250422-1311.jar,4,false
-org.eclipse.oomph.setup.editor,1.32.0.v20250822-1000,file:/C:/Users/TJ-BU-703-004PC/.p2/pool/plugins/org.eclipse.oomph.setup.editor_1.32.0.v20250822-1000.jar,4,false
+org.eclipse.oomph.setup.editor,1.32.0.v20250831-0649,file:/C:/Users/TJ-BU-703-004PC/.p2/pool/plugins/org.eclipse.oomph.setup.editor_1.32.0.v20250831-0649.jar,4,false
 org.eclipse.oomph.setup.p2,1.23.0.v20250805-0709,file:/C:/Users/TJ-BU-703-004PC/.p2/pool/plugins/org.eclipse.oomph.setup.p2_1.23.0.v20250805-0709.jar,4,false
 org.eclipse.oomph.setup.p2.edit,1.16.0.v20230617-1322,file:/C:/Users/TJ-BU-703-004PC/.p2/pool/plugins/org.eclipse.oomph.setup.p2.edit_1.16.0.v20230617-1322.jar,4,false
 org.eclipse.oomph.setup.sync,1.19.0.v20250509-1106,file:/C:/Users/TJ-BU-703-004PC/.p2/pool/plugins/org.eclipse.oomph.setup.sync_1.19.0.v20250509-1106.jar,4,false
