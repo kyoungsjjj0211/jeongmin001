@@ -81,25 +81,26 @@ public class Bank_ver1 {
 				break;
 			case 4:
 				System.out.println("* 4 출금기능입니다");
-				//변수
-				
-				//입력
-				System.out.println("ID : ");
-				id1 = scanner.next();
-				System.out.println("PASS : ");
-				pass1 = scanner.next();
-				//처리
-				if (id1.equals(id)&&pass1.equals(pass)) {
-					System.out.println("출금 : ");
-					bal1=scanner.nextDouble();
-					System.out.println("==출금완료");
-					balance=bal-bal1;
-					System.out.println("잔액 : " + balance);
-					
-				}else {System.out.println("다시 확인해주세요.");}
-				
-				//출력
-				break;
+			    System.out.println("ID : ");
+			    id1 = scanner.next();
+			    System.out.println("PASS : ");
+			    pass1 = scanner.next();
+
+			    if (id1.equals(id) && pass1.equals(pass)) {
+			        System.out.println("출금 : ");
+			        bal1 = scanner.nextDouble();
+
+			        if (bal1 <= balance) {
+			            balance -= bal1;
+			            System.out.println("==출금완료");
+			            System.out.println("잔액 : " + balance);
+			        } else {
+			            System.out.println("잔액이 부족합니다. 출금이 불가능합니다.");
+			        }
+			    } else {
+			        System.out.println("다시 확인해주세요.");
+			    }
+			    break;
 			case 5:
 				System.out.println("* 5 삭제기능입니다");
 				//변수
