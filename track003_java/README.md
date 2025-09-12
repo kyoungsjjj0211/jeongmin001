@@ -1,4 +1,136 @@
 ### 🔰 나의 포트폴리오
+나의 배움 순서
+### JAVA
+```
+줄바꿈 없이 출력하는 명령어는 `System.out.print()`이다.  
+줄바꿈이 포함된 출력은 `System.out.println()`이다.  
+줄바꿈을 위한 특수문자는 `\n`이다.  
+포맷 형식으로 문자열과 숫자를 출력할 때 사용하는 명령어는 `System.out.printf()`이며,
+형식은 문자 : %s  정수 : %d 실수 : %f 이다.  
+```
+```
+### 변수
+변수란
+1. 값?
+- 토큰 : 특정의미를 가진문자
+- 리터럴, 키워드, 식별자, 연산자,구분자
+
+  System.out.println("hello");
+
+2. 값의 보관
+- 값의 보관 == 메모리확보
+- 변수 : 변하는 수 (오픈박스) ,  한개의 값
+- 상수 : 변하지 않는(상) 수  (밀봉박스)
+- 변수이름규칙 :   $_소문자7
+
+3. 변수사용법
+   자료형  변수명   
+
+   int a; - int  정수 1,2,3  a[ ]
+   double b; - double  실수 1.23  b[ ]
+   
+   a=10;     a[10]
+   a=20;     a[20]
+※ 상수    final   int    JAVA_HOME ;   - 수정못함!
+```
+```
+### 자료형
+4. 자료형
+1) 자료형의 구분
+- 기본형 : 실제값 저장
+- 참조형 : 주소값 저장 ( String )
+
+2) 기본 자료형
+- 논리형 - boolean true/false
+- 정수형 - byte(1byte) -short(2byte) -int(4byte) ★ -long(8byte)
+               long 1 = 4L;
+- 실수형 - float(4byte) - double(8byte)
+      float f = 3.14f  double d = 3.14
+```
+```
+5. 대입연산자
+        a=10; b=3;
+        System.out.println("1: " +    (a+=b) );  //1)a+b 2_ a=13     a+=b   a+b=a
+        System.out.println("2: " +    (a-=b) );  //1)a+b 2_ a=13     a-=b   a-b=a
+        
+6. 단항 
+    
+       // 함수 있는곳 먼저  al = 1 , ; al >> ++(증가) >> preintln  >> 2
+       //                 al = 1 , ++(증가) >> al >> println >> 1 다음에 사용시 은 2의를 갖게됨
+        int a1 = 1, b1=1, c1=1, d1=1;
+        System.out.println(++a1); //2 증가출력
+        System.out.println( a1); //2 출력
+        System.out.println(b1++); //1 출력증가
+        System.out.println(b1); //2
+        
+        System.out.println(--c1); //0 감소출력
+        System.out.println(c1); //0 
+        System.out.println(d1--);//1 출력감소
+        System.out.println(d1); //0
+7. 형식
+1. 1형식 
+    System.out.println(" ■ 1형식 - 조건을 무조건 읽음 ");
+		int num = 0;
+        num 이(가) 1이라면 1이라면 one , 2이라면 two , 3이라면 three
+        //if (num 가 1이라면 {one})
+        //if (num 가 2이라면 {two})
+        //if (num 가 3이라면 {three})
+        if( num == 1) {System.out.println("one");  }
+        if( num == 2) {System.out.println("two");  } // 1에서 이미 충족이 되어 조건을 처리했는지 알수없음
+        if( num == 3) {System.out.println("three");  } // 1에서 이미 충족이 되어 조건을 처리했는지 알수없음
+
+2. 2형식
+    System.out.println(" ■ 2형식 - 맞다/틀리다 ");
+		num = 0;
+		if( num==1) {System.out.println("one");  }
+		else {       System.out.println("one이(가) 아니다"); }
+
+3.  다형식
+    System.out.println(" ■ 다형식 ");
+		num=0;
+			 if( axe == 1) {System.out.println("one"); }
+		else if( axe == 2) {System.out.println("two"); }
+		else if( axe == 3) {System.out.println("three"); }
+		else {              System.out.println("1,2,3의 숫자가 입력되지않았습니다.");}
+
+4. 문자를 입력 받을경우
+    
+    변수 char 을 사용하며 (char ch='\u0000';)
+    입력을 받을때 스캐너를 사용하며, next().charAt(0)을 사용한다.
+```
+프로그램 코드 실행흐름
+  - 위 → 아래, 왼쪽 → 오른쪽
+  - 제어문은 개발자가 원하는 방향으로 변경할수 있도록 도와줌.
+
+2. 제어문의 종류
+    조건문      : if , switch  
+    반복문      : for# , while # , do while #
+    제어키워드 : break , continue
+
+
+1) for( 초기문; 조건문; 증감문  ){  반복해야할 내용  }    -  반복횟수를 알고 있을때
+2) while( 조건문 ){    반복해야할 내용 }  - 반복횟수 모를때   예)게시판
+   
+   초기문; 
+   while( 조건문  ){  반복해야할 내용        증감문; } 
+
+3) do{  반복해야할 내용  }while( 조건문  ); - 무조건 1번은 실행
+
+   초기문; 
+   do{  반복해야할 내용        증감문; }while( 조건문  ); 
+
+4) 무한반복
+   for(;;){//break; continue}
+   
+6) break/continue
+```
+```
+### array
+. 배열?
+- [같은 타입]의 데이터를 [연속된 공간에 저장]하는 자료구조
+- 각 데이터의 저장위치 [인덱스]를 통해서 접근
+```
+```
 - package 파일명
 - public class A000 
 <!--(public)어디에서든지 접근 가능 , (class)부붐객체, (클래스 이름)A000-->
@@ -116,5 +248,6 @@ i = 1일 때 → name[1] = "헐크", kor[1] = 20, eng[1] = 20, mat[1] = 20
 i = 4일 때 → name[4] = "호크아이", kor[4] = 35, eng[4] = 35, mat[4] = 35
 
 이렇게 i가 0부터 4까지 증가하면서, 각 학생의 정보를 한 줄씩 출력하는 구조예요. 그래서 i는 단순한 숫자가 아니라, 학생 한 명의 전체 정보를 연결해주는 인덱스 역할을 하고 있는 거죠.
+```
 
 혹시 이걸 객체로 바꿔서 더 깔끔하게 관리하는 방법도 궁금해? Java에서는 class를 활용하면 훨씬 구조화된 코드가 될 수 있어요 😄
