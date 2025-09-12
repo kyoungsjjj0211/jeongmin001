@@ -13,7 +13,62 @@ public class Bank_ver1 {
 		// 입력+처리+출력
 
 		for (;;) {
-			System.out.println("======BANK======\n*" + " 1.추가\n* 2.조회\n* 3.입금\n* 4.출금\n* 5.삭제\n* 9.종료\n입력 >>> ");
+			
+			/*
+			 for(;;){무한반복
+			 ■기능 1. 메뉴판
+			 System.out.print("\n\n== BANK ==");
+			 "\n1. 추가" + "\n2.조회" + "\n3.입금" + "\n4.출금" + "\n5.삭제");
+			 num=scanner.nextInt();
+			 ■기능 2.
+			 if(num==9){System.out.println("종료합니다."); breaek;}
+			 else if(num==1){
+			 System.out.print("ID 입력 > ") ; id=scanner.next();
+			 System.out.print("PASS 입력 > ") ; pass=scanner.next();
+			 System.out.print("금액 입력 > ") ; balance=scanner.nextDouble();
+			 }else if (num==2 || num==3 || num==4 || num==5){
+			 System.out.print("ID 입력 > ") ; String tempId=scanner.next();
+			 System.out.print("PASS 입력 > ") ; String tempPass=scanner.next();
+			 if(!(id.eqauls(tempId) && pass.equals(tempPass) )){
+			 System.out.println("아이디와 비밀번호를 확인해주세요!");
+			 continue; //아래꺼 진행하지마!
+			 }
+			 //2. 2,3,4,5 각가에 해당하는 처라
+			 switch(num){
+			 case 2 : System.out.println("ID >" + id + "PASS > " pass + "잔액 > " + balance); break;
+			 case 3 : System.out.print("입금할 금액 > "); double input = scanner.nextDouble();
+			   		  balance +=intput;
+			   		  System.out.println("입금을 완료했습니다.");
+			   		  break;
+			 case 4 : System.out.print("출금할 금액 > " ); double output = scanner.nextDouble();
+			 		  if(output>balance) { System.out.println("잔액이 모자랍니다."); continue;}
+			 		  balance -= output;
+			 		  System.out.println("출금을 완료했습니다.");
+			 		   break;
+			 case 5 : System.out.println("삭제하시겠습니까?"); String answer = scanner.next();
+			 if(!answer.toLowerCse().equals("y")) {System.out.println("삭제를 취소했습니다."); continue;
+			 }
+			 id=pass=""; balance=0;
+			 System.out.println("삭제를 완료했습니다.");
+			  break;
+			 */
+			 
+			/*
+			 if(9){빠져나오기}
+			 else if(1) {사용자에게 추가}
+			 else if (2,3,4,5){
+			 1. 사용자 인증
+			 2. 2,3,4,5 각각에 해당하는 처리
+			 switch(){
+			 case 2 : 정보출력 break;
+			 case 3 : 입금 break;
+			 case 4 : 출금 break;
+			 case 5 : 삭제 break;
+			 */
+			System.out.println("╔══════════════════╗");
+			System.out.println("║     Mine BANK    ║");
+			System.out.println("╚══════════════════╝");
+			System.out.println("* 1.추가\n* 2.조회\n* 3.입금\n* 4.출금\n* 5.삭제\n* 9.종료\n입력 >>> ");
 			num = scanner.nextInt();
 
 			System.out.println();
