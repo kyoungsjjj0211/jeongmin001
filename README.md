@@ -367,6 +367,12 @@ public class ForEx005 {
 next와 nextline 의 차이 왜 nextline 을 사용하면 두줄이 이어나올까?
 
 
+
+
+### 계산기 프로그램을 활용한 나만의 프로젝트
+- https://youtu.be/24ugOCZPz-s
+
+
 <br/>
 <br/>
 <br/> 
