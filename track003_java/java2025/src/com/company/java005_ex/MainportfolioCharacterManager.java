@@ -2,7 +2,7 @@ package com.company.java005_ex;
 
 import java.util.Scanner;
 
-public class CharacterManager {
+public class MainportfolioCharacterManager {
 	public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String name = null, job = null, tempName, tempJob;
@@ -107,6 +107,20 @@ public class CharacterManager {
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*🎯 이 프로그램의 특징
 게임 세계관 적용: RPG 요소(레벨, 경험치, 체력)를 활용
