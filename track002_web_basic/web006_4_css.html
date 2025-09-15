@@ -12,6 +12,14 @@
   <style>
     /*VISUAL*/
     div#demo {height: 300px; overflow: hidden;}
+    /* Q1 about me 각 부분들 여백주기*/
+    .info{background-color: aliceblue;}
+    .info h4{margin:5% 0;}
+    /* Q2. skill 나와있는 ul 구에 class="skills" */
+    
+    .keyword{list-style-type:none; margin-right:10px;}
+    .info h3{text-align: center; text-decoration: underline; font-size:2.2em}
+    /* h3태그에 중앙배치, 밑줄*/
   </style>
 </head>
 <body>
@@ -78,9 +86,9 @@
   </section>
 
 <!--info-->
-<section class="info">
+<section class="info p-5">
   <div class="container">
-    <h3>About Me</h3>
+    <h3 class="p-5">About Me</h3>
     <div class="row">
       <div class="col-sm-4"><!-- w-25 w-50 w-75-->
         <p><img src="./img/one.png" class="w-50" alt=""></p>
@@ -97,7 +105,7 @@
           <li>MSA기반 플러터(Dart)활용 자바(JAVA)프론트엔드 백엔드 풀스택 웹(앱)개발 (2025.08.25 ~ 2026.02.27)</li>
         </ul>
         <h4>KeyWord</h4>
-        <ul class="d-flex">
+        <ul class="d-flex keyword">
           <li><input type="button" value="열정" class="btn btn-danger"/></li>
           <li><input type="button" value="성실" class="btn btn-dark"/></li>
           <li><input type="button" value="끈기" class="btn btn-info text-white"/></li>
@@ -127,13 +135,37 @@
 </section>
 
 <!--portfolio-->
-<section class="portfolio"></section>
+<section class="portfolio">
 
-<!--contant-->
-<section class="contant"></section>
+
+</section>
+
+<!--contact- form text-start text-center text-end-->
+<section class="contact m-5">
+  <div class="container">
+    <h3 class="text-center">Contact Me</h3>
+    <p class="text-center">열정적인 개발자 김정민에게 문의 주세요!</p>
+  </div>
+  <form action="/action_page.php">
+      <div class="mb-3 mt-3">
+        <label for="title" class="form-label">제목 : </label>
+        <input type="text" class="form-control" id="title" 
+          placeholder="제목을 적어주세요!" name="title">
+      </div>
+      <div class="mb=3">
+        <label for="pwd" class="form-label">내용:</label>
+        <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pswd">
+      </div>
+  <div class="mb-3 text-end">
+          <button type="submit" value="Submit" class="btn btn-success">메일보내기</button>>
+  </form> 
+  </div>
+</section>
 
 <!--footer-->
-<footer class="footer"></footer>
+<footer class="footer text-center bg-secondary p 5 text-white p-5">
+  &copy; copyrights company 2025 all. rights reserved
+</footer>
 
 <!-- 여기에 콘텐츠를 추가하세요 -->
 </body>
