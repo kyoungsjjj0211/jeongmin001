@@ -14,18 +14,28 @@
     div#demo {height: 300px; overflow: hidden;}
     /* Q1 about me 각 부분들 여백주기*/
     .info{background-color: aliceblue;}
-    .info h4{margin:5% 0;}
+    .portfolio{background-color: rgba(147, 234, 225, 0.675);}
+    .portfolio .container {background-color: azure;
+         border-radius : 20px; padding:20px; box-shadow:0 0 5px rgba(0,0,0,0.5);}
+    .info h4, .portfolio h4, .contact h4 {margin:5% 0;}
     /* Q2. skill 나와있는 ul 구에 class="skills" */
     
     .keyword{list-style-type:none; margin-right:10px;}
-    .info h3{text-align: center; text-decoration: underline; font-size:2.2em}
+    .info h3, .portfolio h3, .contact h3{text-align: center; text-decoration: underline; font-size:2.2em}
     /* h3태그에 중앙배치, 밑줄*/
+    .hidden {position:absolute; left: -9999px; width:1px; height:1px; overflow:hidden;
+    clip:rect(0,0,0,0);/*요소를 잘라서 시각적으로 완전히 숨김 - 구형브라우저 호환*/
+    border:0;
+    white-space:nowrap; /*줄바꿈 방지 -텍스트가 한줄로*/
+  }
   </style>
 </head>
 <body>
   <!--header-->
-  <header class="header">  
+  <header class="header">
+      <h1 class="hidden">김정민포트폴리오</h1>
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+      <h2 class="hidden">주메뉴</h2>
       <div class="container-fluid">
         <a class="navbar-brand" href="javascript:void(0)">김정민</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
@@ -135,8 +145,44 @@
 </section>
 
 <!--portfolio-->
-<section class="portfolio">
+<section class="portfolio p-5">
+    <h3 class="text-center m-5">Portfolio</h3>
 
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-4">
+          <iframe class ="w-100 no-border"
+           src="https://www.youtube.com/embed/24ugOCZPz-s?si=RIWxWarz5TRQ46dH" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          <!--<img src="./img/portfolio1.jpg" alt=""/>-->
+        </div><!--end col-sm-4-->
+        <div class="col-sm-4">
+          <h4>spring boot + jpa + react portfolio</h4>
+          <p class="text-center"><a href="#" class="btn btn-danger">포트폴리오 더보기</a></p>
+          <ul>
+                        <li><strong>Spring Boot + JPA</strong> 기반의 백엔드와 데이터 처리 로직 구현</li>
+                        <li><strong>React</strong>를 활용한 사용자 중심의 프론트엔드 UI 개발</li>
+                        <li><strong>JWT 인증</strong>과 <strong>CI/CD 자동 배포</strong>로 보안성과 효율성 강화</li>
+          </ul>   
+        </div><!--end col-sm-4-->
+        <div class="col-sm-4">
+          <h4>기술스택</h4>
+          <ul>
+            <li><strong>Spring Boot 2.7.14</strong></li>
+            <li><strong>Spring Security 5.7.x</strong></li>
+            <li><strong>Spring Data JPA 2.7.x</strong></li>
+            <li><strong>Hibernate 5.6.x</strong></li>
+            <li><strong>Oracle 11.0</strong></li>
+            <li><strong>React 18.x</strong></li>
+            <li><strong>Axios 1.x</strong></li>
+            <li><strong>React Router v6</strong></li>
+            <li><strong>JWT (JSON Web Token)</strong></li>
+            <li><strong>Git & GitHub</strong></li>
+            <li><strong>GitHub Actions</strong></li>
+         </ul>
+
+        </div><!--end col-sm-4-->
+      </div>
+    </div><!--end container-->
 
 </section>
 
@@ -157,13 +203,14 @@
         <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pswd">
       </div>
   <div class="mb-3 text-end">
-          <button type="submit" value="Submit" class="btn btn-success">메일보내기</button>>
+          <button type="submit" value="Submit" class="btn btn-success">메일보내기</button>
+          </div>
   </form> 
-  </div>
+  
 </section>
 
 <!--footer-->
-<footer class="footer text-center bg-secondary p 5 text-white p-5">
+<footer class="footer text-center bg-secondary p-5 text-white">
   &copy; copyrights company 2025 all. rights reserved
 </footer>
 

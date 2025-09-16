@@ -1,5 +1,5 @@
 package com.company.java005_ex;
-
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class  MainportfolioCharacterManagerArray2{
@@ -68,48 +68,48 @@ public class  MainportfolioCharacterManagerArray2{
                 case 2: // 정보 조회
                     System.out.print("캐릭터 이름 확인: ");
                     String searchName = scanner.nextLine();
-                    int foundIndex = findCharacter(name, searchName);
+                    int find = findCharacter(name, searchName);
 
-                    if (foundIndex == -1) {
+                    if (find == -1) {
                         System.out.println("❌ 캐릭터를 찾을 수 없습니다.");
                     } else {
                         System.out.println("🧝 캐릭터 정보");
-                        System.out.println("이름: " + name[foundIndex]);
-                        System.out.println("직업: " + job[foundIndex]);
-                        System.out.println("레벨: " + level[foundIndex]);
-                        System.out.println("경험치: " + exp[foundIndex]);
-                        System.out.println("체력: " + hp[foundIndex]);
+                        System.out.println("이름: " + name[find]);
+                        System.out.println("직업: " + job[find]);
+                        System.out.println("레벨: " + level[find]);
+                        System.out.println("경험치: " + exp[find]);
+                        System.out.println("체력: " + hp[find]);
                     }
                     break;
 
                 case 3: // 경험치 추가
                     System.out.print("캐릭터 이름 확인: ");
                     searchName = scanner.nextLine();
-                    foundIndex = findCharacter(name, searchName);
+                    find = findCharacter(name, searchName);
 
-                    if (foundIndex == -1) {
+                    if (find == -1) {
                         System.out.println("❌ 캐릭터를 찾을 수 없습니다.");
                     } else {
                         System.out.print("추가할 경험치 입력: ");
                         int addExp = scanner.nextInt();
-                        exp[foundIndex] += addExp;
-                        System.out.println("✅ 경험치가 추가되었습니다. 현재 경험치: " + exp[foundIndex]);
+                        exp[find] += addExp;
+                        System.out.println("✅ 경험치가 추가되었습니다. 현재 경험치: " + exp[find]);
                     }
                     break;
 
                 case 4: // 레벨업
                     System.out.print("캐릭터 이름 확인: ");
                     searchName = scanner.nextLine();
-                    foundIndex = findCharacter(name, searchName);
+                    find = findCharacter(name, searchName);
 
-                    if (foundIndex == -1) {
+                    if (find == -1) {
                         System.out.println("❌ 캐릭터를 찾을 수 없습니다.");
                     } else {
-                        if (exp[foundIndex] >= 100) {
-                            level[foundIndex]++;
-                            exp[foundIndex] -= 100;
-                            hp[foundIndex] += 20;
-                            System.out.println("🎉 레벨업 성공! 현재 레벨: " + level[foundIndex] + ", 체력: " + hp[foundIndex]);
+                        if (exp[find] >= 100) {
+                            level[find]++;
+                            exp[find] -= 100;
+                            hp[find] += 20;
+                            System.out.println("🎉 레벨업 성공! 현재 레벨: " + level[find] + ", 체력: " + hp[find]);
                         } else {
                             System.out.println("⚠️ 경험치가 부족합니다. 레벨업 실패.");
                         }
@@ -119,19 +119,19 @@ public class  MainportfolioCharacterManagerArray2{
                 case 5: // 삭제
                     System.out.print("삭제할 캐릭터 이름 입력: ");
                     searchName = scanner.nextLine();
-                    foundIndex = findCharacter(name, searchName);
+                    find = findCharacter(name, searchName);
 
-                    if (foundIndex == -1) {
+                    if (find == -1) {
                         System.out.println("❌ 캐릭터를 찾을 수 없습니다.");
                     } else {
                         System.out.print("정말 삭제하시겠습니까? (Y/N): ");
                         String confirm = scanner.nextLine();
                         if (confirm.equalsIgnoreCase("Y")) {
-                            name[foundIndex] = null;
-                            job[foundIndex] = null;
-                            level[foundIndex] = 0;
-                            exp[foundIndex] = 0;
-                            hp[foundIndex] = 0;
+                            name[find] = null;
+                            job[find] = null;
+                            level[find] = 0;
+                            exp[find] = 0;
+                            hp[find] = 0;
                             System.out.println("🗑️ 캐릭터가 삭제되었습니다.");
                         } else {
                             System.out.println("삭제가 취소되었습니다.");

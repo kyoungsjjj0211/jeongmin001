@@ -18,9 +18,9 @@ public class Bacnk002_Array {
 	    	// System.out.println( Arrays.toString(balance));
 	    	 //기능 1. 메뉴판
 				System.out.println("╔══════════════════╗");
-				System.out.println("║     Myo  BANK    ║");
+				System.out.println("║    Myo   BANK    ║");
 				System.out.println("╚══════════════════╝");
-				System.out.println("* 1.추가\n* 2.조회\n* 3.입금\n* 4.출금\n* 5.삭제\n* 9.종료\n입력 >>> ");
+				System.out.println("* [1] ➕ 추가\n* [2] 🔍 조회\n* [3] 💵 입금\n* [4] 💸  출금\n* [5] 🗑️ 삭제\n* 9.종료\n입력 >>> ");
 				num=scanner.nextInt();
 				
 				if(num==1) { //1-1. 빈칸인지 확인후 find
@@ -37,7 +37,9 @@ public class Bacnk002_Array {
 					//사용자에게 입력받은 아이디와 id[1]번이 사용자에게 입력받은 id[2]과 같다면 만들수 없다
 					//if(사용자에게 입력받은 아이디와 id[0]번이 사용자에게 입력받은 id[1]과 같다면){만들수 없다}
 					//
-					
+					//System.out.println("[1]아이디 입력 > "); id[find] = scanner.next();
+					//System.out.println("[2]패스워드 입력 > "); pass[find] = scanner.next();
+					//System.out.println("[3]입금액을  입력 > "); balance[find] = scanner.nextDouble();
 					System.out.println("ID를 입력하세요");
 					id[find] = scanner.next();
 					System.out.println("PASS를 입력하세요");
@@ -48,6 +50,14 @@ public class Bacnk002_Array {
 				}
 						
 				else if (num==2 || num ==3 || num ==4 || num ==5) {//2-1 인증정보
+					//for(int i=0; i<id.length; i++){
+					//if(tempid.equals(id[i])&&temppass.equals(pass[i])) {find=i; break;}}
+					//if(find==-1){System.out.println("아이디와 비밀번호를 확인해주세요!"); continue;}
+					// switch(num){
+					//case 2: System.out.println("[1]아이디 > " + id[0] + "\n[2]비밀번호 > " + pass [0] + "\n[3]잔액>" + balance[0]); break;
+					//case 3: System.out.println("입금할 금액 > "); double temp1 = scanner.nextDouble(); balance[0] += temp1; break;
+					//case 4: System.out.println("출금할 금액 > "); double temp2 = scanner.nextDouble(); balance[0] += temp2; break;
+					//case 5: System.out.println("정말로 삭제하시겠습니까?"); if(scanner.next().toLowerCse().equals("y")){id[0] = null; pass[0]=null; balance[0] = 0;} break;
 								  //1. 사용자에게 아이디 입력받기
 								  //2. 사용자에게 비밀번호 입력받기
 								  //3. ver-0 int find=-1; 없는 번호 / 문자얄 비교는 equals
