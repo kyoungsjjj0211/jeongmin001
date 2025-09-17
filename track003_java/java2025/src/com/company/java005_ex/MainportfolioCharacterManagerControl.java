@@ -2,7 +2,7 @@ package com.company.java005_ex;
 
 import java.util.Scanner;
 
-public class MainportfolioCharacterManager {
+public class MainportfolioCharacterManagerControl {
 	public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String name = null, job = null, tempName, tempJob;
