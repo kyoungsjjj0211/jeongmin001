@@ -362,9 +362,27 @@ public class ForEx005 {
 
 (int) "" 로 표기를 해주어야 문자열로 인식되기에 작은 ''이 아닌 ""(을)를 사용해주어야한다.
 
-### 트러블 슈팅
+### 🛠️ 트러블 슈팅 (8)
 
-next와 nextline 의 차이 왜 nextline 을 사용하면 두줄이 이어나올까?
+- next() vs nextLine() 차이 요약
+메서드	설명	주요 특징
+next()	공백 전까지의 문자열만 읽음	공백이나 개행 문자(\n)는 무시함
+nextLine()	한 줄 전체를 읽음	개행 문자까지 포함해서 읽음
+⚠️ 두 줄이 이어지는 이유
+nextInt(), nextFloat() 같은 메서드는 숫자만 읽고 개행 문자(\n)는 버퍼에 남김.
+
+그 다음에 nextLine()을 호출하면, 버퍼에 남아 있던 \n을 읽어버려서 빈 문자열이 반환됨.
+
+그래서 실제로 입력받고 싶은 줄은 그 다음 nextLine()에서 읽히게 되어 두 줄이 이어진 것처럼 보임.
+
+✅ 해결 방법
+nextLine()을 사용하기 전에 버퍼를 비우기 위해 nextLine()을 한 번 더 호출해주는 방식이 일반적입니다.
+
+java
+Scanner sc = new Scanner(System.in);
+int age = sc.nextInt();
+sc.nextLine(); // 버퍼 비우기
+String name = sc.nextLine(); // 정상적으로 입력 받음
 
 
 
