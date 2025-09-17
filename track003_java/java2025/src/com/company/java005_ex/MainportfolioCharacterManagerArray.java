@@ -2,7 +2,7 @@ package com.company.java005_ex;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class  MainportfolioCharacterManagerArray2{
+public class  MainportfolioCharacterManagerArray{
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
