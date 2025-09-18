@@ -28,7 +28,7 @@
     .header .nav-item { text-align: center;}
     
     .portfolio .container {background-color: #303533;
-         border-radius : 20px; padding:20px; box-shadow:0 0 5px rgba(122, 122, 122, 0.5);}
+         border-radius : 20px; padding-left:40px; padding-right: 40px; box-shadow:0 0 5px rgba(122, 122, 122, 0.5);}
     .portfolio h4, .contact h4 {margin:5% 0;}
     /* Q2. skill 나와있는 ul 구에 class="skills" */
     
@@ -43,10 +43,9 @@
 
     .progress-bar {animation: growBar 2s ease-out;}  
     @keyframes growBar {from {width: 0;} to{width: inherit;}}
-    .portfolio {background-color: #9c9284;}
+    .portfolio {background-color: #9c9284; margin: 80px auto; padding: 40px 20px;}
     .portfolio .col-sm-4{border-radius :15px; border:0.5px solid #ededed; padding: 10px; transition: all 0.3s ease-in-out;}
     .portfolio .col-sm-4:hover {border-radius : 20px; transform: translateY(-10px); box-shadow: 0 8px 16px rgba(0, 0, 0, 0.19);}
-    .contact { background-color: #cecece;}
     .btn-success {background-color: #6e6e6e;border: none;}
     .btn-success:hover {background-color: #000000;}
     .footer {background-color: #c5c5c5; color: white;}  
@@ -57,7 +56,11 @@
     white-space:nowrap; /*줄바꿈 방지 -텍스트가 한줄로*/}
     .hover-effect:hover { transform: translateY(-10px);
       transition: transform 0.3s ease-in-out;}
-  </style>
+    
+    .contact {margin: 80px auto; /* 위아래 여백 80px, 좌우는 자동 정렬 */ padding: 40px 20px; /* 내부 여백 */background-color: #cecece;}
+
+ 
+</style>
 
 </head>
 <body>
@@ -183,7 +186,7 @@
 <br>
 
 <!--portfolio-->
-<section class="portfolio p-5">
+<section class="portfolio px-5"> <!--p-5-->
     <h3 class="text-center m-5">Portfolio</h3>
 
     <div class="container">
@@ -227,7 +230,7 @@
 <br>
 
 <!--contact- form text-start text-center text-end-->
-<section class="contact m-20 auto">
+<section class="contact m-5  auto">
   <div class="container">
     <h3 class="text-center">Contact Me</h3>
     <p class="text-center">열정적인 개발자 김정민에게 문의 주세요!</p>
