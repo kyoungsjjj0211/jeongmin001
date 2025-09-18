@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🎗매사에 신중한 개발자 김정민 포트폴리오🎗</title>
+  <title>신중한 개발자 김정민 포트폴리오🎗</title>
   <!-- Latest compiled and minified CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -11,30 +11,61 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <style>
     /*VISUAL*/
-    div#demo {height: 300px; overflow: hidden;}
-    /* Q1 about me 각 부분들 여백주기*/
-    .info{background-color: aliceblue;}
-    .portfolio{background-color: rgba(147, 234, 225, 0.675);}
-    .portfolio .container {background-color: azure;
-         border-radius : 20px; padding:20px; box-shadow:0 0 5px rgba(0,0,0,0.5);}
-    .info h4, .portfolio h4, .contact h4 {margin:5% 0;}
-    /* Q2. skill 나와있는 ul 구에 class="skills" */
     
-    .keyword{list-style-type:none; margin-right:10px;}
+    body, h1, h2, h3, h4, p, li, a {color: #fefefe; font-family: 'Segoe UI', 'Noto Sans KR', sans-serif; line-height: 1.6;
+    -webkit-text-stroke: 0.5px rgba(0, 0, 0, 0.3);text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2),-1px -1px 2px rgba(0, 0, 0, 0.2);}
+    .info {background-color:#4e5a56 ;}
+    .info h3, .portfolio h3, .contact h3 {color : #eae9e9b3; text-decoration: underline;}
+    .info .col-sm-4 {background-color: #5a645f; border-radius: 15px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);}
     .info h3, .portfolio h3, .contact h3{text-align: center; text-decoration: underline; font-size:2.2em}
     /* h3태그에 중앙배치, 밑줄*/
+    
+
+    .navbar-brand{position:absolute; left : -9999px; width: 1px; height:1px; overflow: hidden; clip:rect(0,0,0,0); white-space:nowrap;}
+    .navbar-nav .nav-item {margin-right: 20px;}
+    div#demo {height: 300px; overflow: hidden;}
+    /* Q1 about me 각 부분들 여백주기*/
+    .header .nav-item { text-align: center;}
+    
+    .portfolio .container {background-color: #303533;
+         border-radius : 20px; padding:20px; box-shadow:0 0 5px rgba(122, 122, 122, 0.5);}
+    .portfolio h4, .contact h4 {margin:5% 0;}
+    /* Q2. skill 나와있는 ul 구에 class="skills" */
+    
+    .keyword{justify-content : center; gap : 10px; list-style-type:none; margin-bottom : 20px; margin-right:10px;}
+    .keyword input:hover {transform: scale(1.1) rotate(-2deg); transition: transform 0.3s ease-in-out;}
+    @keyframes fadeInUp {0% {opacity: 0;transform: translateY(30px);}100% {opacity: 1;transform: translateY(0);}}
+
+    .info img {border-radius : 50%; box-shadow: 0 4px 8px rgba (0,0,0,0.2); animation: fadeInUp 1s ease-out forwards;}
+    
+    .card-style {background-color: #5a645f; border-radius: 15px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); color: #fefefe;}
+
+
+    .progress-bar {animation: growBar 2s ease-out;}  
+    @keyframes growBar {from {width: 0;} to{width: inherit;}}
+    .portfolio {background-color: #9c9284;}
+    .portfolio .col-sm-4{border-radius :15px; border:0.5px solid #ededed; padding: 10px; transition: all 0.3s ease-in-out;}
+    .portfolio .col-sm-4:hover {border-radius : 20px; transform: translateY(-10px); box-shadow: 0 8px 16px rgba(0, 0, 0, 0.19);}
+    .contact { background-color: #cecece;}
+    .btn-success {background-color: #6e6e6e;border: none;}
+    .btn-success:hover {background-color: #000000;}
+    .footer {background-color: #c5c5c5; color: white;}  
+    
     .hidden {position:absolute; left: -9999px; width:1px; height:1px; overflow:hidden;
     clip:rect(0,0,0,0);/*요소를 잘라서 시각적으로 완전히 숨김 - 구형브라우저 호환*/
     border:0;
-    white-space:nowrap; /*줄바꿈 방지 -텍스트가 한줄로*/
-  }
+    white-space:nowrap; /*줄바꿈 방지 -텍스트가 한줄로*/}
+    .hover-effect:hover { transform: translateY(-10px);
+      transition: transform 0.3s ease-in-out;}
   </style>
+
 </head>
 <body>
+
   <!--header-->
   <header class="header">
       <h1 class="hidden">김정민포트폴리오</h1>
-    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark"> 
       <h2 class="hidden">주메뉴</h2>
       <div class="container-fluid">
         <a class="navbar-brand" href="javascript:void(0)">김정민</a>
@@ -42,17 +73,17 @@
         <span class="navbar-toggler-icon"></span>
         </button>
           <div class="collapse navbar-collapse" id="mynavbar">
-            <ul class="navbar-nav ms-auto">
-              <li class="nav-item">
+            <ul class="navbar-nav mx-auto">
+              <li class="nav-item me-3">
               <a class="nav-link" href="javascript:void(0)">포트폴리오</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item me-3">
               <a class="nav-link" href="javascript:void(0)">About Me</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item me-3">
               <a class="nav-link" href="javascript:void(0)">Gallery</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item me-3">
               <a class="nav-link" href="javascript:void(0)">Contact</a>
               </li>
             </ul>
@@ -60,6 +91,8 @@
       </div>
   </nav>
 </header>
+
+<br>
 
 <!--visual-->
 <section class="visual">
@@ -95,27 +128,30 @@
 </div>
   </section>
 
+<br>
+
 <!--info-->
 <section class="info p-5">
   <div class="container">
     <h3 class="p-5">About Me</h3>
-    <div class="row">
+    <div class="row g-4">
       <div class="col-sm-4"><!-- w-25 w-50 w-75-->
-        <p><img src="./img/one.png" class="w-50" alt=""></p>
+        <p><img src="./img/profile.png" class="w-75" alt=""></p>
         <h4>Kim Jeong Min</h4>
         <ul>
           <li>kyoungsjjj@naver.com</li>
           <li><a href="https://github.com/kyoungsjjj0211?tab=repositories">깃허브 포트폴리오</a></li>
+          <li><a href="https://www.youtube.com/@mi_ya__01">유튜트 링크</a></li>
         </ul>
       </div>
       <div class="col-sm-4">
         <h4>Education</h4>
-        <ul>
+        <ul class="mb-4">
           <li>인천 폴리텍 디지털 방송 전공 (2020.03.02 ~ 2023.12.30)</li>
           <li>MSA기반 플러터(Dart)활용 자바(JAVA)프론트엔드 백엔드 풀스택 웹(앱)개발 (2025.08.25 ~ 2026.02.27)</li>
         </ul>
         <h4>KeyWord</h4>
-        <ul class="d-flex keyword">
+        <ul class="d-flex keyword mb-4">
           <li><input type="button" value="열정" class="btn btn-danger"/></li>
           <li><input type="button" value="성실" class="btn btn-dark"/></li>
           <li><input type="button" value="끈기" class="btn btn-info text-white"/></li>
@@ -144,18 +180,20 @@
   </div>
 </section>
 
+<br>
+
 <!--portfolio-->
 <section class="portfolio p-5">
     <h3 class="text-center m-5">Portfolio</h3>
 
     <div class="container">
-      <div class="row">
-        <div class="col-sm-4">
+      <div class="row g-4">
+        <div class="col-sm-4 card-style">
           <iframe class ="w-100 no-border"
            src="https://www.youtube.com/embed/24ugOCZPz-s?si=RIWxWarz5TRQ46dH" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
           <!--<img src="./img/portfolio1.jpg" alt=""/>-->
         </div><!--end col-sm-4-->
-        <div class="col-sm-4">
+        <div class="col-sm-4 card-style">
           <h4>spring boot + jpa + react portfolio</h4>
           <p class="text-center"><a href="#" class="btn btn-danger">포트폴리오 더보기</a></p>
           <ul>
@@ -164,7 +202,7 @@
                         <li><strong>JWT 인증</strong>과 <strong>CI/CD 자동 배포</strong>로 보안성과 효율성 강화</li>
           </ul>   
         </div><!--end col-sm-4-->
-        <div class="col-sm-4">
+        <div class="col-sm-4 card-style">
           <h4>기술스택</h4>
           <ul>
             <li><strong>Spring Boot 2.7.14</strong></li>
@@ -186,8 +224,10 @@
 
 </section>
 
+<br>
+
 <!--contact- form text-start text-center text-end-->
-<section class="contact m-5">
+<section class="contact m-0 auto">
   <div class="container">
     <h3 class="text-center">Contact Me</h3>
     <p class="text-center">열정적인 개발자 김정민에게 문의 주세요!</p>
@@ -208,6 +248,8 @@
   </form> 
   
 </section>
+
+<br>
 
 <!--footer-->
 <footer class="footer text-center bg-secondary p-5 text-white">
