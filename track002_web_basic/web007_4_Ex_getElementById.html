@@ -104,8 +104,8 @@
     <script>
        window.addEventListener("load", function(){
         document.getElementById("borderStyleBtn").addEventListener("click",function(){
-          let style = prompt("테투리스타일을 입력하세요.");
-        document.getElementById("borderStyleBtn").closest(".card").style.border = "10px" + style + " red";
+        let style = prompt("테투리스타일을 입력하세요. 예 ) solid, dashed, dotted");
+        document.getElementById("borderStyleBtn").closest(".card").style.border = "10px " + style + " red";
        });
        });
     </script>
