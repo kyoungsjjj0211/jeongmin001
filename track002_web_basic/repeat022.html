@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<div class="container card">
+    <h3 class="card-header">ex 001.</h3>
+    <pre class="alert alert-warning">
+    0. 스크립트가 document어느위치에서든지 동작가능하게
+    1. 아이디가 addEventEx인것을  getElementById 이용해 선택
+    2. 클릭시 prompt이용해서 당신이 좋아하는 1~5사이의 숫자 물어보고
+    3. alert이용해서 알림창띄우기 
+    </pre>  
+    <input type="button"  value="addEventEx-1~5  Like"
+      title="버튼5"  id="addEventEx"  class="btn btn-success" />
+    <script>
+    window.addEventListener("load", function(){
+      //let target=document.getElementById("addEventEx");
+      document.getElementById("addEventEx").onclick = function () {
+      let answer = prompt("당신이 좋아하는 1~5 사이의 숫자는?");
+      alert("당신이 좋아하는 숫자는 " + answer + "입니다.");
+      };
+    });
+    </script>
+</div>
+   
+</body>
+</html>
+
