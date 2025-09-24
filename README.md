@@ -384,14 +384,113 @@ int age = sc.nextInt();
 sc.nextLine(); // 버퍼 비우기
 String name = sc.nextLine(); // 정상적으로 입력 받음
 
+- 🛠️ 트러블슈팅 가이드: Java 패키지 & 클래스 문제 해결
+
+### 1️⃣ ❌ The method setName(String) is undefined for the type Score
+원인 Score 클래스에 setName() 등 setter 메서드가 정의되어 있지 않음.
+
+해결 방법 Score.java에 아래 메서드들을 추가하세요:
+
+java
+public void setName(String name) { this.name = name; }
+public void setKor(int kor) { this.kor = kor; }
+public void setEng(int eng) { this.eng = eng; }
+public void setMath(int math) { this.math = math; }
+
+### 2️⃣ ❌ package com.company.java011 does not exist
+원인 패키지 경로가 잘못되었거나, Score.java가 해당 경로에 존재하지 않음.
+
+해결 방법
+
+Score.java 파일이 com/company/java011/ 폴더에 있어야 함
+
+ModifierEx3.java에서 정확한 import 선언 필요:
+
+java
+import com.company.java011.Score;
+컴파일 시 경로 포함:
+
+bash
+javac com/company/java011/Score.java
+javac -cp . com/company/java011_Ex/ModifierEx3.java
+
+### 3️⃣ ❌ ModifierEx3에서 Score 클래스의 메서드가 작동하지 않음
+원인 Score.class 파일이 오래된 버전이거나, IDE가 최신 변경사항을 반영하지 못함.
+
+해결 방법
+
+프로젝트 전체를 Clean & Build 또는 Rebuild
+
+.class 파일 삭제 후 재컴파일:
+
+bash
+rm com/company/java011/*.class
+javac com/company/java011/Score.java
+IDE 사용 시 Invalidate Caches / Restart 실행
+
+### 4️⃣ ❌ 출력값이 예상과 다름 (예: rank가 안 나옴)
+원인 rank 등 계산 필드가 초기화되지 않았거나, 계산 메서드가 호출되지 않음.
+
+해결 방법 show() 메서드에서 모든 계산 메서드를 호출하도록 구성:
+
+java
+public void show() {
+    process_total();
+    process_avg();
+    process_p();
+    process_s();
+    process_rank();
+
+    System.out.printf(...); // 출력 포맷
+}
+이렇게 하면 출력 전에 모든 값이 자동으로 계산됩니다.
 
 
+### 🖼 문제발생 - 단순오타
+```bash
+//Q1. #color 선택하기 color라는 변수에 담기
+      window.addEventListener("load", function(){
+      let color = document.getElementById("color");
+      //Q2. 안에 있는 li태그들 선택
+      let lis = color.getElementsByTagName("li"); 
+      //Q3. 첫번째 RED의 fontweight="bold"
+      lis[0].style.fontweight="bold";
+    });
+```
+- 문제해결
+* JavaScript에서 CSS 속성은 카멜 케이스(camelCase)로 써야 하므로 fontWeight로 써야한다
 
-### 계산기 프로그램을 활용한 나만의 프로젝트
+
+- 계산기 프로그램을 활용한 나만의 프로젝트
 Control ver
 - https://youtu.be/24ugOCZPz-s
 Array ver
 - https://youtu.be/ADn_Awn_RFg
+
+### 🎭 문제발생 - 메서드의 반환 타입 오류
+```bash
+      public void moodScore() {this.moodScore = this.walkTime + (this.snackCount * 10) + (this.cuddleCount * 5);}
+      
+      public void snackStars() { 
+           if(this.moodScore>= 90) {return "★★★★★";}
+       else if(this.moodScore >= 70) {return "★★★★";}
+        else if(this.moodScore >= 50) {return "★★★";}
+        else if(this.moodScore >= 30) {return "★★";}
+         else{return "★";}
+         }
+```
+ -문제점
+
+ * void로 선언했는데 String을 return하고 있음
+
+ * 컴파일 에러 발생합니다: “incompatible return type”
+
+ <br/>
+
+- 문제해결
+ * 점수를 확인하고 싶다면 System.out.println(this.moodScore);를 추가
+
+ * getMoodScore() 메서드를 만들어서 외부에서 접근 가능하게 변경
 
 
 <br/>
