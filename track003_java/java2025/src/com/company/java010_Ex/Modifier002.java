@@ -6,7 +6,7 @@ class UserSon2 extends UserInfo{
 	public void show() {
 		System.out.println("홍길동 아버지 이름 > " + super.name); 			// 자식 - public
 		System.out.println("홍길동 아버지 금고번호 > " + super.safeCode);		// 자식 - protected
-		System.out.println("홍길동 아버지 집 > " + super.house);			// 자식 - package (같은폴더에서)
+		//System.out.println("홍길동 아버지 집 > " + super.house);			// 자식 - package (같은폴더에서)
 		//System.out.println("홍길동 아버지 iQ > " + super.iQ);
 		System.out.println("홍길동 아버지 iQ > " + super.getiQ());
 		//Q super.house를 못쓰는 이유는 - UserInfo 클래스의 house는 접근자가 package (java010폴더안에서만)
