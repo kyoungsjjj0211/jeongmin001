@@ -63,6 +63,16 @@
 
 /* page 3 */
 
+.Process {
+  display: flex;
+  flex-wrap: wrap; 
+  justify-content: center; 
+  gap: 200px; 
+  max-width: 100%;
+  padding: 40px 20px;
+  box-sizing: border-box;
+}
+
 h1 {
     text-align: center;
 }
@@ -71,24 +81,30 @@ h1 {
     text-align: center;
     font-family: 'Pretendard-Thin';
     display: block;
-    text-align: center;
+
     font-weight: 400;
     font-family: 'Pretendard-Thin';
     font-size: 18px;
     line-height: 1.5;
     font-style: italic;
+    width:250px;
 }
 
 .list_img {
     width: 300px;
-    height: 300px;
-    display: block;
+    height: auto;
     margin: 7vh 5vh;
-    margin-bottom: 50px;
+    margin-bottom: 20px auto;
 }
 
 .favorites {
-    display:inline-flex;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content: center;
+    gap:40px;
+    max-width:100%;
+    padding:40px 20px;
+    box-sizing: border-box;
     margin-top: 60px;
 }
 
@@ -100,7 +116,7 @@ h1 {
 }
 
 .contact_img {
-    width: 100%;
+    width: 90%;
     height: 500px;
     padding-bottom: 60px;
 }
