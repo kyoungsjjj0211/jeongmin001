@@ -36,8 +36,8 @@ public class PolyEx005 {
 	      c.method();   // Q8. 출력되는 내용   						  A. Child Method
 	      //Q9. main 에서 부모메서드 호출하기 ? ((Parent7)p).method(); //x 어버라이딩 된 메서드를 직접호출하는건 불가능
 	      ((Parent7)p).method();//x 오버라이딩 된 메서드를 직접호출하는건 불가능
-	      c.papaMethod(); // 자식에서 부모호출가능
-	      ((Child7)p).papaMethod(); //타입캐스팅 - 부모가 자식메서드 호출가능 ( 자식생성자 호출시)
+//	      c.papaMethod(); // 자식에서 부모호출가능
+//	      ((Child7)p).papaMethod(); //타입캐스팅 - 부모가 자식메서드 호출가능 ( 자식생성자 호출시)
 	   }
 }
 
