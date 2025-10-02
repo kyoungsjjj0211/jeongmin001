@@ -3947,6 +3947,20 @@
 							"headQualifiersCompartment": {
 								"$ref": "AAAAAAGZotbmzJRuvtw="
 							}
+						},
+						{
+							"_type": "UMLNoteView",
+							"_id": "AAAAAAGZoteWBJXFiYk=",
+							"_parent": {
+								"$ref": "AAAAAAFF+qBtyKM79qY="
+							},
+							"font": "Arial;13;0",
+							"parentStyle": false,
+							"left": 112,
+							"top": 520,
+							"width": 162.314453125,
+							"height": 40,
+							"text": "BankController-합성관계"
 						}
 					]
 				},
