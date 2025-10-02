@@ -1,15 +1,17 @@
 package com.company.portfolio_game;
 
-public class CharacterInfo {
+import java.io.Serializable;
 
+public class CharacterInfo implements Serializable, Comparable<CharacterInfo> {
+	private static final long serialVersionUID = 1L;
 
 	private String id;
 	private String pass;
 	private int level;
 	private int exp;
-	
+
 	public CharacterInfo() { }
-	
+
 	public CharacterInfo(String id, String pass) {
 		this.id = id;
 		this.pass = pass;
@@ -35,5 +37,12 @@ public class CharacterInfo {
 			System.out.println("🎉 레벨업! 현재 레벨: " + level);
 		}
 	}
-}
 
+	@Override
+	public int compareTo(CharacterInfo o) {
+		if (this.level != o.level) {
+			return o.level - this.level;
+		}
+		return o.exp - this.exp;
+	}
+}
