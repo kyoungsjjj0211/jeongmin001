@@ -12,56 +12,43 @@ public class Bank_Main {
 	private List<UserInfo> users;
 	private BankController[] controller;
 	
-	
+	//생성자 - 멤버변수를 초기화해서 사용가능하게
 	public Bank_Main() {
 		users 	   = new ArrayList<>();
 		controller = new BankController[]{
-				new Login(),new Add(), new Show(), 
-				new WithDraw(),new Deposit(), new Delete()
-		};
+				new Login(),new Add(), new Show(), 	new Deposit(),new WithDraw(), new Delete()
+		};// controller[0]      1          2                 3              4            5
 	}
 	//멤버함수 (메뉴판)
 	public void menu() {
 		Scanner scanner = new Scanner(System.in);
-		for(;;) {
-			System.out.println("🌟💰 WELCOME TO BANK SYSTEM 💰🌟\r\n"
-					+ "		 [1] ➕ 계좌 추가\r\n"
-					+ "		 [2] 🔍 계좌 조회\r\n"
-					+ "		 [3] 💵 입금하기\r\n"
-					+ "		 [4] 💸 출금하기\r\n"
-					+ "		 [5] 🗑️ 계좌 삭제\r\n"
-					+ "		 [9] ❌ 종료\r\n"
-					+ "		 \r\n"
-					+ "		 👉 번호를 선택하세요:");
-		
-			int num=scanner.nextInt();
-			if(num==9){System.out.println("[9] ❌ 종료"); break;}
-			else if (num==1) { controller[1].exec(users);}//add class
-			else if(num==2 || num==3 || num==4 || num==5){
-				 controller[0].exec(users);
-			 switch (num) {
-			 case 2 : System.out.println("[2] 🔍 계좌 조회");
-			 controller[2].exec(users);
-			 break;
-			 case 3 : System.out.println("[3] 💵 입금하기");
-			 controller[3].exec(users);
-			 break;
-			 case 4 : System.out.println("[4] 💸 출금하기");
-			 controller[4].exec(users);
-			 break;
-			 case 5 : System.out.println("[5] 🗑️ 계좌 삭제");
-			 controller[5].exec(users);break;
-			 
-				 
+		int num=-1;
+		while(num !=9) {
+			System.out.println(users); // 테스트용도
+			System.out.println("🌟💰 WELCOME TO BANK SYSTEM 💰🌟\r\n" + "		 [1] ➕ 계좌 추가\r\n" + "		 [2] 🔍 계좌 조회\r\n" + "		 [3] 💵 입금하기\r\n" + "		 [4] 💸 출금하기\r\n" + "		 [5] 🗑️ 계좌 삭제\r\n" + "		 [9] ❌ 종료\r\n" + "		 \r\n" + "		 👉 번호를 선택하세요:");
+			num=scanner.nextInt();
 			
-			 }
-			 
-			 
-			 
+			
+			int find=1; // 찾은 유저번호 or 0 로그인 or 1
+			//add, get(번호), size, remove(번호), contains()
+			//추가 :
+			//Add : controller[1].exec(users); -        users.add(new UserInfo]("id", "pw", 1));
+			//Show : user.get(사용자 번호)
+			//Deposit : user.get(사용자 번호) / 찾은유저.setBalance(입금받은돈)
+			//Delete : user.remove(번호)
+			//1. 파라미터 user, 사용자 번호 
+			//2. 리턴값은  유저 번호
+			//3. int (유저 번호) exec(user, 사용자 번호)
+			//
+			if(num >=2 && num <=5) {find=controller[0].exec(users , 0);} 
+			controller[num].exec(users, find);
+			
+			
 			 
 		}
+		
 	}
-			
+		
 			
 		//변수
 		//입력 + 처리
@@ -86,7 +73,7 @@ public class Bank_Main {
 			1) Login
 			2) 2,3,4,5 각각에서 처리해야할일
 		*/
-	}
+	
 	public static void main(String[] args) {
 		new Bank_Main().menu();
 	}
