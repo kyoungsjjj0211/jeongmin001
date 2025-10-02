@@ -6,9 +6,8 @@ public class Bank_ver1 {
 	public static void main(String[] args) {
 		// 변수  // null = ""
 		int num, year = 0;
-		 
-		String id = null, pass = null, id1, pass1, n=null;
-		double balance = 0, balance1 =0, bal =0,  bal1 = 0;
+		  String id = null, pass = null, n = null, id1 = null, pass1 = null, n1 = null;
+	        double balance = 0, balance1 = 0, bal1 = 0, ba1 = 0;
 		Scanner scanner = new Scanner(System.in);
 		// 입력+처리+출력
 
@@ -127,7 +126,7 @@ public class Bank_ver1 {
 				    	System.out.println("입금 : ");
 				    	balance1 = scanner.nextDouble();
 				    	System.out.println("==입금완료");
-				    	System.out.println("잔액 : " + (bal=balance+balance1));
+				    	System.out.println("잔액 : " + (ba1=balance+balance1));
 				    	
 				    }else {System.out.println("다시 확인해주세요.");}
 				    
