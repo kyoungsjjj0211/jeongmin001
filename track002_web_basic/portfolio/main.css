@@ -1,4 +1,17 @@
 /* 상단바 */
+.profile img {
+    border-radius: 30%;
+    opacity: 0;
+    transform: scale(0.9);
+    animation: fadeInUp 1.5s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
 
 .menu * {
     display: inline;
@@ -59,6 +72,17 @@
     float: right;
     margin-top: 35px;
     padding-left: 50px;
+    opacity: 0;
+    transform : translateX(50px);
+    animation : slideInRight 1.2s ease-out forwards;
+    animation-delay : 0.5s;
+}
+
+@keyframes slideInRight {
+    to{ 
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
 /* page 3 */
@@ -79,6 +103,7 @@ h1 {
 
 .lists{
     text-align: center;
+    transition : transform 0.4s ease, box-shadow 0.4s ease;
     font-family: 'Pretendard-Thin';
     display: block;
 
@@ -88,6 +113,11 @@ h1 {
     line-height: 1.5;
     font-style: italic;
     width:250px;
+}
+
+.lists:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
 }
 
 .list_img {
@@ -122,6 +152,7 @@ h1 {
 }
 
 .ct {
+    display:inline-block;
     margin-top: 80px;
     font-family: 'Roboto Slab', serif;
     text-decoration: none;
@@ -129,4 +160,10 @@ h1 {
     font-size: 50px;
     font-style: italic;
     margin: 35px;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.ct:hover{
+    transform:scale(1.1);
+    color: #000000;
 }
