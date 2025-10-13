@@ -1,265 +1,411 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>신중한 개발자 김정민 포트폴리오🎗</title>
-  <!-- Latest compiled and minified CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeong min Kim </title>
+    <!--<link rel="stylesheet" href="./main.css">-->
+    <!--<link rel="stylesheet" href="./scroll.css">-->
+    <style>
+        /* 상단바 */
+.profile img {
+    border-radius: 30%;
+    opacity: 0;
+    transform: scale(0.9);
+    animation: fadeInUp 1.5s ease-out forwards;
+}
 
-  <!-- Latest compiled JavaScript -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <style>
-    /*VISUAL*/
-    
-    body, h1, h2, h3, h4, p, li, a {color: #fefefe; font-family: 'Segoe UI', 'Noto Sans KR', sans-serif; line-height: 1.6;
-    -webkit-text-stroke: 0.5px rgba(0, 0, 0, 0.3);text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2),-1px -1px 2px rgba(0, 0, 0, 0.2);}
-    .info {background-color:#4e5a56 ;}
-    .info h3, .portfolio h3, .contact h3 {color : #eae9e9b3; text-decoration: underline;}
-    .info .col-sm-4 {background-color: #5a645f; border-radius: 15px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);}
-    .info h3, .portfolio h3, .contact h3{text-align: center; text-decoration: underline; font-size:2.2em}
-    /* h3태그에 중앙배치, 밑줄*/
-    
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
 
-    .navbar-brand{position:absolute; left : -9999px; width: 1px; height:1px; overflow: hidden; clip:rect(0,0,0,0); white-space:nowrap;}
-    .navbar-nav .nav-item {margin-right: 20px;}
-    div#demo {height: 300px; overflow: hidden;}
-    /* Q1 about me 각 부분들 여백주기*/
-    .header .nav-item { text-align: center;}
-    
-    .portfolio .container {background-color: #303533;
-         border-radius : 20px; padding-left:40px; padding-right: 40px; box-shadow:0 0 5px rgba(122, 122, 122, 0.5);}
-    .portfolio h4, .contact h4 {margin:5% 0;}
-    /* Q2. skill 나와있는 ul 구에 class="skills" */
-    
-    .keyword{justify-content : center; gap : 10px; list-style-type:none; margin-bottom : 20px; margin-right:10px;}
-    .keyword input:hover {transform: scale(1.1) rotate(-2deg); transition: transform 0.3s ease-in-out;}
-    @keyframes fadeInUp {0% {opacity: 0;transform: translateY(30px);}100% {opacity: 1;transform: translateY(0);}}
+.menu * {
+    display: inline;
+}
 
-    .info img {border-radius : 50%; box-shadow: 0 4px 8px rgba (0,0,0,0.2); animation: fadeInUp 1s ease-out forwards;}
-    
-    .card-style {background-color: #5a645f; border-radius: 15px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); color: #fefefe;}
+.menu li {
+    margin: 35px;
+}
+
+.menu li a {
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+}
+
+.menu ul {
+    padding-left: 0px;
+}
+
+.menu {
+    font-size: 20px;
+    font-style: italic;
+    align-items: center;
+    text-align: center;
+    padding-top: 80px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+} 
+
+/* page 1 */
+
+.one {
+    background-size: cover;
+    text-align: center;
+    padding-top: 180px;
+    padding-bottom: 130px;
+}
+
+.profile {
+    border-radius: 30%;
+    display: inline-block;
+    padding: 0.5rem;
+    margin-top: 20px;
+    border: 1px solid gray;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgb(255, 255, 255, 0.5);
+}
+
+.profile img {
+    border-radius: 30%;
+}
+
+/* page 2 */
+
+.intext {
+    float: right;
+    margin-top: 35px;
+    padding-left: 50px;
+    opacity: 0;
+    transform : translateX(50px);
+    animation : slideInRight 1.2s ease-out forwards;
+    animation-delay : 0.5s;
+}
+
+@keyframes slideInRight {
+    to{ 
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* page 3 */
+
+.Process {
+  display: flex;
+  flex-wrap: wrap; 
+  justify-content: center; 
+  gap: 200px; 
+  max-width: 100%;
+  padding: 40px 20px;
+  box-sizing: border-box;
+}
+
+h1 {
+    text-align: center;
+}
+
+.lists{
+    text-align: center;
+    transition : transform 0.4s ease, box-shadow 0.4s ease;
+    font-family: 'Pretendard-Thin';
+    display: block;
+
+    font-weight: 400;
+    font-family: 'Pretendard-Thin';
+    font-size: 18px;
+    line-height: 1.5;
+    font-style: italic;
+    width:250px;
+}
+
+.lists:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.list_img {
+    width: 300px;
+    height: auto;
+    margin: 7vh 5vh;
+    margin-bottom: 20px auto;
+}
+
+.favorites {
+    display:flex;
+    flex-wrap:wrap;
+    justify-content: center;
+    gap:40px;
+    max-width:100%;
+    padding:40px 20px;
+    box-sizing: border-box;
+    margin-top: 60px;
+}
+
+/* page 4 */
+
+.four {
+    text-align: center;
+    align-items: center;
+}
+
+.contact_img {
+    width: 90%;
+    height: 500px;
+    padding-bottom: 60px;
+}
+
+.ct {
+    display:inline-block;
+    margin-top: 80px;
+    font-family: 'Roboto Slab', serif;
+    text-decoration: none;
+    color: white;
+    font-size: 50px;
+    font-style: italic;
+    margin: 35px;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.ct:hover{
+    transform:scale(1.1);
+    color: #000000;
+}
 
 
-    .progress-bar {animation: growBar 2s ease-out;}  
-    @keyframes growBar {from {width: 0;} to{width: inherit;}}
-    .portfolio {background-color: #9c9284; margin: 80px auto; padding: 40px 20px;}
-    .portfolio .col-sm-4{border-radius :15px; border:0.5px solid #ededed; padding: 10px; transition: all 0.3s ease-in-out;}
-    .portfolio .col-sm-4:hover {border-radius : 20px; transform: translateY(-10px); box-shadow: 0 8px 16px rgba(0, 0, 0, 0.19);}
-    .btn-success {background-color: #6e6e6e;border: none;}
-    .btn-success:hover {background-color: #000000;}
-    .footer {background-color: #c5c5c5; color: white;}  
-    
-    .hidden {position:absolute; left: -9999px; width:1px; height:1px; overflow:hidden;
-    clip:rect(0,0,0,0);/*요소를 잘라서 시각적으로 완전히 숨김 - 구형브라우저 호환*/
-    border:0;
-    white-space:nowrap; /*줄바꿈 방지 -텍스트가 한줄로*/}
-    .hover-effect:hover { transform: translateY(-10px);
-      transition: transform 0.3s ease-in-out;}
-    
-    .contact {margin: 80px auto; /* 위아래 여백 80px, 좌우는 자동 정렬 */ padding: 40px 20px; /* 내부 여백 */background-color: #cecece;}
 
- 
-</style>
+/* 이 부분이 없으면 스크롤 바 두 개가 생성된다 */
 
+body {
+    overflow: hidden;
+    font-family: 'Roboto Slab', serif;
+}
+
+/* Scroll down */
+
+#container{
+    width:100%;
+    height:100vh; 
+    overflow: auto;
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
+}
+
+.list{
+    width:100%; 
+    height:100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    scroll-snap-align: center;
+}
+
+/* .list:nth-child(1){
+    background-color: rgb(0, 0, 0);
+    background-size: cover;
+    background-attachment: fixed; 
+    background-position: center; 
+} */
+
+.list:nth-child(2){
+    background-color: #4e5a56;
+    background-size: cover;
+    background-attachment: fixed; 
+    background-position: center; 
+}
+
+.list:nth-child(3){
+    background-color: #9d949e;
+    background-size: cover;
+    background-attachment: fixed; 
+    background-position: center; 
+}
+
+.list:nth-child(4){
+    background-color: #e0d8cc;
+    background-size: cover;
+    background-attachment: fixed; 
+    background-position: center; 
+}
+
+.list:nth-child(5){
+    background-color: #8a6e8a;
+    background-size: cover;
+    background-attachment: fixed; 
+    background-position: center; 
+}
+
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap');
+        h3 {
+            font-family: 'Pretendard-Thin';
+            color: #ffffff;
+            text-align: center;
+            font-style: italic;
+            font-weight: lighter;
+            margin-top: 50px;
+            font-size: 20px;
+        }
+    </style>
 </head>
 <body>
 
-  <!--header-->
-  <header class="header">
-      <h1 class="hidden">김정민포트폴리오</h1>
-    <nav class="navbar navbar-expand-sm navbar-dark bg-dark"> 
-      <h2 class="hidden">주메뉴</h2>
-      <div class="container-fluid">
-        <a class="navbar-brand" href="javascript:void(0)">김정민</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
-        <span class="navbar-toggler-icon"></span>
-        </button>
-          <div class="collapse navbar-collapse" id="mynavbar">
-            <ul class="navbar-nav mx-auto">
-              <li class="nav-item me-3">
-              <a class="nav-link" href="javascript:void(0)">포트폴리오</a>
-              </li>
-              <li class="nav-item me-3">
-              <a class="nav-link" href="javascript:void(0)">About Me</a>
-              </li>
-              <li class="nav-item me-3">
-              <a class="nav-link" href="javascript:void(0)">Gallery</a>
-              </li>
-              <li class="nav-item me-3">
-              <a class="nav-link" href="javascript:void(0)">Contact</a>
-              </li>
+<div id="container">
+    <header id="header"> 
+        <nav class="menu">
+            <ul>
+                <li><a href="#home"><b>Home</b></a></li>
+                <li><a href="#about"><b>About</b></a></li>
+                <li><a href="#Process"><b>Process of</b></a></li>
+                <li><a href="#contact"><b>Contact</b></a></li>
             </ul>
-          </div>
-      </div>
-  </nav>
-</header>
+        </nav>
+    </header> 
 
-<br>
-
-<!--visual-->
-<section class="visual">
-<!-- Carousel -->
-  <div id="demo" class="carousel slide" data-bs-ride="carousel">
-  <!-- Indicators/dots -->
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
-    <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
-    <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
-  </div>
-
-  <!-- The slideshow/carousel -->
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="./img/my1.jpg" alt="Los Angeles" class="d-block w-100">
+    <!-- PAGE 1 -->
+    <div class="list">
+        <div class="one" id="home">
+            <span class="profile"><img src="./img/profile.png" width="550px;" height="550px" alt=""/></span>
+            <h3><strong>Hello! I'm Jeong Min.</strong> <br>You can scroll down if you want to see me more!</h3>
+        </div>
     </div>
-    <div class="carousel-item">
-      <img src="./img/my2.jpg" alt="Chicago" class="d-block w-100">
-    </div>
-    <div class="carousel-item">
-      <img src="./img/my3.jpg" alt="New York" class="d-block w-100">
-    </div>
-  </div>
 
-  <!-- Left and right controls/icons -->
-  <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon"></span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
-    <span class="carousel-control-next-icon"></span>
-  </button>
+    <!-- PAGE 2 -->
+    <div class="list">
+        <div class="two" id="about">
+            <img class="me" src="./img/my2.jpg" alt="" width="450px;" height="500px">
+            <h3 class="intext"> 
+                <strong>What would I lose if I learn coding?<br>Absolutely nothing!</strong><br><br>
+                Hello! I'm Kim Jungmin. Welcome to my homepage<br>
+                The reason why I want to be a full stack engineer is <br>
+                I want to do something that runs from me, not from one part
+                Because.<br>
+                There are no limits to studying and developing myself! <br>
+                One of my motivations in life is memories. <br>
+                To be a good developer, <br>
+                Achievement and my own development constantly <br>
+                I think that's the most important thing.
+                <br><br>
+            </h3>
+        </div>
+    </div>
+    
+    <!-- PAGE 3 -->
+    <div class="list">
+        <div class="three" id="Process">
+            <h1><br><br></h1>
+            <div class="Process">
+                <div class="lists">
+                    <img class="list_img" src="./img/1.png" alt="">
+                    <p class="list_text"> Skill Proficiency 97%<br></p>
+                </div>
+
+                <div class="lists">
+                    <img class="list_img" src="./img/2.png" alt="">
+                    <p class="list_text"> Skill Proficiency 85%</p>
+                </div>
+
+                <div class="lists">
+                    <img class="list_img" src="./img/3.png" alt="">
+                    <p class="list_text"> Skill Proficiency 70%</p>
+                </div>
+
+                <div class="lists">
+                    <img class="list_img" src="./img/4.png" alt="">
+                    <p class="list_text"> How to contact Me? </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 4 (CONTACT) -->
+    <div class="list">
+        <div class="four" id="contact">
+            <img class="contact_img" src="./img/5.png">
+            <a href="https://www.youtube.com/@mi_ya__01" class="ct">Youtube</a>
+            <a href="mailto:kyoungsjjj0513@gmail.com" class="ct">Gmail</a>
+            <a href="https://github.com/kyoungsjjj0211" class="ct">Github</a>
+
+            <!-- ✅ Email Form 추가 -->
+            <form id="emailForm" style="margin-top: 40px;">
+                <input type="text" id="emailInput" name="from_name" placeholder="이메일 주소를 입력하세요"
+                       style="padding:10px; width:300px; border-radius:10px; border:none;"><br><br>
+                <textarea id="message" name="message" placeholder="내용을 입력하세요"
+                          style="padding:10px; width:300px; height:100px; border-radius:10px; border:none;"></textarea><br><br>
+                <button type="submit" id="sendBtn"
+                        style="padding:10px 20px; border:none; border-radius:10px;
+                               background-color:#000; color:white; cursor:pointer;">
+                    보내기
+                </button>
+            </form>
+            <p id="msg" style="color:red; font-size:16px; margin-top:10px;"></p>
+        </div>
+    </div>
 </div>
-  </section>
 
-<br>
+<!-- ✅ jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<!--info-->
-<section class="info p-5">
-  <div class="container">
-    <h3 class="p-5">About Me</h3>
-    <div class="row g-4">
-      <div class="col-sm-4"><!-- w-25 w-50 w-75-->
-        <p><img src="./img/profile.png" class="w-75" alt=""></p>
-        <h4>Kim Jeong Min</h4>
-        <ul>
-          <li>kyoungsjjj@naver.com</li>
-          <li><a href="https://github.com/kyoungsjjj0211?tab=repositories">깃허브 포트폴리오</a></li>
-          <li><a href="https://www.youtube.com/@mi_ya__01">유튜트 링크</a></li>
-        </ul>
-      </div>
-      <div class="col-sm-4">
-        <h4>Education</h4>
-        <ul class="mb-4">
-          <li>인천 폴리텍 디지털 방송 전공 (2020.03.02 ~ 2023.12.30)</li>
-          <li>MSA기반 플러터(Dart)활용 자바(JAVA)프론트엔드 백엔드 풀스택 웹(앱)개발 (2025.08.25 ~ 2026.02.27)</li>
-        </ul>
-        <h4>KeyWord</h4>
-        <ul class="d-flex keyword mb-4">
-          <li><input type="button" value="열정" class="btn btn-danger"/></li>
-          <li><input type="button" value="성실" class="btn btn-dark"/></li>
-          <li><input type="button" value="끈기" class="btn btn-info text-white"/></li>
-        </ul>
-      </div>
-      <div class="col-sm-4">
-        <h4>SKILLS</h4>
-        <div class="progress my-3">
-        <div class="progress-bar bg-info progress-bar-striped" style="width:70%">JAVA 70%</div>
-        </div>
-        <div class="progress my-3">
-        <div class="progress-bar bg-warning progress-bar-striped" style="width:80%">SPRING 80%</div>
-        </div>
-        <div class="progress my-3">
-        <div class="progress-bar bg-danger progress-bar-striped" style="width:90%">ORACLE 90%</div>
-        </div>
-        <div class="progress my-3">
-        <div class="progress-bar bg-primary progress-bar-striped" style="width:85%">REACT 85%</div>
-        </div>
-        <div class="progress my-3">
-        <div class="progress-bar bg-success progress-bar-striped" style="width:85%">AWS 85%</div>
-        </div>
-      </div>
-    </div>
+<!-- ✅ EmailJS SDK -->
+<script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
 
-  </div>
-</section>
+<script>
+  // ✅ EmailJS 초기화
+  (function() {
+      emailjs.init("8jXy-9ZtYKh2KWt4o"); 
+  })();
 
-<br>
+  // ✅ 스크롤 애니메이션 (기존)
+  document.addEventListener('scroll', () => {
+    const sections = document.querySelectorAll('.list');
+    sections.forEach(section => {
+      const rect = section.getBoundingClientRect();
+      if (rect.top < window.innerHeight * 0.8) {
+        section.classList.add('visible');
+      }
+    });
+  });
 
-<!--portfolio-->
-<section class="portfolio px-5"> <!--p-5-->
-    <h3 class="text-center m-5">Portfolio</h3>
+  // ✅ 이메일 전송 + 빈칸 검사
+  $(document).ready(function() {
+      $("#emailForm").on("submit", function(e) {
+          e.preventDefault(); // 폼 새로고침 방지
 
-    <div class="container">
-      <div class="row g-4">
-        <div class="col-sm-4 card-style">
-          <iframe class ="w-100 no-border"
-           src="https://www.youtube.com/embed/24ugOCZPz-s?si=RIWxWarz5TRQ46dH" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-          <!--<img src="./img/portfolio1.jpg" alt=""/>-->
-        </div><!--end col-sm-4-->
-        <div class="col-sm-4 card-style">
-          <h4>spring boot + jpa + react portfolio</h4>
-          <p class="text-center"><a href="#" class="btn btn-danger">포트폴리오 더보기</a></p>
-          <ul>
-                        <li><strong>Spring Boot + JPA</strong> 기반의 백엔드와 데이터 처리 로직 구현</li>
-                        <li><strong>React</strong>를 활용한 사용자 중심의 프론트엔드 UI 개발</li>
-                        <li><strong>JWT 인증</strong>과 <strong>CI/CD 자동 배포</strong>로 보안성과 효율성 강화</li>
-          </ul>   
-        </div><!--end col-sm-4-->
-        <div class="col-sm-4 card-style">
-          <h4>기술스택</h4>
-          <ul>
-            <li><strong>Spring Boot 2.7.14</strong></li>
-            <li><strong>Spring Security 5.7.x</strong></li>
-            <li><strong>Spring Data JPA 2.7.x</strong></li>
-            <li><strong>Hibernate 5.6.x</strong></li>
-            <li><strong>Oracle 11.0</strong></li>
-            <li><strong>React 18.x</strong></li>
-            <li><strong>Axios 1.x</strong></li>
-            <li><strong>React Router v6</strong></li>
-            <li><strong>JWT (JSON Web Token)</strong></li>
-            <li><strong>Git & GitHub</strong></li>
-            <li><strong>GitHub Actions</strong></li>
-         </ul>
+          const email = $("#emailInput").val().trim();
+          const msg = $("#message").val().trim();
 
-        </div><!--end col-sm-4-->
-      </div>
-    </div><!--end container-->
+          if (email === "" || msg === "") {
+              $("#msg").css("color", "red").text("이메일과 내용을 모두 입력하세요!");
+              $("#emailInput, #message").css("border", "2px solid red");
+              return;
+          }
 
-</section>
+          $("#msg").css("color", "white").text("전송 중입니다...");
 
-<br>
+          const params = {
+              from_name: email,
+              message: msg
+          };
 
-<!--contact- form text-start text-center text-end-->
-<section class="contact m-5  auto">
-  <div class="container">
-    <h3 class="text-center">Contact Me</h3>
-    <p class="text-center">열정적인 개발자 김정민에게 문의 주세요!</p>
-  </div>
-  <form action="/action_page.php">
-      <div class="mb-3 mt-3">
-        <label for="title" class="form-label">제목 : </label>
-        <input type="text" class="form-control" id="title" 
-          placeholder="제목을 적어주세요!" name="title">
-      </div>
-      <div class="mb=3">
-        <label for="pwd" class="form-label">내용:</label>
-        <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pswd">
-      </div>
-  <div class="mb-3 text-end">
-          <button type="submit" value="Submit" class="btn btn-success">메일보내기</button>
-          </div>
-  </form> 
-  
-</section>
+          
+          emailjs.send("service_kimseomyo", "template_uho8la9", params)
+              .then(function(response) {
+                  $("#msg").css("color", "green").text("메일이 성공적으로 전송되었습니다!");
+                  $("#emailInput").val("");
+                  $("#message").val("");
+                  $("#emailInput, #message").css("border", "1px solid #ccc");
+              }, function(error) {
+                  $("#msg").css("color", "red").text("메일 전송에 실패했습니다. 다시 시도해주세요.");
+                  console.error("Error:", error);
+              });
+      });
+  });
+</script>
 
-<br>
-
-<!--footer-->
-<footer class="footer text-center bg-secondary p-5 text-white">
-  &copy; copyrights company 2025 all. rights reserved
-</footer>
-
-<!-- 여기에 콘텐츠를 추가하세요 -->
 </body>
 </html>
-
