@@ -159,6 +159,24 @@ commit; --삽입[반영]
 
 delete from emp;
 
+
+-- EX1. EMP테이블의 JOB열 데이터를 중복없이 조회하시오.
+select distinct job from emp;
+-- EX002.
+--조회할 테이블은 EMP 테이블이며 모든 열을 출력하시오.
+--별칭
+--EMPNO → EMPLOYEE_NO,
+--ENAME → EMPLOYEE_NAME,
+--MGR → MANAGER,
+--SAL → SALARY,
+--COMM → COMMISSION,
+--DEPTNO → DEPARTMENT_NO
+--부서번호를 기준으로 내림차순으로 정렬하되,
+--부서번호가 같다면 사원이름을 기준으로 오름차순 정렬하시오.
+select empno as employee_no, ename as employee_name, job, mgr as manager, sal as salary, comm as commission, deptno as department_no from emp order by deptno desc, ename asc;
+
+
+
 -- Q. DESC EMP 명령어는 어떤 정보를 보여주나요?
 --  A.  컬럼 이름 데이터 타입 (예: NUMBER, VARCHAR2 등) NULL 허용 여부
 -- Q. SELECT DISTINCT DEPTNO FROM EMP 는 어떤 결과를 반환하나요?
