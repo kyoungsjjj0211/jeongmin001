@@ -9,6 +9,7 @@
     <!--<link rel="stylesheet" href="./scroll.css">-->
     <style>
         /* 상단바 */
+   
 .profile img {
     border-radius: 30%;
     opacity: 0;
@@ -110,20 +111,43 @@
 h1 {
     text-align: center;
 }
+ .lists {
+            position: relative;
+            padding: 18px 0;
+            text-align: center;
+            transition : transform 0.4s ease, box-shadow 0.4s ease;
+            font-family: 'Pretendard-Thin';
+            display: block;
 
-.lists{
-    text-align: center;
-    transition : transform 0.4s ease, box-shadow 0.4s ease;
-    font-family: 'Pretendard-Thin';
-    display: block;
+            font-weight: 400;
+            font-family: 'Pretendard-Thin';
+            font-size: 18px;
+            line-height: 1.5;
+            font-style: italic;
+            width:250px;
+        }
+.lists::before {
+            content: '';
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--accent);
+            position: absolute;
+            left: -28px;
+            top: 18px;
+            border: 3px solid var(--bg);
+        }
+.lists.right {
+            padding-left: 0;
+            padding-right: 40px;
+            text-align: right;
+        }
 
-    font-weight: 400;
-    font-family: 'Pretendard-Thin';
-    font-size: 18px;
-    line-height: 1.5;
-    font-style: italic;
-    width:250px;
-}
+.list.right::before {
+            left: auto;
+            right: -28px;
+        }
+
 
 .lists:hover {
     transform: translateY(-10px) scale(1.05);
@@ -240,7 +264,9 @@ body {
     background-attachment: fixed; 
     background-position: center; 
 }
-
+.white {
+    color:white;
+}
         @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap');
         h3 {
             font-family: 'Pretendard-Thin';
@@ -270,8 +296,9 @@ body {
     <!-- PAGE 1 -->
     <div class="list">
         <div class="one" id="home">
-            <span class="profile"><img src="./img/profile.png" width="550px;" height="550px" alt=""/></span>
-            <h3><strong>Hello! I'm Jeong Min.</strong> <br>You can scroll down if you want to see me more!</h3>
+            <span class="profile"><img src="./img/" width="550px;" height="550px" alt=""/></span>
+            <h3><strong>Hello! I'm Jeong Min.</strong> </h3>
+            <p class="white">열정적인 풀스택 개발자 김정민입니다.</p>
         </div>
     </div>
 
@@ -280,17 +307,14 @@ body {
         <div class="two" id="about">
             <img class="me" src="./img/my2.jpg" alt="" width="450px;" height="500px">
             <h3 class="intext"> 
-                <strong>What would I lose if I learn coding?<br>Absolutely nothing!</strong><br><br>
-                Hello! I'm Kim Jungmin. Welcome to my homepage<br>
-                The reason why I want to be a full stack engineer is <br>
-                I want to do something that runs from me, not from one part
-                Because.<br>
-                There are no limits to studying and developing myself! <br>
-                One of my motivations in life is memories. <br>
-                To be a good developer, <br>
-                Achievement and my own development constantly <br>
-                I think that's the most important thing.
-                <br><br>
+                <strong>안녕하세요! 저는 김정민입니다. 제 홈페이지에 오신 것을 환영합니다</strong>
+                
+                <li>제가 풀 스택 엔지니어가 되고 싶은 이유는 다음과 같습니다</li>
+                <li>저는 회사의 하나의 부품이 아닌 구동체가 되고싶습니다. 왜냐하면,</li>
+                <li>풀스택 개발자는 끊임없이 공부하여 자신을 발전시킬수 있으며, 한계또한 없다고 생각하기때문입니다. 또한</li>
+                <li>저의 인생 동기중 하나가 추억이기에 좋은 경험을 하면 할수록</li>
+                <li>저는 더 성장하는 풀스택 개발자가 될수 있다고 생각하기 때문입니다.</li>
+                
             </h3>
         </div>
     </div>
@@ -298,11 +322,11 @@ body {
     <!-- PAGE 3 -->
     <div class="list">
         <div class="three" id="Process">
-            <h1><br><br></h1>
+            <h1></h1>
             <div class="Process">
                 <div class="lists">
                     <img class="list_img" src="./img/1.png" alt="">
-                    <p class="list_text"> Skill Proficiency 97%<br></p>
+                    <p class="list_text"> Skill Proficiency 97%</p>
                 </div>
 
                 <div class="lists">
@@ -324,9 +348,9 @@ body {
     </div>
 
     <!-- PAGE 4 (CONTACT) -->
+    
     <div class="list">
         <div class="four" id="contact">
-            <img class="contact_img" src="./img/5.png">
             <a href="https://www.youtube.com/@mi_ya__01" class="ct">Youtube</a>
             <a href="mailto:kyoungsjjj0513@gmail.com" class="ct">Gmail</a>
             <a href="https://github.com/kyoungsjjj0211" class="ct">Github</a>
@@ -334,9 +358,9 @@ body {
             <!-- ✅ Email Form 추가 -->
             <form id="emailForm" style="margin-top: 40px;">
                 <input type="text" id="emailInput" name="from_name" placeholder="이메일 주소를 입력하세요"
-                       style="padding:10px; width:300px; border-radius:10px; border:none;"><br><br>
+                       style="padding:10px; width:300px; border-radius:10px; border:none;">
                 <textarea id="message" name="message" placeholder="내용을 입력하세요"
-                          style="padding:10px; width:300px; height:100px; border-radius:10px; border:none;"></textarea><br><br>
+                          style="padding:10px; width:300px; height:100px; border-radius:10px; border:none;"></textarea>
                 <button type="submit" id="sendBtn"
                         style="padding:10px 20px; border:none; border-radius:10px;
                                background-color:#000; color:white; cursor:pointer;">
@@ -372,6 +396,8 @@ body {
   });
 
   // ✅ 이메일 전송 + 빈칸 검사
+
+  
   $(document).ready(function() {
       $("#emailForm").on("submit", function(e) {
           e.preventDefault(); // 폼 새로고침 방지
