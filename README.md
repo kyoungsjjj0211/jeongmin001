@@ -493,10 +493,64 @@ Array ver
  * getMoodScore() 메서드를 만들어서 외부에서 접근 가능하게 변경
 
 
+
 <br/>
 <br/>
 <br/> 
+### 🛠️ Oracle SQL CASE 문 트러블슈팅: COMM 수당 조건 처리
+💡 문제 상황
+사용자는 다음 조건을 만족하는 SQL을 작성하고자 함:
 
+COMM 값이 NULL이면 '해당사항없음' 출력
+
+COMM = 0이면 '수당없음' 출력
+
+COMM > 0이면 해당 수당 금액을 출력
+
+초기 시도는 다음과 같은 형태였음:
+
+sql
+SELECT empno, ename, comm,
+    CASE comm
+        WHEN concat THEN '해당사항없음'
+        WHEN = 0 THEN '수당없음'
+        WHEN > 0 THEN TO_CHAR(comm)
+    END AS comm_text
+FROM emp;
+❌ 오류 원인 분석
+CASE comm는 값 비교 방식이다
+
+CASE comm는 내부적으로 comm = <값>으로 작동함
+
+따라서 WHEN = 0, WHEN > 0, WHEN concat 같은 조건식이나 함수 호출은 사용할 수 없음
+
+COMM IS NULL은 CASE comm로 처리 불가
+
+Oracle에서는 NULL = NULL이 성립하지 않음
+
+IS NULL을 써야만 NULL을 정확히 비교할 수 있음
+
+CONCAT는 문자열 연결 함수
+
+CONCAT은 '해당사항' || '없음'처럼 문자열을 연결할 때 사용
+
+WHEN CONCAT은 comm = CONCAT(...)로 해석되므로 타입 불일치 및 비교 불가
+
+✅ 해결 방법
+✔ 조건식 기반 CASE 사용
+sql
+SELECT empno, ename, comm,
+    CASE
+        WHEN comm IS NULL THEN CONCAT('해당사항', '없음')
+        WHEN comm = 0 THEN '수당없음'
+        WHEN comm > 0 THEN TO_CHAR(comm)
+    END AS comm_text
+FROM emp;
+CASE 다음에 기준 컬럼 없이 조건식만 사용
+
+CONCAT은 COMM IS NULL일 때만 사용하여 '해당사항없음'을 출력
+
+TO_CHAR(comm)으로 숫자 수당을 문자열로 변환
 ---
 ## 📌 참고문헌
 - [Git 공식 문서](https://git-scm.com/doc)  
