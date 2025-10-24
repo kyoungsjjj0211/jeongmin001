@@ -54,6 +54,9 @@ select ename, dname
 from emp e full outer join d
 on e.deptno = d.deptno;
 
+-- 비표준 = , (+)
+-- 표준  NATURAL JOIN, JOIN ONM JOIN USING, LEFT JOIN, RIGHT JOINM FULL JOIN
+
 -- 1. emp e , dept d 별명 / empno, ename, deptno, dname
 select empno, ename, e.deptno, dname
 from emp e, dept d 
@@ -157,3 +160,101 @@ select e1.empno, e1.ename, e1.mgr, e2.empno mgr_empno, e2.ename mgr_ename
 from emp e1, emp e2
 where e1.mgr(+) = e2.empno
 order by e1.empno;
+
+-- Q11 표준문법 (NATURAL JOIN) EMP , DEPT 테이블 이용하여 EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM를 다음과 같이 출력하시오
+-- NATURAL JOIN 알아서 두 테이블의 이름과 자료형이 같은 열을 찾은 후 그 열을 기준으로 등가조인을 해주는 방식
+select e.empno, e.ename, e.job, e.mgr,e.hiredate, e.sal, e.comm, deptno, d.dname, d.loc
+from emp e natural join dept d
+order by deptno, e.empno;
+
+-- Q12 표준문법 (JOIN USING) EMP , DEPT 테이블 이용하여 EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM를 다음과 같이 출력하시오
+-- JOIN USING USING에 조인기준열 명시 그 열을 기준으로 등가조인을 해주는 방식
+ select e.empno, e. ename, e. job, e.mgr, e.hiredate, e.sal, e.comm, deptno, d.dname, d.loc
+ from emp e join dept d using (deptno)
+ where sal >= 3000
+ order by deptno, e.empno;
+ 
+--Q13 표준문법 (JOIN ON) EMP , DEPT 테이블 이용하여 EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM를 다음과 같이 출력하시오
+-- JOIN ON ON에 조인기준열 명시 그 열을 기준으로 등가조인을 해주는 방식
+select e.empno, e.ename , e.job, e.mgr, e.hiredate, e.sal, e.comm, e.deptno,  d.dname, d.loc
+from emp e join dept d on (e.deptno = d.deptno)
+where sal <=3000
+order by e.deptno, empno;
+
+-- Q14 표준문법 (LEFT OUTER JOIN ) EMP , DEPT 테이블 이용하여 다음과 같이 출력하시오
+-- LEFT OUTER JOIN 왼쪽 외부조인을 기준으로 NULL보장
+select e1. empno, e1.ename, e1.mgr, e2.empno mgr_empno, e2.ename mgr_ename
+from emp e1 left outer join emp e2 on (e1.mgr = e2.empno)
+order by e1.empno;
+
+-- Q15 표준문법 (RIGHT OUTER JOIN ) EMP , DEPT 테이블 이용하여 다음과 같이 출력하시오
+-- RIGHT OUTER JOIN- 오른른쪽 외부조인을 기준으로 NULL보장
+select e1.empno, e1.ename, e1.mgr, e2.empno mgr_empno, e2.ename amgr_ename
+from emp e1 right outer join emp e2 on (e1.mgr = e2.empno)
+order by e1.deptno, mgr_empno;
+
+-- Q016 표준문법 (FULL OUTER JOIN ) EMP , DEPT 테이블 이용하여 다음과 같이 출력하시오
+-- FULL OUTER JOIN - 양쪽모두두 외부조인을 기준으로 NULL보장
+
+select e1.empno, e1.ename, e1.mgr, e2.empno mgr_empno, e2.ename mgr_ename
+from emp e1 full outer join emp e2 on (e1.mgr = e2.empno)
+order by e1.empno;
+
+-- EX01 EMP, DEPT 테이블을 이용하여 SQL-99 이전 방식다음 , SQL-99방식 두가지 방식으로 다음과 같이 출력하시오.
+-- 급여(SAL)이 2000초과인 사원들의 부서정보, 사원정보를 출력하시오.
+
+-- SQL-99 이전 방식
+select e.deptno, d.dname, e.empno, e.ename, e.sal
+from emp e, dept d
+where e.deptno = d.deptno and e.sal > 2000;
+
+-- SQL-99방식
+select e.deptno, d.dname, e.empno, e.ename, e.sal
+from emp e
+join dept d on e.deptno = d.deptno
+where e.sal > 2000;
+
+-- EX02 EMP, DEPT 테이블을 이용하여 SQL-99 이전 방식다음 , SQL-99방식 두가지 방식으로 다음과 같이 출력하시오. 
+-- 각 부서별 평균급여, 최대급여, 사원수를 출력하시오.
+
+-- SQL-99 이전 방식
+select d.deptno, d.dname, avg(e.sal) as avg_Sal, max(e.sal) as max_sal, min(e.sal) as min_sal, count(*) as cnt
+from emp e, dept d
+where e.deptno = d.deptno
+group by d.deptno, d.dname;
+
+--SQL-99 방식
+select d.deptno, d.dname, avg(e.sal) as avg_sal, max(e.sal) as max_sal, min(e.sal) as min_sal, count(*) as cnt
+from dept d
+join emp e on d.deptno = e.deptno
+group by d.deptno, d.dname;
+
+-- EX03 EMP, DEPT 테이블을 이용하여 SQL-99 이전 방식다음 , SQL-99방식 두가지 방식으로 다음과 같이 출력하시오.
+-- 모든 부서정보와 사원정보를 부서번호, 사원이름 순으로 정렬해 출력하시오.
+
+--SQL-99 이전 방식
+select d.deptno, d.dname, e.empno, e.ename, e.job, e.sal
+from dept d, emp e
+where d.deptno = e.deptno(+)
+order by d.deptno, e.ename;
+
+--SQL-99 방식
+select d.deptno, d.dname, e.empno, e.ename, e.job, e.sal
+from dept d
+left join emp e on d.deptno = e.deptno
+order by d.deptno, e.ename;
+
+-- EX004 EMP, DEPT 테이블을 이용하여 SQL-99 이전 방식다음 , SQL-99방식 두가지 방식으로 다음과 같이 출력하시오.
+-- 모든 부서정보와 사원정보, 급여등급정보, 각사원의 직속상관의 정보를 부서번호, 사원번호 순서로 정렬해 출력하시오.
+
+--SQL-99 이전 방식
+select d.deptno, d.dname, e.empno, e.ename, e.mgr, e.sal, s.grade, s.losal, s.hisal, m.empno as mgr_empno, m.ename as mgr_ename
+from emp e, dept d, salgrade s, emp m
+where e.deptno = d.deptno(+) and e.sal between s.losal(+) and s.hisal(+) and e.mgr = m.empno(+)
+order by d.deptno, e.empno;
+
+--SQL-99 방식
+select d.deptno, d.dname, e.empno, e.ename, e.mgr, e.sal, s.grade, s.losal, s.hisal, m.empno as mgr_empno, m.ename as mgr_ename
+from emp e left join dept d on e.deptno = d.deptno left join salgrade s on e.sal between s.losal and s.hisal
+left join emp m on e.mgr = m.empno 
+order by d.deptno, e.empno;
