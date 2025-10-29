@@ -11,4 +11,15 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.xhtml</welcome-file>
   </welcome-file-list>
+  <!-- 1. 서블릿등록 (배포용) -->
+  <servlet>
+  <servlet-name>FrontController</servlet-name>
+  <servlet-class>com.company.jsp009Servlet.ServletBasic4_FrontController</servlet-class>
+  </servlet>
+  <!-- 2. *.do 패턴으로 매핑 -->
+ <servlet-mapping>
+ <servlet-name>FrontController</servlet-name>
+ <url-pattern>*.do</url-pattern>
+ </servlet-mapping>
+  
 </web-app>
