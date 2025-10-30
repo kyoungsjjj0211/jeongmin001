@@ -1,11 +1,11 @@
 package com.thejoa703.dto;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.sql.Connection;
-import java.sql.DriverManager;
 
 public class PostDao {
 //    1. [글쓰기]글쓰기 sql : 
@@ -93,11 +93,23 @@ public class PostDao {
 					// 드 커 프 리
 					 try {
 						 // 1. 드라이버연동
+						 Class.forName(driver);
 						 // 2. 커넥션
+						 conn = DriverManager.getConnection(url, user, pass);
 						 // 3. PSTMT
-						 // 4. RESULT
+						 pstmt = conn.prepareStatement(sql);
+						 pstmt.setInt(1, id);
+						 // 4. RESULT 
+						 rset = pstmt.executeQuery(); //표
+						 while(rset.next()) { //줄
+							 result = new PostDto( rset.getInt("id"), rset.getInt("app_user_id")
+									 ,rset.getString("title"), rset.getString("content"), rset.getString("pass")
+									 ,rset.getTimestamp("created_at").toLocalDateTime()
+									 ,rset.getInt("hit")
+									 );
+						 }
 					 } catch(Exception e) {e.printStackTrace();
-					 } finally {
+					 } finally {	
 						 if(rset != null) {try {rset.close();} catch (SQLException e) {e.printStackTrace();}}
 						 if(pstmt != null) {try {pstmt.close();} catch (SQLException e) {e.printStackTrace();}}
 						 if(conn != null) {try {conn.close();} catch (SQLException e) {e.printStackTrace();}}
@@ -116,9 +128,16 @@ public class PostDao {
 					// 드 커 프 리
 					 try {
 						 // 1. 드라이버연동
+						 Class.forName(driver);
 						 // 2. 커넥션
+						 conn = DriverManager.getConnection(url, user, pass);
 						 // 3. PSTMT
+						 pstmt = conn.prepareStatement(sql);
+						 pstmt.setInt(1, id);
 						 // 4. RESULT
+						 int presult = pstmt.executeUpdate();
+						 if(presult > 0) {result = 1; }
+						 
 					 } catch(Exception e) {e.printStackTrace();
 					 } finally {
 						 if(rset != null) {try {rset.close();} catch (SQLException e) {e.printStackTrace();}}
@@ -140,9 +159,20 @@ public class PostDao {
 						// 드 커 프 리
 						 try {
 							 // 1. 드라이버연동
+							 Class.forName(driver);
 							 // 2. 커넥션
+							 conn = DriverManager.getConnection(url, user, pass);
 							 // 3. PSTMT
+							 pstmt = conn.prepareStatement(sql);
+							 pstmt.setString(1, dto.getTitle());
+							 pstmt.setString(2, dto.getContent());
+							 pstmt.setInt(3, dto.getId());
+							 pstmt.setString(4, dto.getPass());
+
 							 // 4. RESULT
+							 int presult = pstmt.executeUpdate();
+							 if(presult > 0) {result =1;}
+							 
 						 } catch(Exception e) {e.printStackTrace();
 						 } finally {
 							 if(rset != null) {try {rset.close();} catch (SQLException e) {e.printStackTrace();}}
@@ -166,9 +196,17 @@ public class PostDao {
 						// 드 커 프 리
 						 try {
 							 // 1. 드라이버연동
+							 Class.forName(driver);
 							 // 2. 커넥션
+							 conn=  DriverManager.getConnection(url, user, pass);
 							 // 3. PSTMT
+							 pstmt=conn.prepareStatement(sql);
+							 pstmt.setInt(1, dto.getId());
+							 pstmt.setString(2, dto.getPass());
 							 // 4. RESULT
+							 int presult = pstmt.executeUpdate();
+							 if(presult > 0) {result =1;}
+									
 						 } catch(Exception e) {e.printStackTrace();
 						 } finally {
 							 if(rset != null) {try {rset.close();} catch (SQLException e) {e.printStackTrace();}}

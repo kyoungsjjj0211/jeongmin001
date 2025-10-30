@@ -73,3 +73,5 @@ int result = -1;
 // 드 커 프 리
 return result;
 }
+
+select * from post;
