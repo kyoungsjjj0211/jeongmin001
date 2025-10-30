@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="com.thejoa703.dto.PostDao"%>
+<%@page import="com.thejoa703.dto.PostDto"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,11 +18,11 @@
 	<h3 class="card-header">DAO TEST</h3>
 	<pre class="alert alert-success">
 	1. insert
-	 	   insert into post ( id                 , app_user_id ,title , content , pass )  
+	</pre>
+	<%-- <%  	   insert into post ( id                 , app_user_id ,title , content , pass )  
            values ( post_seq.nextval   ,          ?  , ?    ,      ?  ,    ? ) 
 	</pre>
-	<%@page import="com.thejoa703.dto.PostDao"%>
-	<%@page import="com.thejoa703.dto.PostDto"%>
+	 %>--%>
 <%-- 	<%
 	PostDao dao = new PostDao();
 	PostDto dto = new PostDto();
@@ -33,11 +35,43 @@
 	<pre class="alert alert succecc">
 	2. selectAll
 	</pre>
-	<%
+<%--  <%
 	PostDao dao = new PostDao();
 	out.println(dao.selectAll());
-	%>
+%>	--%>
+	<pre class="alert alert-success">
+	3. select
+	</pre>
+<%-- %>	<%
+	PostDao dao = new PostDao();
+	out.println(dao.update_hit(3));
+	out.println(dao.select(3));
+	%> --%>
+	<pre class="alert alert-success">
+	3. update
+	</pre>
+	<%--<%
+	PostDao dao = new PostDao();
+	PostDto dto = new PostDto();
+	dto.setTitle("첫번째 글쓰기입니다. -new");
+	dto.setContent("내용-new");
+	dto.setPass("123");
+	dto.setId(3);
+	out.println(dao.update(dto));
+	%> --%>
+	
+	<pre class="alert alert-success">
+	 4. delete
+	</pre>
+	<%
+	PostDao dao = new PostDao();
+	PostDto dto = new PostDto();
+	dto.setPass("3333");
+	dto.setId(1);
+	out.println(dao.delete(dto));
+	%>   
 	</div>
+
 
 </body>
 </html>
