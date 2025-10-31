@@ -5,7 +5,7 @@
 
    <div class="container card  my-5 p-4">
       <h3 class="card-header"> MBTI 글삭제</h3>
-	  <form action="<%=request.getContextPath() %>/delete.do"  method="post"> 
+	  <form action="<%=request.getContextPath() %>/delete.do?id=<%=request.getParameter("id")%>"  method="post"> 
 	      <input type="hidden"   name="app_user_id"  value=""> 
 		  <div class="my-3">
 		    <label for="pass" class="form-label">PASS:</label>
@@ -14,7 +14,7 @@
 		  </div>
 		
 		  <div class="my-3  text-end">
-		  	<button type="submit" class="btn btn-primary">글쓰기</button>
+		  	<button type="submit" class="btn btn-primary">글삭제</button>
 		  	<a href="javascript:history.go(-1)" class="btn btn-danger">BACK</a>
 		  </div>
 	 </form>

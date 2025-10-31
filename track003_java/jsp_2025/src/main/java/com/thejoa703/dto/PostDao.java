@@ -48,7 +48,8 @@ public class PostDao {
 		   public  ArrayList<PostDto> selectAll(){
 		      ArrayList<PostDto> result = new ArrayList<>();
 		      String sql = " SELECT p.* , u.email  email "
-		    		  + "  FROM post p join appuser u on p.app_user_id=u.app_user_id";
+		    		  + "  FROM post p join appuser u on p.app_user_id=u.app_user_id"
+		    		  + " order by id desc";
 		      // 드 커 프 리
 		      Connection conn = null; PreparedStatement pstmt = null ; ResultSet rset = null;
 				 String driver = "oracle.jdbc.driver.OracleDriver";
