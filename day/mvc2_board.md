@@ -22,7 +22,7 @@
 	3) [inc] - header.js / footer.jsp                       .... pass      
 	4) mvc2
 	▶model 
-		1. table + sequence
+		1. table (post) + sequence (post_seq)
 
 			| 컬럼명        | 데이터 타입       | 제약 조건       | 설명 |
 			|---------------|-------------------|------------------|------|
@@ -34,6 +34,8 @@
 			| `created_at`  | `DATE`            | `DEFAULT SYSDATE`| 작성일 |
 			| `hit`         | `NUMBER`          | `DEFAULT 0`      | 조회수 |
 			| —             | —                 | `FOREIGN KEY`    | `app_user_id`는 `appuser(app_user_id)` 참조 |
+			create sequence post_seq;
+
 
 			SQL> desc post
 			Name                                      Null?    Type
@@ -48,8 +50,10 @@
 
 
 		3. dto
+		[com.thejoa703.dto] - PostDto
 
 		4. dao
+		[com.thejoa703.dao] - PostDto
 
 	▶view
 		1. list.jsp
