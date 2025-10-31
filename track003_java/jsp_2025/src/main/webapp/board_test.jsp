@@ -42,11 +42,11 @@
 	<pre class="alert alert-success">
 	3. select
 	</pre>
-<%-- %>	<%
+ <%
 	PostDao dao = new PostDao();
 	out.println(dao.update_hit(3));
 	out.println(dao.select(3));
-	%> --%>
+	%> 
 	<pre class="alert alert-success">
 	3. update
 	</pre>
@@ -63,13 +63,13 @@
 	<pre class="alert alert-success">
 	 4. delete
 	</pre>
-	<%
+	<%-- <%
 	PostDao dao = new PostDao();
 	PostDto dto = new PostDto();
 	dto.setPass("3333");
 	dto.setId(1);
 	out.println(dao.delete(dto));
-	%>   
+	%> --%>   
 	</div>
 
 

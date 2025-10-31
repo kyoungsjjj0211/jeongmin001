@@ -67,6 +67,7 @@ public class MbtiController extends HttpServlet {
 			//■  MbtiDetail       /          mbtiBoard/detail.jsp
 			service = new MbtiDetail(); service.exec(request, response);
 			request.getRequestDispatcher("mbtiboard/detail.jsp").forward(request, response);
+///////////////////////////////////////////////////////////////////////////
 		} else if (path.equals("/editView.do")) {
 			//■  MbtiUpdateView   /          mbtiBoard/edit.jsp
 			service = new MbtiUpdateView(); service.exec(request, response);
@@ -74,20 +75,32 @@ public class MbtiController extends HttpServlet {
 		} else if (path.equals("/edit.do")) {
 			// ■  MbtiUpdate      /  알림창 +  mbtiBoard/detail.jsp
 			service = new MbtiUpdate(); service.exec(request, response);
-			out.println("<script>alert('글수정에 성공했습니다.');location.href='detail.do';</script>");
+			int id = Integer.parseInt(request.getParameter("id"));
+			System.out.println(id);
+			String result = (String) request.getAttribute("result");
+			if(result.equals("1")) {
+			out.println("<script>alert('글수정에 성공했습니다.');location.href='detail.do?id="+ request.getParameter("id") + "';</script>");
+			}else {
+				out.println("<script>alert('비밀번호를 확인해주세요.'); history.go(-1); </script>");
+			}
+/////////////////////////////////////////////////////////////////////////////			}
+			
 		}else if (path.equals("/deleteView.do")) {
 			//□                    /         mbtiBoard/delete.jsp
 			request.getRequestDispatcher("mbtiboard/delete.jsp").forward(request, response);
 		}else if (path.equals("/delete.do")) {
 			// ■  MbtiDelete      /  알림창 +  list.do
 			service = new MbtiDelete(); service.exec(request, response);
-			out.println("<script>alert('글삭제에 성공했습니다.');location.href='list.do';</script>");
+			String result =(String) request.getAttribute("result");
+			if(result.equals("1")) {
+				out.println("<script>alert('글삭제에 성공했습니다.');location.href='list.do';</script>");	
+			}else { 
+				out.println("<script>alert('비밀번호를 확인해주세요.');history.go(-1);</script>");
+			}
 		}
-		
-		
-		
 	}
 }
+
 
 //ㄴ index.jsp
 //ㄴ [전체글보기] /list.do        ■  MbtiList          /          mbtiBoard/list.jsp
