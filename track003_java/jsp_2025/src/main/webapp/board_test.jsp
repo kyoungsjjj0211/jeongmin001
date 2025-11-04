@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="com.thejoa703.dto.PostDao"%>
 <%@page import="com.thejoa703.dto.PostDto"%>
 <!DOCTYPE html>
@@ -19,11 +18,10 @@
 	<pre class="alert alert-success">
 	1. insert
 	</pre>
-	<%-- <%  	   insert into post ( id                 , app_user_id ,title , content , pass )  
+	<%--  	   insert into post ( id                 , app_user_id ,title , content , pass )  
            values ( post_seq.nextval   ,          ?  , ?    ,      ?  ,    ? ) 
-	</pre>
-	 %>--%>
-<%-- 	<%
+	</pre>--%>
+<% 	
 	PostDao dao = new PostDao();
 	PostDto dto = new PostDto();
 	dto.setAppUserId(1);
@@ -31,7 +29,7 @@
 	dto.setContent("내용");
 	dto.setPass("1111");
 	out.println(dao.insert(dto)); //1나오면 글쓰기 성공!
-	%> --%>
+	%> 
 	<pre class="alert alert succecc">
 	2. selectAll
 	</pre>
