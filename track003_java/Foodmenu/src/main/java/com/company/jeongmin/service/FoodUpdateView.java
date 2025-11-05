@@ -18,7 +18,7 @@ public class FoodUpdateView implements FoodService{
 		
 		FoodDao dao = new FoodDao();
 		
-		request.setAttribute("dto", dao.select(id));
+		request.setAttribute("dto", dao);
 	}
 
 	

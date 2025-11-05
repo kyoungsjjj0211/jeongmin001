@@ -9,12 +9,11 @@ import javax.servlet.http.HttpServletResponse;
 import com.company.jeongmin.Dao_Dto.FoodDao;
 import com.company.jeongmin.Dao_Dto.FoodDto;
 
-public class FoodDetail implements FoodService {
+public class FoodUpdate implements FoodService {
 
 	@Override
 	public void exec(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-
 		request.setCharacterEncoding("UTF-8");
 		
 		FoodDao updateDao = new FoodDao();
