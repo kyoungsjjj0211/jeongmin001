@@ -1,4 +1,4 @@
-package com.company.jeongmin;
+package com.company.jeongmin.Dao_Dto;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

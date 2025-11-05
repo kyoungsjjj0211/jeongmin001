@@ -17,7 +17,10 @@ import com.thejoa703.service.MbtiUpdate;
 import com.thejoa703.service.MbtiUpdateView;
 
 
-//@WebServlet("*.do")
+//@WebServlet("*.do") (개발용 path경로주의!)
+//web.xml (배포용) index.jsp
+
+
 public class MbtiController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
