@@ -1,6 +1,6 @@
 <%@page import="java.util.List"%>
-<%@page import="com.company.jeongmin.FoodDto"%>
-<%@page import="com.company.jeongmin.FoodDao"%>
+<%@page import="com.company.jeongmin.Dao_Dto.FoodDto"%>
+<%@page import="com.company.jeongmin.Dao_Dto.FoodDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 
