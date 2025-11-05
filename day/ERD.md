@@ -104,3 +104,30 @@ BEFORE
 
 AFTER
 <교수> +-----∈<교수 교재>∋-----∈ <교재>
+
+
+
+
+Q6. CONTROLLER
+6-1. frontcontroller - .do, *.hi, *,mbti 경로 / view 연결확인
+6-2. service 구조
+6-3. service 각각 안에 코드처리
+6-4 view 연동
+
+
+1. frontcontroller
+1-1 @WebServblet 개발용 path경로주의!
+1-2 web.xml 배포용
+
+ㄴ index.jsp
+	ㄴ [등록폼] /regForm.food    □           /foodtype/insert.jsp
+	ㄴ [동록기능] /reg.food        ■ insert() /foodAll.food
+	ㄴ [전체보기] /foodAll.food   ■ selectAll() /foodtype/list.jsp
+	ㄴ [상세보기] /food.food      ■ select() /foodtype/detail.jsp
+	ㄴ [수정폼] /updateform.food■ updateForm() /footrtpe/update.jsp
+	ㄴ [수정기능] /update.food   ■ update() /food.food 해당번호의 글이 바로 수정
+	ㄴ [삭제기능] /delete.food    ■ delete() /food.food
+
+
+1-3. [com.company.controller] FoodController.java    * .food
+1-4. view와 연동
