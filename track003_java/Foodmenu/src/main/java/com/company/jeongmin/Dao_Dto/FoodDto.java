@@ -1,4 +1,4 @@
-package com.company.jeongmin;
+package com.company.jeongmin.Dao_Dto;
 
 import java.util.Date;
 
@@ -55,5 +55,7 @@ public class FoodDto {
 				+ ", getImageUrl()=" + getImageUrl() + ", getRegDate()=" + getRegDate() + ", getClass()=" + getClass()
 				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 	}
+
+		
+	}
     
-}

@@ -31,8 +31,9 @@ CREATE TABLE FOODTB (
     CONSTRAINT FKFOOD FOREIGN KEY (categoryId) REFERENCES CATEGORYTB (categoryId)
 );
 
---UPDATE FOODTB 
---SET name=?, categoryId=?,  kcal=?, protein=?, carb=?, fat=?, recipe=?, imageUrl=? WHERE foodId=?
+select * from FOODTB;
+
+ 
 
 
 -- 🔹 SEQUENCE 생성: 음식 ID 자동 증가 시퀀스
