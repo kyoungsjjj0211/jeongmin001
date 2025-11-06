@@ -12,7 +12,7 @@ import java.util.List;
 // read : select * from food; select * from food where food_type_id =?;
 // update : ipdate food foodId=?, name=? desciprtion=? where food_type_id =?;  
 // delete : delete from mbtitype where food_type_id =?;
-public class FoodDao {
+public class FoodDao { //음식 추가
 	
 	public int insert(FoodDto dto) {
 		int result =-1;
@@ -55,6 +55,9 @@ public class FoodDao {
 	       return result;
 	    }
 
+	  // select * from FoodDetail
+	
+	
 	 
 	  //2. read 전체조회, 카테고리 이름 포함
 	    public List<FoodDto> selectAll() {
@@ -69,7 +72,7 @@ public class FoodDao {
 				String url="jdbc:oracle:thin:@localhost:1521:xe";
 				String user="scott", pass="tiger";
 				 
-				try {
+			try {
 				Class.forName(driver);	
 				
 	        	conn = DriverManager.getConnection(url, user, pass);
@@ -94,6 +97,41 @@ public class FoodDao {
 	        }
 	        return list;
 	    }
+	    
+	    public FoodDto select(int id) {
+	    	FoodDto result = new FoodDto();
+	    	String sql = "selecet * from post where id=?";
+
+	    	// 오라클 연결
+	    	Connection conn = null; PreparedStatement pstmt=null; ResultSet rset = null;
+	    		String driver = "oracle.jdbc.driver.OracleDriver";
+	    		String url="jdbc:oracle:thin:@localhost:1521:xe";
+	    		String user="scott", pass="tiger";
+	    	// 드커프리
+	    try {
+	    	Class.forName(driver);
+	    	
+	    	conn=DriverManager.getConnection(url, user, pass);
+	    	
+	    	pstmt = conn.prepareStatement(sql);
+	    	pstmt.setInt(1, id);
+	    	rset = pstmt.executeQuery();
+	    	while(rset.next()) {
+	    		result = new FoodDto( rset.getInt("foodId"),rset.getString("name"), rset.getInt("categoryId"),
+		                rset.getString("categoryName"),rset.getDouble("kcal"), rset.getDouble("protein"),
+		                rset.getDouble("carb"), rset.getDouble("fat"), rset.getString("recipe"),
+		                rset.getString("imageUrl"), rset.getDate("regDate")
+		                );
+	    	}
+	    }catch(Exception e) {e.printStackTrace();
+	    	
+	    }finally {
+	    	if(rset !=null) {try {rset.close();} catch(SQLException e) {e.printStackTrace();}}
+	    	if(pstmt !=null) {try {pstmt.close();} catch(SQLException e) {e.printStackTrace();}}
+	    	if(conn !=null) {try {conn.close();} catch(SQLException e) {e.printStackTrace();}}
+}
+	    return result;
+	    }
 
 	 //3.update
 	    public int update(FoodDto dto) {
@@ -113,7 +151,7 @@ public class FoodDao {
 	             
 				 conn = DriverManager.getConnection(url, user, pass);
 				 
-				 pstmt = conn.prepareStatement(sql); 
+				pstmt = conn.prepareStatement(sql); 
 	            pstmt.setString(1, dto.getName());
 	            pstmt.setInt(2, dto.getCategoryId()); 
 	            pstmt.setDouble(3, dto.getKcal());

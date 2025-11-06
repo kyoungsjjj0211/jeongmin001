@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
+    
+    <%@include file="../inc/header.jsp" %>
+    
+  
 <title>Insert title here</title>
 <!-- Latest compiled and minified CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -20,8 +20,4 @@
 </body>
 </html>
 
-<!-- jsp0033_tmpt.jsp
-1. window -preferences
-2. 검색 : jsp
-3. Templates - [New] - Name 입력 / ★ Context - New jsp / 탬플릿 붙여넣기
- -->
+<%@include file="../inc/footer.jsp" %>

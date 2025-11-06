@@ -50,10 +50,12 @@
     <pre class="alert alert-success">
     <!-- 2. select by id 테스트 -->
     </pre>
-    <%--
-        Dto selected = dao.selectById(1); // foodId = 1
-        out.println(selected != null ? selected.toString() : "데이터 없음");
-    --%>
+    <%
+        FoodDto select = FoodDao.select(1);
+    	FoodDto result = new FoodDto();			// foodId = 1
+        out.println(select != null ? select.toString() : "데이터 없음");
+    %>
+
 
     <pre class="alert alert-success">
     3. update 테스트
