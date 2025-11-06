@@ -48,17 +48,28 @@
     --%>
 
     <pre class="alert alert-success">
-    <!-- 2. select by id 테스트 -->
+    <!-- 3. select  테스트 -->
+    <!-- 내일 질문. 정보를 가져와서 확인하는건데 값을 입력해야하나??
+    서버 연동이 안되서 집에서 테스트 불가능 -->
     </pre>
     <%
-        FoodDto select = FoodDao.select(1);
-    	FoodDto result = new FoodDto();			// foodId = 1
-        out.println(select != null ? select.toString() : "데이터 없음");
+	  	FoodDao dao = new FoodDao();
+    	FoodDto dto = new FoodDto();
+	    out.println(dto.getName());
+	    out println(dto.getCategoryId()); 
+	    out println(dto.getKcal());
+	    out println(dto.getProtein());
+	    out println(dto.getCarb());
+	    out println(dto.getFat());
+	    out println(dto.getRecipe());
+	    out println(dto.getImageUrl());
+	    out println(dto.getFoodId());
+        
     %>
 
 
     <pre class="alert alert-success">
-    3. update 테스트
+    4. update 테스트
     </pre>
     <%--
     	FoodDao updateDao = new FoodDao();
@@ -76,14 +87,14 @@
     --%>
 
     <pre class="alert alert-success">
-    4. delete 테스트
+    5. delete 테스트
     </pre>
-    <%
+    <%--
     	FoodDto dto = new FoodDto();
     	FoodDao dao = new FoodDao();
     	dto.setFoodId(5);
         out.println(dao.delete(dto)); // foodId = 1 삭제
-    %>
+    --%>
 </div>
 </body>
 </html>
