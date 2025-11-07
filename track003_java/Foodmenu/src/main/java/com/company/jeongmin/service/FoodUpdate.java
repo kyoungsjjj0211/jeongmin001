@@ -13,22 +13,33 @@ public class FoodUpdate implements FoodService {
 
 	@Override
 	public void exec(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		//1. 받기
 		request.setCharacterEncoding("UTF-8");
+		String name = request.getParameter("name"); 
+		int categoryId = Integer.parseInt(request.getParameter("categoryId"));
+		double kcal = Double.parseDouble(request.getParameter("kcal"));
+		double protein = Double.parseDouble(request.getParameter("protein"));
+		double carb = Double.parseDouble(request.getParameter("carb"));
+		double fat = Double.parseDouble(request.getParameter("fat"));
+		String recipe = request.getParameter("recipe");
+		String imageurl = request.getParameter("imageurl"); 
+		int id = Integer.parseInt(request.getParameter("id"));
+		
 		
 		FoodDao updateDao = new FoodDao();
         FoodDto updateDto = new FoodDto();
-        updateDto.setName("김치찌개 - 수정");
-        updateDto.setCategoryId(1); 
-        updateDto.setKcal(480);
-        updateDto.setProtein(22.0);
-        updateDto.setCarb(16.0);
-        updateDto.setFat(19.0);
-      	updateDto.setRecipe("김치와 돼지고기를 넣고 더 진하게 끓입니다.");
-        updateDto.setImageUrl("images/kimchi_stew_updated.jpg");
-        updateDto.setFoodId(5);
+        updateDto.setName(name);
+        updateDto.setCategoryId(categoryId); 
+        updateDto.setKcal(kcal);
+        updateDto.setProtein(protein);
+        updateDto.setCarb(carb);
+        updateDto.setFat(fat);
+      	updateDto.setRecipe(recipe);
+        updateDto.setImageUrl(imageurl);
+        updateDto.setFoodId(id);
         
-		request.setAttribute("dto", updateDao);
+        //2. 처리 + 넘기기
+		request.setAttribute("result",String.valueOf(updateDao.update(updateDto))  );
 		request.setAttribute("dto", updateDto);
 		
 	}

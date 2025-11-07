@@ -45,6 +45,21 @@ public class FoodDto {
 	
 	public FoodDto() {super();}
 	
+ 
+	public FoodDto(int foodId, String name, int categoryId, double kcal, double protein, double carb, double fat,
+			String recipe, String imageUrl, Date regDate) {
+		super();
+		this.foodId = foodId;
+		this.name = name;
+		this.categoryId = categoryId;
+		this.kcal = kcal;
+		this.protein = protein;
+		this.carb = carb;
+		this.fat = fat;
+		this.recipe = recipe;
+		this.imageUrl = imageUrl;
+		this.regDate = regDate;
+	}
 	@Override public String toString() {
 		return "Model [foodId=" + foodId + ", name=" + name + ", categoryId=" + categoryId + ", categoryName="
 				+ categoryName + ", kcal=" + kcal + ", protein=" + protein + ", carb=" + carb + ", fat=" + fat

@@ -19,28 +19,21 @@ public class FoodInsert implements FoodService{
 		request.setCharacterEncoding("UTF-8");
 		
 		HttpSession session = request.getSession();
-		int foodid = (Integer)session.getAttribute("foodid");
 		String name = request.getParameter("name");
-		int categoryid = (Integer)session.getAttribute("categoryid");
+		int categoryId = Integer.parseInt(request.getParameter("categoryId"));
 		double kcal = Double.parseDouble(request.getParameter("kcal"));
 		double protein = Double.parseDouble(request.getParameter("protein"));
 		double carb = Double.parseDouble(request.getParameter("carb"));
 		double fat = Double.parseDouble(request.getParameter("fat"));
 		String recipe = request.getParameter("recipe");
-		String imageurl = request.getParameter("imageurl");
-		String regdateStr = request.getParameter("regdate");
-		Date regdate = null;
-		try { 
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			regdate = sdf.parse(regdateStr);
-		} catch(Exception e) {e.printStackTrace();
-		}
+		String imageurl = request.getParameter("imageurl"); 
+
 		
 		FoodDao dao = new FoodDao();
 		FoodDto dto = new FoodDto();
-		dto.setFoodId(foodid);
-		dto.setName(name); dto.setCategoryId(categoryid); dto.setKcal(kcal); dto.setProtein(protein);
-		dto.setCarb(carb); dto.setFat(fat); dto.setRecipe(recipe); dto.setImageUrl(imageurl); dto.setRegDate(regdate);
+	
+		dto.setName(name); dto.setCategoryId(categoryId); dto.setKcal(kcal); dto.setProtein(protein);
+		dto.setCarb(carb); dto.setFat(fat); dto.setRecipe(recipe); dto.setImageUrl(imageurl); 
 		String result = String.valueOf(dao.insert(dto));
 		
 		request.setAttribute("result", result);

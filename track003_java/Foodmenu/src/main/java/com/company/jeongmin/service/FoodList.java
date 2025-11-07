@@ -13,12 +13,13 @@ public class FoodList implements FoodService{
 	@Override
 	public void exec(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		
-		
+		//1. 받기
+		//2. 드커프리
 			FoodDao dao = new FoodDao(); 
+			  
 			
-			
-			request.setAttribute("lsit", dao.selectAll());
+		//3. 주기	
+			request.setAttribute("list", dao.selectAll());
 	}
 	
 	
