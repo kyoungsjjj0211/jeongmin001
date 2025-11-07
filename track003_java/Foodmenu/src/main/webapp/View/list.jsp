@@ -28,29 +28,33 @@
 	<tr>
 	<td>${list.size() - status.index}</td>
 	<td>
-	<a href="<%=request.getContextPath()%>/detail.do?id=%{dto.FooDId}">
+	<a href="<%=request.getContextPath()%>/detail.food?id=${dto.foodId}">
 	${dto.name}
 	</a>
 	</td>
-	<td>${dto.hit}</td>
-	<td>${dto.categoryid}</td>
+	<td>${dto.categoryId}</td>
 	<td>${dto.kcal}</td>
 	<td>${dto.protein}</td>
 	<td>${dto.carb}</td>
 	<td>${dto.fat}</td>
 	<td>${dto.recipe}</td>
-	<td>${dto.imageurl}</td>
-	<td>${dto.regdate}</td>
+	<td>${dto.imageUrl}</td>
+	<td>${dto.regDate}</td>
 	</tr>
 	</c:forEach>
 </tbody>
 <% if(email!=null){ %>
 	  <p class="text-end">
-	  	<a href="<%=request.getContextPath() %>/writeView.do" class="btn btn-primary">글쓰기</a>
-	  	</p>
+	  	<a href="<%=request.getContextPath() %>/writeview.food" class="btn btn-primary">글쓰기</a>
+	  </p>
 	  	<%}else{    %>
-	  	<p class="text-end alert alert-primary"> 관리자만 글쓰기가 가능합니다.</p>
+	  <p class="text-end alert alert-primary"> 관리자만 글쓰기가 가능합니다.</p>
 	  	<% }   %>
+</table>
+
+	   <p class="text-end">
+	  	<a href="<%=request.getContextPath() %>/writeview.food" class="btn btn-primary">글쓰기</a>
+	  </p> 
 
 </div>
 

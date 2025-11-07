@@ -1,27 +1,45 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<!-- Latest compiled and minified CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+<%@include file="../inc/header.jsp" %>
 
-<!-- Latest compiled and JavaScript CSS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</head>
-<body>
-<div class="container card my-5">
-<h3 class="card-header"></h3>
-
+<div class="container card my-5 p-4">
+	<h3 class="card-header">음식 수정하기</h3>
+	<form action="<%=request.getContextPath()%>/edit.food?id=${dto.foodId}" method="post">
+	<div class="mb-3 mt-3">
+		<label for="name" class="form-label"> NAME:</label>
+		 <input type="text" class="form-control" id="name" name="name" value="${dto.name}">
+		 </div>
+	<div class="mb-3 mt-3">
+		<label for="categoryId" class="form-label"> CATEGORYID:</label>
+		 <input type="text" class="form-control" id="categoryId" name="categoryId" value="${dto.categoryId}">
+		 </div>	 
+	<div class="mb-3">
+		<label for="kcal" class="form-label"> KCAL: </label>
+		 <input type="text" class="form-control" id="kcal" name="kcal" value="${dto.kcal}">
+		 </div>
+	<div class="mb-3">
+		<label for="protein" class="form-label"> PROTEIN: </label>
+		 <input type="text" class="form-control" id="protein" name="protein" value="${dto.protein}">
+		 </div>
+		 <div class="mb-3">
+		<label for="carb" class="form-label"> CARB: </label>
+		 <input type="text" class="form-control" id="carb" name="carb" value="${dto.carb}">
+		 </div>
+		 <div class="mb-3">
+		<label for="fat" class="form-label"> FAT: </label>
+		 <input type="text" class="form-control" id="fat" name="fat" value="${dto.fat}">
+		 </div>
+		 <div class="mb-3">
+		<label for="recipe" class="form-label"> RECIPE: </label>
+		 <input type="text" class="form-control" id="recipe" name="recipe" value="${dto.recipe}">
+		 </div>
+		 
+		 <div class="mb-3  text-end">
+		  	<button type="submit" class="btn btn-primary">글수정</button>  
+		  	<a href="<%=request.getContextPath()%>/list.food"  class="btn btn-primary">목록보기</a>
+		  </div>
+		  </form>
 	</div>
 
-</body>
-</html>
-
-<!-- jsp0033_tmpt.jsp
-1. window -preferences
-2. 검색 : jsp
-3. Templates - [New] - Name 입력 / ★ Context - New jsp / 탬플릿 붙여넣기
- -->
+<%@include file="../inc/footer.jsp" %>

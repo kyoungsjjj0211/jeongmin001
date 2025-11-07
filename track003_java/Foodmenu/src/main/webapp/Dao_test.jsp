@@ -38,34 +38,27 @@
     <pre class="alert alert-success">
     2. select all 테스트
     </pre>
-    <%--
-
+    
+<%
     FoodDao dao = new FoodDao();
     List<FoodDto> list = dao.selectAll();
     for (FoodDto item : list) {
         out.println(item.toString());
     }
-    --%>
+    %>
 
     <pre class="alert alert-success">
     <!-- 3. select  테스트 -->
     <!-- 내일 질문. 정보를 가져와서 확인하는건데 값을 입력해야하나??
     서버 연동이 안되서 집에서 테스트 불가능 -->
     </pre>
-    <%
+<%--     <%
+//    select * from  FOODTB  order by foodId  desc
+//    select * from  FOODTB  where  foodId=1;
 	  	FoodDao dao = new FoodDao();
     	FoodDto dto = new FoodDto();
-	    out.println(dto.getName());
-	    out.println(dto.getCategoryId()); 
-	    out.println(dto.getKcal());
-	    out.println(dto.getProtein());
-	    out.println(dto.getCarb());
-	    out.println(dto.getFat());
-	    out.println(dto.getRecipe());
-	    out.println(dto.getImageUrl());
-	    out.println(dto.getFoodId());
-        
-    %>
+	    out.println(dao.select(32));
+    %> --%>
 
 
     <pre class="alert alert-success">

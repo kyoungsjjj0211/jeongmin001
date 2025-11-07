@@ -3,6 +3,6 @@
 
 <%-- <%  response.sendRedirect("member/login.jsp");  %>     --%>
 
-<%  response.sendRedirect("list.do");  %>
+<%  response.sendRedirect("list.food");  %>
 
 <!-- 시작은 항상 여기서부터~~! -->
