@@ -56,14 +56,14 @@
 	  	FoodDao dao = new FoodDao();
     	FoodDto dto = new FoodDto();
 	    out.println(dto.getName());
-	    out println(dto.getCategoryId()); 
-	    out println(dto.getKcal());
-	    out println(dto.getProtein());
-	    out println(dto.getCarb());
-	    out println(dto.getFat());
-	    out println(dto.getRecipe());
-	    out println(dto.getImageUrl());
-	    out println(dto.getFoodId());
+	    out.println(dto.getCategoryId()); 
+	    out.println(dto.getKcal());
+	    out.println(dto.getProtein());
+	    out.println(dto.getCarb());
+	    out.println(dto.getFat());
+	    out.println(dto.getRecipe());
+	    out.println(dto.getImageUrl());
+	    out.println(dto.getFoodId());
         
     %>
 
