@@ -80,7 +80,7 @@ public class FoodDao {
 	             
 	            rset = pstmt. executeQuery();
 	            while (rset.next()) {
-	            	result.add(new FoodDto(
+	            	list.add(new FoodDto(
 		                rset.getInt("foodId"),rset.getString("name"), rset.getInt("categoryId"),
 		                rset.getString("categoryName"),rset.getDouble("kcal"), rset.getDouble("protein"),
 		                rset.getDouble("carb"), rset.getDouble("fat"), rset.getString("recipe"),
@@ -94,7 +94,7 @@ public class FoodDao {
 				 if(pstmt != null) {try {pstmt.close();} catch (SQLException e) {e.printStackTrace();}}
 				 if(conn != null) {try {conn.close();} catch (SQLException e) {e.printStackTrace();}}
 	        }
-	        return result;
+	        return list;
 	    }
 	    //select 선택		
 	    public FoodDto select(int id) { //특정 음식 Id로 상세 정보 조회

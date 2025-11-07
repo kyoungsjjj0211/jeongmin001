@@ -18,26 +18,26 @@ public class FoodDelete implements FoodService{
 		int id = Integer.parseInt(request.getParameter("id"));
 		String Name = request.get.Parameter("Name");
 		int CategoryId = Integer.parseInt(request.getParameter("CategoryId")); 
-        Double.getKcal());  //Double은 뭐로 정의해야하나요..?
-        Double.getProtein());
-        Double.getCarb());
-        Double.getFat());
-        String Recipe = request.get.Recipe("Recipe"));
-        String ImageUrl = request.get.ImageUrl("ImageUrl"));
-     	int FoodId = Integer.parseInt(request.getParameter("FoodId"));
-		
-		//드커프리
+		  	Double.getKcal();  //Double은 뭐로 정의해야하나요..?
+	        Double.getProtein();
+	        Double.getCarb();
+	        Double.getFat();
+	        String Recipe = request.get.Recipe("Recipe");
+	        String ImageUrl = request.get.ImageUrl("ImageUrl");
+	     	int FoodId = Integer.parseInt(request.getParameter("FoodId"));
+			
+			//드커프리
 		FoodDao dao = new FoodDao();
 		FoodDto dto = new FoodDto();
-		   dto.settName());
-           dto.setCategoryId()); 
-           dto.setKcal());
-           dto.setProtein());
-           dto.setCarb());
-           dto.setFat());
-           dto.setRecipe());
-           dto.setImageUrl());
-           dto.setFoodId());
+		   dto.settName();
+           dto.setCategoryId(); 
+           dto.setKcal();
+           dto.setProtein();
+           dto.setCarb();
+           dto.setFat();
+           dto.setRecipe();
+           dto.setImageUrl();
+           dto.setFoodId();
 		//뭘 받아서 뭘 삭제해야할지... 정보를 뭘 가져와야 하나요..
 		
 		request.setAttribute("result", String.valueOf(dao.delete(dto)));
