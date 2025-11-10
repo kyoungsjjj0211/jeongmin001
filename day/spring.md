@@ -93,13 +93,14 @@ DI( Dependency Injection : 의존성 주입 )
     3. 롬복설치
     4. 스프링에서 사용하기
 
-    -- 5. ioc + di
+---
+5. ioc + di
     DI ( Dependency Injection : 의존성 주입)
     - 각클래스 간의 의존관계 [ 설정파일]을 통해 [컨테이너]가 자동으로 연결
 
-        [AnimalFarm] (사용) → [ <<interface>>Animal]
-            ↑(삽입)                 ↑(구현)        ↑(구현)
-            [beans.xml]   (생성) → [Cat       /       Dog]
+        
+
+
 
 <!-- 수정 -->
 <!-- 수정 -->
@@ -227,6 +228,7 @@ DI( Dependency Injection : 의존성 주입 )
    <!-- HikariCP -->
    <!-- HikariCP -->
    <!-- HikariCP -->          
+         
          
 </dependencies>
 <!-- 수정 -->
