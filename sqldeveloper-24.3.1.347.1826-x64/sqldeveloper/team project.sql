@@ -30,10 +30,6 @@ CREATE TABLE FOODTB (
 
     CONSTRAINT FKFOOD FOREIGN KEY (categoryId) REFERENCES CATEGORYTB (categoryId)
 );
-desc FOODTB;
-select * from FOODTB where foodId=32;
-
- 
 
 
 -- 🔹 SEQUENCE 생성: 음식 ID 자동 증가 시퀀스
@@ -104,13 +100,9 @@ SELECT
 FROM FOODTB f
 JOIN CATEGORYTB c
 ON f.categoryId = c.categoryId;
-
-INSERT INTO USERS (APPUSERID, PASSWORD, NICKNAME, EMAIL, MOBILE, JOINDATE) 
-				 VALUES (1, '11', '111', '1@1', '');
-
-    
     
 DELETE FROM FOODTB;
+
 --선택적 사항
 --DROP TABLE FOODTB CASCADE CONSTRAINTS;  --삭제 코드
 --DROP SEQUENCE FOODSEQ; --삭제 코드
@@ -127,5 +119,5 @@ CREATE TABLE users (
     JOINDATE   DATE            DEFAULT SYSDATE              
 );
 
-
+commit;
 select * from users;
