@@ -98,9 +98,72 @@ DI( Dependency Injection : 의존성 주입 )
     DI ( Dependency Injection : 의존성 주입)
     - 각클래스 간의 의존관계 [ 설정파일]을 통해 [컨테이너]가 자동으로 연결
 
-        
+
+#1. 프레임워크
+    - 소프트웨어 개발의 뼈대역할
+    - 실행흐름 담당
+#2. IOC
+    - 인스턴스 생성~ 소멸까지 생명주기를 스프링이 관리
+#3. DI
+    각 클래스의 의존관계를 [설정파일]을 통해서 컨테이너가 자동연결
+#4. BEAN
+    - 관리되는 객체
+
+#5. 예시)
+
+class MyA{
+    private String name;
+    private Animal ani;
+
+    public MyA(String name, Animal ani){
+        this.name=name;
+        this.ani = ani;
+    }
+}
+1. setter 방식
+<bean id="myA" class="com.company.MyA">
+    <property name="name" value="sally"/>
+    <property name="ani" ref="cat"/>
+</bean>
+
+2. 생성자 방식
+<bean id="myA" class="com.company.MyA">
+    <constructor-are index="0"  value="sally"/>
+    <constructor-are index="1"  ref="ani"/>
+</bean>
+
+3. di-properties
+name=sally
+ani=cat
+<context:property-playholder location="classpath:config/test.properties"/>
+
+<bean id="myA" class="com.company.MyA">
+    <constructor-are index="0"  value="${name}"/>
+    <constructor-are index="1"  ref="${ani}"/>
+</bean>
+
+------------------
+#3. Bean
+------------------
+
+1.  xml vs Annotation
+>> xml : 운영
+>> Annotation : 개발
 
 
+2. @Component
+-  @Component 일반적인 컴포넌트 <bean> 스프링이 관리하는 객체
+-  @Component 구체화된 형식
+    @Controller 웹요청받아서 응답
+    @Service    서비스 레이어, 비즈니스 로직
+    @Repository 데이터베이스
+
+3.  Bean 의존관계주입
+    1. @Autowired - 정밀한 의존관계
+        -프로퍼티, setter, 생성자,, 적용
+    2. @Qualifier - 동일한타입의 bean 구분
+    3. @Value 단순값
+    4. @Resource - 자원연결(    . properties)
 
 <!-- 수정 -->
 <!-- 수정 -->
@@ -233,4 +296,9 @@ DI( Dependency Injection : 의존성 주입 )
 </dependencies>
 <!-- 수정 -->
 <!-- 수정 -->  
+
+
+
+
+
 

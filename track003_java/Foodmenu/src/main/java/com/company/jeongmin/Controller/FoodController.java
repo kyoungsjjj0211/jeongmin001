@@ -60,10 +60,10 @@ public class FoodController extends HttpServlet {
 		
 		if(path.equals("/list.food")) {
 			service = new FoodList(); service.exec(request, response);
-			request.getRequestDispatcher("View/list.jsp").forward(request, response);
+			request.getRequestDispatcher("View/foodlist.jsp").forward(request, response);
 			
 		}else if (path.equals("/writeview.food")) {
-			request.getRequestDispatcher("View/write.jsp").forward(request, response);
+			request.getRequestDispatcher("View/foodwrite.jsp").forward(request, response);
 			
 		}else if (path.equals("/write.food")) {
 			service = new FoodInsert(); service.exec(request, response);
@@ -77,11 +77,11 @@ public class FoodController extends HttpServlet {
 			}
 		}else if (path.equals("/detail.food")) { //작성한 글의 상세보기
 			service = new FoodDetail(); service.exec(request, response);
-			request.getRequestDispatcher("View/detail.jsp").forward(request, response);
+			request.getRequestDispatcher("View/fooddetail.jsp").forward(request, response);
 			
 		}else if (path.equals("/editView.food")) { //수정내용 확인
 			service = new FoodUpdateView(); service.exec(request, response);
-			request.getRequestDispatcher("View/edit.jsp").forward(request, response);
+			request.getRequestDispatcher("View/foodedit.jsp").forward(request, response);
 			
 		}else if (path.equals("/edit.food")) { //수정
 			service = new FoodUpdate(); service.exec(request, response);
