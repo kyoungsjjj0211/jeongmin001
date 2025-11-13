@@ -41,9 +41,16 @@
 		<constructor-arg ref="sqlSessionFactory" />
 	</bean>
 	
-	
+	 <context:property-placeholder  location="classpath:config/db.properties" />
+   <bean  id="dataSource"   
+         class="com.zaxxer.hikari.HikariDataSource">
+      <property name="driverClassName"   value="${db.driverClass}" />
+      <property name="jdbcUrl"            value="${db.url}" />
+      <property name="username"      value="${db.username}" />
+      <property name="password"      value="${db.password}" />
+   </bean>
 	<!--  STEP1 DataSource -->
-<context:property-placeholder 
+<!-- <context:property-placeholder 
 		location="classpath:config/db.properties"/>
 	<bean id="dataSource" 
 		  class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
@@ -51,5 +58,5 @@
 		<property name="url"         value="${db.url}"/>
 		<property name="username"  	 value="${db.username}"/>
 		<property name="password" 	 value="${db.password}"/>
-	</bean>
+	</bean> -->
 </beans>

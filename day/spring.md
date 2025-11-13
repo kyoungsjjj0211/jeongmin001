@@ -165,6 +165,87 @@ ani=cat
     3. @Value 단순값
     4. @Resource - 자원연결(    . properties)
 
+4. component-scan
+<context:component-scan base-package="경로설정"/>
+
+
+-----------------------
+#4. DB
+-----------------------
+1. DataSource
++ SimpleDrdiverDataSource - 가장단순한버전
+
+2. mybatis
+- sql을 별도로 파일분리해서 관리
+- orm (object relational mapping) 프레임워크
+
+3. 설정내용
+root-context.xml 환경정보설정
+db.propertis     db정보설정
+SqlSessionFactoryBean : SqlSession 생성 및 관리
+SqlSesion             : sql 실행, 트랜잭션
+mapper.xml
+
+
+
+ ■ Q12. controller
+ MVC
+ >> 서로 영향없이 고칠수 있느 애플리케이션을 만들 수 있음.
+ -MODEL : DB (TABLE, DTO, DAO, SERVICE)
+ -VIEW : 화면 (html, css, js/jquery)
+ -CONTROLLER : MODEL과 VIEW 사이의 관리
+
+ >> MVC1 VS MVC2
+
+ >> Frontcontroller
+[클라이언트] → [Frontcontroller *.do]  → 세부 Controller → View
+                                      → 세부 Controller → View
+                                      → 세부 Controller → View
+1. Frontcontroller - 공통작업먼저수행
+2. 세부 Controller 작업 View 최종결과 생성
+
+>> SPRING MVC
+
+[클라이언트]
+
+[Frontcontroller]  <<DispatcherServlet>>
+    ↓  ↑             Handler Mapping @Controller - View(ViewResolver)
+  세부 Controller → View
+  세부 Controller → View
+  세부 Controller → View  - db연동
+
+1) 클라이언트 요청
+2) DispatccherServlet - Handler Mapping @Controller
+3) Controller 클라이언트의 요청처리
+4) DispatcherServlet - ViewResolver 통해서 응답결과 처리
+
+[실습]
+1. [pom.xml] - spring-webmvc , jstl / jackson-mapper-asl
+2. [web.xml] - ContextLoaderListener(스프링구동) / DispatcherServlet (FrontController)
+3. [servelt-context.xml] Controller위치설정, ViewResolver
+4. [controller] list.do(처리, view),,,, 설정
+
+controller 작성 예시
+@RequestMapping("/list.do")  //주소
+	public String list() {
+		return "quest_board/list";   //파일 위치
+	}
+
+
+/list.quest       /view/quest_board/list.jsp  
+/write.quest      /view/quest_board/write.jsp 	(글쓰기폼)
+/detail.quest     /view/quest_board/detail.jsp 	(상세보기)
+/edit.quest       /view/quest_board/edit.jsp 	(수정하기 폼)
+/delete.quest     /view/quest_board/delete.jsp 	(삭제하기 폼)
+
+
+■ Q13. view
+5. [view] 연동
+
+
+
+
+
 <!-- 수정 -->
 <!-- 수정 -->
 <dependencies>
@@ -291,6 +372,73 @@ ani=cat
    <!-- HikariCP -->
    <!-- HikariCP -->
    <!-- HikariCP -->          
+     <!-- https://mvnrepository.com/artifact/org.springframework/spring-webmvc -->
+  <dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-webmvc</artifactId>
+    <version>3.2.17.RELEASE</version>
+  </dependency>
+  
+     <!-- https://mvnrepository.com/artifact/javax.servlet/jstl -->
+   <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>jstl</artifactId>
+      <version>1.2</version>
+   </dependency>
+   
+   <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>jstl</artifactId>
+      <version>1.2</version>
+   </dependency>
+   
+   <!-- https://mvnrepository.com/artifact/org.aspectj/aspectjrt -->
+   <dependency>
+       <groupId>org.aspectj</groupId>
+       <artifactId>aspectjrt</artifactId>
+       <version>1.7.3</version>
+       <!-- <scope>runtime</scope> -->
+   </dependency>
+   <!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
+   <dependency>
+       <groupId>org.aspectj</groupId>
+       <artifactId>aspectjweaver</artifactId>
+       <version>1.7.3</version>
+      <!-- <scope>runtime</scope> -->
+   </dependency>
+   <!-- https://mvnrepository.com/artifact/org.springframework/spring-aop -->
+   <dependency>
+       <groupId>org.springframework</groupId>
+       <artifactId>spring-aop</artifactId>
+       <version>4.3.28.RELEASE</version>
+   </dependency>
+   
+
+     <!-- https://mvnrepository.com/artifact/org.codehaus.jackson/jackson-mapper-asl -->
+   <dependency>
+       <groupId>org.codehaus.jackson</groupId>
+       <artifactId>jackson-mapper-asl</artifactId>
+       <version>1.9.13</version>
+   </dependency>
+
+   <!-- https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api -->
+   <dependency>
+      <groupId>javax.xml.bind</groupId>
+      <artifactId>jaxb-api</artifactId>
+      <version>2.3.1</version>
+   </dependency>
+   <!-- https://mvnrepository.com/artifact/org.glassfish.jaxb/jaxb-core -->
+   <dependency>
+      <groupId>org.glassfish.jaxb</groupId>
+      <artifactId>jaxb-core</artifactId>
+      <version>2.3.0.1</version>
+   </dependency>
+   <!-- https://mvnrepository.com/artifact/com.sun.xml.bind/jaxb-impl -->
+   <dependency>
+      <groupId>com.sun.xml.bind</groupId>
+      <artifactId>jaxb-impl</artifactId>
+      <version>2.3.1</version>
+   </dependency>   
          
          
 </dependencies>
