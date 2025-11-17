@@ -14,7 +14,7 @@
 	</script>
 
    <div class="container card  my-5 p-4">
-      <h3 class="card-header"> MBTI  QUEST 상세보기 ${dto}</h3>
+      <h3 class="card-header"> MBTI  QUEST 상세보기 <%-- ${dto} --%></h3>
 	  <div> 
 	      <input type="hidden"   name="appUserId"  value=""> 
 		  <div class="mb-3 mt-3">
