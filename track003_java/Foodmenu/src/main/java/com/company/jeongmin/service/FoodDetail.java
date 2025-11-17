@@ -16,6 +16,7 @@ public class FoodDetail implements FoodService {
 		//데이터 넘겨받기
 		//이건 MbtiDetail에서처럼 조회수를 1 올리는 기능이 아닌 원래 있던 정보를 상세보기 하는 기능인데
 		int id=Integer.parseInt(request.getParameter("id"));
+		
 		//드커프리
 		FoodDao dao = new FoodDao();
 		FoodDto result = dao.select(id);

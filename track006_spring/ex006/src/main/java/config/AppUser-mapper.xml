@@ -32,7 +32,7 @@
 	select * from appuser order by appUserId desc
 	</select> -->
 	
-	<select resultType="AppuserMap" id="selectAll">
+	<select resultType="appuserMap" id="selectAll">
 	select * from appuser order by APP_USER_ID desc
 	</select>
 	
