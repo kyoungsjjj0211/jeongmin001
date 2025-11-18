@@ -12,11 +12,7 @@ public interface AppUserDao {
 	public List<AppUserDto> selectAll();
 	public AppUserDto       select(int appUserId);
 	public AppUserDto       selectEmail(String email);
-	public int selectLogin(AppUserDto dto);
-	
-	
-	
-	
+	public int selectLogin(AppUserDto dto);	
 }
 
 

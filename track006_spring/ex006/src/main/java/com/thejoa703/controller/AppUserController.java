@@ -15,46 +15,50 @@ import com.thejoa703.service.AppUserService;
 
 @Controller
 public class AppUserController {
-	
-@Autowired AppUserService service;
+	@Autowired AppUserService service;
 
 	@RequestMapping("/list.users")
 	public String list(Model model) {
 			model.addAttribute("list", service.selectAll());
-			return "users_board/list";
+			return "member/list";
 	}
 	@RequestMapping(value="/join.users", method=RequestMethod.GET)
-	public String join_get() {
-		return "users_board/join";
-	}
+	public String join_get() {return "member/join";}
+	
 	@RequestMapping(value="/join.users", method=RequestMethod.POST)
 	public String join_post(AppUserDto dto, RedirectAttributes rttr) {
 		String result="회원가입 실패";
 		if (service.insert(dto) > 0) {result = "회원가입 성공";}
 		rttr.addFlashAttribute("success", result);
-		return "redirect:login.users";
+		return "redirect:/login.users";
 	}
 	@RequestMapping("/login.users")
 	public String login_get() {
-		return "users_board/login";
+		return "member/login";
 	}
 	@RequestMapping(value="/login.users", method=RequestMethod.POST)
 	public String login_post(AppUserDto dto, HttpServletRequest request, RedirectAttributes rttr) {
+		System.out.println("...............1 > " + dto);
 		String result="로그인 실패";
-		if(service.selectLogin(dto) == 1 ) {
+		int service_result = service.selectLogin(dto);
+		System.out.println("...............2 > " + service_result);
+		if(service_result == 1 ) {
 			HttpSession session = request.getSession();
 			session.setAttribute("email" , dto.getEmail() );
+			System.out.println("...............3 > " + dto.getEmail());
 			result ="로그인 성공";
 		}
 		rttr.addFlashAttribute("success", result);
-		return "redirect:/login";
+		return "redirect:/mypage.users";
 	}
+	
 	@RequestMapping("/mypage.users")
 	public String Mypage(HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession();
 		String email = (String)session.getAttribute("email");
+		System.out.println("............." + email );
 		model.addAttribute("dto",service.selectEmail(email));
-		return "users_board/mypage";
+		return "member/mypage";
 	}
 	@RequestMapping("/logout.users")
 	public String mypage(HttpServletRequest request) {
@@ -65,7 +69,7 @@ public class AppUserController {
 	@RequestMapping("/edit.users")
 	public String edit_get( int appUserId,Model model) {
 		model.addAttribute("dto", service.select(appUserId));
-		return "users_board/edit";
+		return "member/edit";
 	}
 	@RequestMapping(value="/edit.users" , method=RequestMethod.POST)
 	public String edit_post(AppUserDto dto, RedirectAttributes rttr) {
@@ -76,19 +80,20 @@ public class AppUserController {
 	
 	@RequestMapping("/delete.users")
 	public String delete() {
-		return "users_board/delete";
+		return "member/delete";
 	}
 	
 	@RequestMapping(value="/delete.users" , method=RequestMethod.POST)
 	public String delete_post(AppUserDto dto, RedirectAttributes rttr , HttpServletRequest request) {
+		System.out.println(".........." + dto);
 		String result = "비밀번호를 확인해주세요";
 		if(service.delete(dto) > 0 ) {
-			result = "탈퇴 성공"; HttpSession session = request.getSession();
+			result = "삭제 성공"; 
+			HttpSession session = request.getSession();
 			session.invalidate();
 		}
-		rttr.addFlashAttribute("success" , result);
-		
-		return "redirect:/login.user";
+		rttr.addFlashAttribute("success" , result); 
+		return "redirect:/login.users";
 	}
 	
 

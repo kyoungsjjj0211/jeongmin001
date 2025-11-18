@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="ttpss://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <style>
   .fakeimg {
     height: 200px;
@@ -27,14 +27,20 @@
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
   <div class="container-fluid">
     <ul class="navbar-nav"> 
+    
+    <c:if test="${not empty sessionScope.email}">
 	      <li class="nav-item">
-	        <a class="nav-link" href="">로그아웃</a>
-	      </li>   
-	      <li class="nav-item">
-	        <a class="nav-link" href="">LOGIN</a>
+	        <a class="nav-link" href="${pageContext.request.contextPath}/mypage.users">마이페이지</a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" href="">JOIN</a>
+	        <a class="nav-link" href="${pageContext.request.contextPath}/logout.users">로그아웃</a>
+	      </li>
+	</c:if>         
+	      <li class="nav-item">
+	        <a class="nav-link" href="${pageContext.request.contextPath}/login.users">LOGIN</a>
+	      </li>
+	      <li class="nav-item">
+	        <a class="nav-link" href="${pageContext.request.contextPath}/join.users">JOIN</a>
 	      </li>    
 	      <li class="nav-item">
 	        <a class="nav-link" href="">Quest Board</a>
