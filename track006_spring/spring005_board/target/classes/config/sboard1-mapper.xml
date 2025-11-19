@@ -21,6 +21,11 @@
 	insert into sboard1 ( ID    , APP_USER_ID , BTITLE , BCONTENT , BPASS , BIP)  
 	values (sboard1_seq.nextval ,#{appUserId}, #{btitle},#{bcontent},#{bpass}, #{bip})
 	</insert>
+
+	<insert     id="insert2"  parameterType="Sboard1Dto">
+	insert into sboard1 ( ID    , APP_USER_ID , BTITLE , BCONTENT , BPASS ,BFILE, BIP)  
+	values (sboard1_seq.nextval ,#{appUserId}, #{btitle},#{bcontent},#{bpass},#{bfile}, #{bip})
+	</insert>
 	
 	<update     id="updateHit"   parameterType="int">
 	update  sboard1   set     bhit = bhit + 1    where   id=#{id}    
@@ -29,6 +34,12 @@
 	<update     id="update"  parameterType="Sboard1Dto">
 	update  sboard1  
 	set     BTITLE=#{btitle} , BCONTENT=#{bcontent} 
+	where   id=#{id}   and BPASS= #{bpass} 
+	</update>
+	
+	<update     id="update2"  parameterType="Sboard1Dto">
+	update  sboard1  
+	set     BTITLE=#{btitle} , BCONTENT=#{bcontent}, BFILE=#{bfile} 
 	where   id=#{id}   and BPASS= #{bpass} 
 	</update>
 	
@@ -42,5 +53,10 @@
 	
 	<select    resultMap  ="sboard1Map"   id="select"  parameterType="int">
 	select * from sboard1 where id=#{id}  
+	</select>
+	
+	<!--  ajax-serch -->
+	<select  resultMap  ="sboard1Map"   id="selectSearch" parameterType="java.util.HashMap">
+	select * from sboard1 where btitle like #{search} <!-- search로 해당하는 친구들 -->
 	</select>
 </mapper>

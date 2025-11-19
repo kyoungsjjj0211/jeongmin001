@@ -1,5 +1,6 @@
 package com.thejoa703.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.thejoa703.dto.Sboard1Dto;
@@ -12,6 +13,12 @@ public interface Sboard1Dao {
 	public int delete(Sboard1Dto dto);
 	public List<Sboard1Dto>  selectAll();
 	public Sboard1Dto        select(int id);
+	/*Upload*/
+	public int insert2(Sboard1Dto dto);
+	public int update2(Sboard1Dto dto);
+	
+	/*Ajax*/
+	public List<Sboard1Dto>  selectSearch(HashMap<String, String> para); //Hash로 가져오기
 }
 
 

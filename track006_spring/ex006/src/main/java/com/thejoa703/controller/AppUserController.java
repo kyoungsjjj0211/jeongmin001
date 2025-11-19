@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.thejoa703.dto.AppUserDto;
@@ -38,18 +40,16 @@ public class AppUserController {
 	}
 	@RequestMapping(value="/login.users", method=RequestMethod.POST)
 	public String login_post(AppUserDto dto, HttpServletRequest request, RedirectAttributes rttr) {
-		System.out.println("...............1 > " + dto);
+
 		String result="로그인 실패";
-		int service_result = service.selectLogin(dto);
-		System.out.println("...............2 > " + service_result);
+		int service_result = service.selectLogin(dto); 
 		if(service_result == 1 ) {
 			HttpSession session = request.getSession();
 			session.setAttribute("email" , dto.getEmail() );
-			System.out.println("...............3 > " + dto.getEmail());
 			result ="로그인 성공";
 		}
 		rttr.addFlashAttribute("success", result);
-		return "redirect:/mypage.users";
+		return   service_result == 1 ? "redirect:/mypage.users" : "redirect:/login.users";
 	}
 	
 	@RequestMapping("/mypage.users")
@@ -95,8 +95,23 @@ public class AppUserController {
 		rttr.addFlashAttribute("success" , result); 
 		return "redirect:/login.users";
 	}
-	
-
+	// UPLOAD
+	@RequestMapping(value="/uploadjoin.users", method=RequestMethod.POST)
+	public String upload_post(@RequestParam("file") MultipartFile file
+				,AppUserDto dto, RedirectAttributes rttr) {
+		String result="회원가입 실패";
+		if (service.insert2(file, dto) > 0) {result = "회원가입 성공";}
+		rttr.addFlashAttribute("success", result);
+		return "redirect:/login.users";
+	}
+	@RequestMapping(value="/uploadEdit.users" , method=RequestMethod.POST)
+	public String uploadEdit_post(@RequestParam("file") MultipartFile file
+							, AppUserDto dto, RedirectAttributes rttr) {
+		String result="비밀번호를 확인해주세요";
+		if(service.update2(file, dto) > 0 ) {result = "수정 성공";}
+		rttr.addFlashAttribute("success", result);
+		return "redirect:/mypage.users?id=" + dto.getAppUserId();
+		}
 }
 
 

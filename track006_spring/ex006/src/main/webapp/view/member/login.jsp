@@ -4,7 +4,7 @@
 <%@  include file="../inc/header.jsp" %>   
 <div class="container mt-5">
 	<h3> 로그인</h3>
-	<form action="${pageContext.request.contextPath}/login.users"  method="post">
+	<form action="${pageContext.request.contextPath}/login.users" method="post">
 	  <div class="mb-3 mt-3">
 	    <label for="email" class="form-label">Email:</label>
 	    <input type="email" class="form-control" id="email" placeholder="이메일을 적어주세요" 

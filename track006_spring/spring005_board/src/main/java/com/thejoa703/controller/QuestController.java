@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.thejoa703.dto.Sboard1Dto;
@@ -77,6 +79,26 @@ public class QuestController {
 		return "redirect:/list.quest";
 	}
 	// Q2. 삭제기능도 비밀번호를 확인해주세요 알림창 + /list.quest 경로넘기기
+	
+	// 글쓰기 기능
+	@RequestMapping(value = "/upload.quest", method = RequestMethod.POST)
+	public String upload_post(@RequestParam("file") MultipartFile file
+				,Sboard1Dto dto, RedirectAttributes rttr) {
+		String result = "글쓰기 실패";
+		if (service.insert2(file,dto) > 0) {result = "글쓰기 성공";}
+		rttr.addFlashAttribute("success", result);
+		return "redirect:/list.quest";
+		}
+	
+	@RequestMapping(value = "/updateEdit.quest", method = RequestMethod.POST) // 수정기능
+	public String updateEdit_post(@RequestParam("file") MultipartFile file
+									, Sboard1Dto dto, RedirectAttributes rttr) {
+		String result = "비밀번호를 확인해주세요";
+		if (service.update2(file, dto) > 0) {result = "수정 성공";}
+		rttr.addFlashAttribute("success", result);
+		return "redirect:/detail.quest?id=" + dto.getId();
+	}
+	
 }
 
 /*

@@ -5,7 +5,8 @@
  
 <div class="container mt-5">
 	<h3>WELCOME! 회원가입</h3>
-	<form action="${pageContext.request.contextPath}/join.users"  method="post">
+	<form action="${pageContext.request.contextPath}/uploadjoin.users"
+	  method="post" encType="multipart/form-data">
 		<input type="hidden"   name="appUserId"  value="1">
 		<div class="mb-3 mt-3">
 			<label  for="email" class="form-label">Email:</label> 
@@ -17,6 +18,10 @@
 			<input type="password" class="form-control" id="password"
 					placeholder="비밀번호를 입력해주세요" name="password">
 		</div>
+		<div class="mb-3">
+		    <label for="file" class="form-label">FILE:</label>
+		    <input type="file" class="form-control" id="file" placeholder="파일을 입력해주세요" name="file">
+		  </div>
 		<div class="mb-3">
 			<label class="form-check-label"  for="mbtiTypeId">MBTI TYPE : </label>  
 			<select   name="mbtiTypeId"  id="mbtiTypeId"  class="form-control">

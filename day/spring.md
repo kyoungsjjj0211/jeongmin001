@@ -187,7 +187,139 @@ SqlSesion             : sql 실행, 트랜잭션
 mapper.xml
 
 
+#6. Upload
 
+1. model
+    > table : 이미지 경로필드
+
+SQL> desc sboard1; 
+name       null?  type
+------------------------------------
+     ID             NOT NULL    number
+     APP_USER_ID    NOT NULL NUMBER  
+     BTITLE         NOT NULL    VARCHAR2(1000) 
+     BCONTENT       NOT NULL  CLOB  
+     BPASS          NOT NULL    VARCHAR2(255)
+     BFILE                      VARCHAR2(255)
+     BHIT                       NUMBER(10)
+     BIP            NOT NULL    VARCHAR2(255) 
+     CREATE_AT                  TIMESTAMP(6)
+
+
+
+
+    >dto : bfile
+
+  private String bfile;         // BFILE (default: 'no.png')
+
+    >dao : insert, update
+
+   <insert     id="insert2"  parameterType="Sboard1Dto">
+   insert into sboard1 ( ID    , APP_USER_ID , BTITLE , BCONTENT , BPASS , BFILE , BIP)  
+   values (sboard1_seq.nextval ,#{appUserId}, #{btitle},#{bcontent},#{bpass},  #{bfile} , #{bip})
+   </insert>
+
+   <update     id="update2"  parameterType="Sboard1Dto">
+	update  sboard1  
+	set     BTITLE=#{btitle} , BCONTENT=#{bcontent}, BFILE=#{bfile} 
+	where   id=#{id}   and BPASS= #{bpass} 
+    </update>
+
+
+2. view
+    form : encType = "multipart/form-data"
+        method="post"
+        <input type="file" />
+
+3. controller
+    pom.xml
+ <!--img upload start-->
+<!--img upload start-->
+       <!-- commons-fileupload -->
+   <dependency>
+      <groupId>commons-fileupload</groupId>
+      <artifactId>commons-fileupload</artifactId>
+      <version>1.3.1</version>
+   </dependency>
+
+   <!-- commons-io -->
+   <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>2.11.0</version>
+   </dependency>
+<!-- img upload end -->
+<!-- img upload end -->  
+   
+         <!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
+    
+        
+
+    servlet-context.xml
+    FilUplad.java
+
+
+    UploadUtil.java - service
+    Controller.java - service
+Q1> 이미지업로드기능추가
+Q2> 수정시 기존에 파일을 바꾸지 않으면 기존의 올린값이 나오고, 
+               파일을 올리면 값 바꾸게 처리    
+    
+
+
+appuser
+Q1. table 에 추가
+    1) ufile varchat2(255) default 'member.png'
+    2) dto
+    3) dao - insert / update
+
+
+Q2. 멤버가입시 이미지올리기 가능
+
+Q3. 수정시 이미지 수정가능
+
+
+--
+Upgrade1)
+
+문제점발견 : 사용자들이 이미지를 올리는 것을 부담스러워함.
+해결방안 : 
+    회원가입시
+    만약에 사용자가 이미지를 안올리면  7개의 유저이미지가 랜덤하게 올라가게 만들기
+
+
+    if() {만약 파일을 올린게 있다면.... 파일올리기}
+    else{ 아니라면 랜덤하게 이미지 경로추출해서 setUfile()}
+
+
+---------------------------
+#7. Ajax
+---------------------------
+1. 글 검색
+2. 아이디중복검사
+3. 유저 수정, 삭제
+
+
+1) model
+table, dto, dao# , service)
+    select * from sboard1 where like '%a%';
+
+2) controller
+@RestController //@Controller + @ResponseBody
+
+http://localhost:8181/spring005_board/selectSearch?search=t
+
+
+3) controller
+
+---------------------
+#8. PAGING
+---------------------
+
+
+---------------------
+#9. AOP + MYbatis
+---------------------
  ■ Q12. controller
  MVC
  >> 서로 영향없이 고칠수 있느 애플리케이션을 만들 수 있음.
