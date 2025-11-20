@@ -16,4 +16,16 @@ public interface AppUserService {
 		public int selectLogin(AppUserDto dto);
 		 public int insert2(MultipartFile file, AppUserDto  dto);
 		 public int update2(MultipartFile file, AppUserDto  dto);
+		 
+		 /*iddouble*/
+		 public int iddouble(String email);
+		 
+		 /*admin 유저관리 - 
+		     		/전체유저정보 selectAll
+		   			/아이디 주면 해당 유저 정보 찾기 select
+		   			/수정하기 updateAdmin
+		   			/삭제하기 deleteADmin
+		   */
+		 public int deleteAdmin(AppUserDto dto);
+		 public int updateAdmin(AppUserDto dto);
 }

@@ -299,10 +299,27 @@ Upgrade1)
 2. 아이디중복검사
 3. 유저 수정, 삭제
 
-
+2. 아이디중복검사
 1) model
-table, dto, dao# , service)
-    select * from sboard1 where like '%a%';
+> table - sql :  해당 아이디가 있는지 검색 - sql 작성 
+  ㄴ//오라클 내에서 id = email  select * from appuser where email = '1@1';
+아이디 중복 검사
+  
+> dto : 
+> dao : public int iddouble(String email);
+
+sql
+ㄴmapper
+  <select resultType="int" id="iddouble" parameterType="String">
+	     select count(*) cnt from appuser where email=#{email}
+	 </select>
+
+ServiceImpl
+@Override public int iddouble(String email) {return dao.iddouble(email); }
+
+service
+public int iddouble(String email);
+
 
 2) controller
 @RestController //@Controller + @ResponseBody
@@ -310,8 +327,26 @@ table, dto, dao# , service)
 http://localhost:8181/spring005_board/selectSearch?search=t
 
 
-3) controller
+3) view
 
+
+
+list.jsp Ajax
+if(keyword.length === 0){
+            	$("#resultArea tbody").empty().append('<tr><td colspan="5">검색어를 입력하세요.</td></tr>');
+            	return;
+            }else{ 
+            	
+            	$.ajax({
+            		url:"${pageContext.request.contextPath}/selectSearch",
+            		type:"GET",
+            		data:{ search : keyword },
+            		success:function(res){
+            			console.log(res);
+            			 $("#resultArea tbody").append(res); 
+            		}
+            	});
+       		  }
 ---------------------
 #8. PAGING
 ---------------------

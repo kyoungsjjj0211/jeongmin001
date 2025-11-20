@@ -75,21 +75,32 @@
         $("#search").on("keyup" , function(){ //keyup (키보드땟을때)  
             console.log( $(this).val().trim()  ); 
             let keyword = $(this).val().trim();
-        if(keyword.length === 0){
-            	$("#resultArea tbody").empty().append('<tr><td colspan="5">검색어를 입력하세요.</td></tr>');
-            	return;
-            }else{ 
-            	
+            if(keyword === ""){ //빈칸일때
+            	$("resultArea tbody")
+            	.empty()
+            	.append("<tr><td colspan='5'>검색어를 입력하세요.</td></tr>");
+            }else{//서버요청
             	$.ajax({
             		url:"${pageContext.request.contextPath}/selectSearch",
-            		type:"GET",
-            		data:{ search : keyword },
+            		type:"GET", // GET, POST, PUT
+            		data:{search:keyword},
             		success:function(res){
             			console.log(res);
-            			 $("#resultArea tbody").append(res); 
+            			$("#resultArea tbody").empty(); //초기화. 값 비우기
+            			$.each(res, function(index, dto){
+							let row = "<tr>"
+							+"<td>"+ (res.length-index)+"</td>"
+							+"<td><a href='${pageContext.request.contextPath}/detail.quest?id="+dto.id+"'>"
+							+dto.btitle+"</a></td>"
+							+"<td>"+dto.appUserId+"</td>"
+							+"<td>"+dto.createdAt+"</td>"
+							+"<td>"+dto.bhit+"</td>"
+							+"</tr>";						            				
+            				$("#resultArea tbody").append(row);
+            			});
             		}
             	});
-       		  } 
+            }
         });
      });
      </script>   
