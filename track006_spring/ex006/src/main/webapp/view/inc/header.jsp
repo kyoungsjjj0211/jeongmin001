@@ -27,7 +27,7 @@
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
   <div class="container-fluid">
     <ul class="navbar-nav"> 
-    <c:if test="${not empty sessionScope.email}">
+    <c:if test="${not empty sessionScope.email}"> <!-- 세션의 이메일이 비어있지 않다면 -->
      <li class="nav-item">
 	        <a class="nav-link" href="${pageContext.request.contextPath}/list.users">유저관리</a>
 	      </li>

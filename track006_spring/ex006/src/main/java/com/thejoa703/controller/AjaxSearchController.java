@@ -42,17 +42,34 @@ public class AjaxSearchController { //inddouble?email=1@1 있는 값은 1 inddou
 		return result;
 	}
 	
-	@RequestMapping("/updateAdmin") // http://localhost:8181/ex006/select?appUserId=75&mbtiType=1
-	public Map<String,Object> updateAdmin(@RequestParam AppUserDto dto){
-		Map<String,Object> result = new HashMap<>();
-		result.put("result" , service.updateAdmin(dto) );
+	@RequestMapping("/updateAdmin") // http://localhost:8181/ex006/updateAdmin?appUserId=80&mbtiTypeId=2
+	public Map<String,Object> updateAdmin(@RequestParam int appUserId, 
+										  @RequestParam int mbtiTypeId){
+		Map<String, Object> result = new HashMap<>();
+		AppUserDto dto = new AppUserDto();
+		dto.setAppUserId(appUserId); dto.setMbtiTypeId(mbtiTypeId);
+		result.put("result", service.updateAdmin(dto));
 		return result;
 	}
 	
-	@RequestMapping("/deleteAdmin")
-	public Map<String,Object> deleteAdmin(@RequestParam AppUserDto dto){
-		Map<String,Object> result = new HashMap<>();
-		result.put("result" , service.deleteAdmin(dto) );
+	@RequestMapping("/deleteAdmin") // http://localhost:8181/ex006/deleteAdmin?appUserId=80
+	public Map<String,Object> deleteAdmin(@RequestParam int appUserId) {
+		Map<String, Object> result = new HashMap<>();
+		AppUserDto dto = new AppUserDto();
+		dto.setAppUserId(appUserId);
+		result.put("result", service.deleteAdmin(dto));
 		return result;
 	}
-}
+//	
+//	  @RequestMapping("/updateAdmin") //
+//	  http://localhost:8181/ex006/select?appUserId=75&mbtiType=1 public
+//	  Map<String,Object> updateAdmin(@RequestParam AppUserDto dto){
+//	  Map<String,Object> result = new HashMap<>(); result.put("result" ,
+//	  service.updateAdmin(dto) ); return result; }
+//	  
+//	  @RequestMapping("/deleteAdmin") public Map<String,Object>
+//	  deleteAdmin(@RequestParam AppUserDto dto){ Map<String,Object> result = new
+//	  HashMap<>(); result.put("result" , service.deleteAdmin(dto) ); return result;
+//	  }
+//	 
+	}

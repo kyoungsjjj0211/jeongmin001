@@ -53,7 +53,7 @@
 	    select count(*) cnt from appuser 	where email=#{email} and password=#{password}
 	</select>  
 	  
-	  <!--  upload  -->
+	<!--  upload  -->
 	<!--  upload  -->
 	<insert id="insert2" parameterType="AppUserDto">
 		insert into appuser (APP_USER_ID, EMAIL, PASSWORD, MBTI_TYPE_ID, UFILE)
@@ -65,7 +65,7 @@
 	</update>
 	<!-- upload-->
 	<!-- upload-->
-	
+
 	<!--아이디 중복검사 -->
 	<select resultType="int" id="iddouble" parameterType="String">
 	 select count(*) cnt from appuser where email=#{email}
