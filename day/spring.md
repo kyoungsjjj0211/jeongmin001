@@ -582,6 +582,279 @@ controller 작성 예시
 5. [view] 연동
 
 
+■ MYBATIS
+> 동적sql
+WHY)
+select * from emp;
+select * from emp  where ename='Scott';
+select * from emp  where job='SALESMAN';
+
+SQL 구문)  MYBATIS 3개
+
+
+Q1) select * from emp  where  ${searchType} = #{keyword}
+1-1. select * from emp  where ename='Scott';
+1-2. select * from emp  where job='SALESMAN';
+
+${searchType} → ''안붙음  stmt
+#{keyword}    → ''자동    pstmt
+
+Q2) select * from emp where ename=#{ename} <if test="job!=null"> and job=#{job} </if>
+
+select * from emp where ename='SMITH'
+select * from emp where ename='SMITH' and job='CLERK'
+
+Q3) select * from emp where empno=#{empno}
+    <choose>
+        <when test="ename !=null"> and ename=#{ename}</when>
+        <when test="job !=null"> and job=#{job}</when>
+        <otherwise> and mgr=#{mgr}</otherwise>
+    </choose>
+select *from emp where empno=7369 and mgr=7902
+select *from emp where empno=7369 and ename='SMITH' and mgr=7902
+select *from emp where empno=7369 and ename='SMITH' and job='CLERK'
+select *from emp where empno=7369 and ename='SMITH' and job='CLERK' and mgr=7902
+
+Q4) select * from emp
+    <where>
+        <if test="ename !=null"> ename=#{ename} </if>
+        <if test="job !=null"> job=#{job} </if>
+ select * from emp
+ select * from emp wher ename='SMITH'
+ select * from emp where job='CLERK'
+ select * from emp weher empno=7369 and ename='SMITH' and job='CLERK'
+
+
+Q5) 
+<update>
+update emp
+<set>
+    <if test="ename !=null"> ename=#{ename} , </if>
+    <if test="job !=null"> job=#{job} , </if>
+</set>
+where empno=#{empno}
+</update>
+
+update emp set ename=#{ename} where empno=#{empno}
+update emp set job=#{job} where empno=#{empno}
+update emp set ename=#{ename}, job=#{job} where empno=#{empno}
+
+
+Q6)
+
+select * from emp 
+<where>
+    empno in
+    <froeach item="no" collection="list" seperatior=","
+                 open="(" close=")">#{no}</foreach>
+</where>
+select * from emp where empno in (7369, 7499, 7521)
+
+Q7) join
+
+> desc authorities
+Name                               Null?    Type
+-----------------------------------------------------------------------
+email                              NOT NULL VARCHAR2(100)
+AUTH                               NOT NULL VARCHAR2(100)
+userid  varchar2(100)
+auth varchar2(100)
+
+create table authorities(
+    userid varchar2(100) not null,
+    auth varchar2(100) not null
+);
+```
+Q1. create table
+Q2. 필드명 바꾸기 : alter table authorities rename column userid to email;
+Q3. 있는 EMAIL로  insert 하기 : '1@1' 'MEMBER', '1@1' 'ADMIN'
+   SQL> insert into authorities(email, auth) values ('1@1', 'MEMBER');
+   SQL> insert into authorities(email, auth) values ('1@1', 'ADMIN');
+Q4. join 이용해서 email, password, auth 출력 (4가지)
+
+select u.email, password, auth
+from appuser u,  authorities a
+where u.email = a.email and u.email = '1@1';
+
+select email, password, auth
+from appuser natural join authorities
+where email = '1@1';
+
+select u.email, password, auth
+from appuser u left join authorities a on (u.email = a.email)
+where u.email = '1@1';
+
+select email, password, auth
+from appuser left join authorities using(email) 
+where email = '1@1';
+
+```
+
+> desc appuser;
+SQL> desc appuser;
+Name                               Null?    Type
+-----------------------------------------------------------------------
+APP_USER_Id                        NOT NULL NUMBER(5)
+EMAIL                              NOT NULL VARCHAR2(100)
+PASSWORD                                    VARCHAR2(100)
+MBTI_TYPE_ID                                NUMBER(3)
+CREATED_AT                                  DATE
+UFILE                                       VARCHAR2(255)
+
+
+----------------------
+#9. PAGING
+----------------------
+1. 프로젝트 복사하기 (spring005복사해서 spring007_paging)
+2. 페이징?
+model
+    >table
+       insert into sboard1 ( ID    , APP_USER_ID , btitle, bcontent, bpass, bfile,  bip )
+      select  sboard1_seq.nextval , APP_USER_ID , btitle, bcontent, bpass, bfile,  bip   from sboard1;
+    >dto
+    >dao 10개씩
+        select * 
+        from (
+            select row_number() over( order by created_At desc) as rnum ,
+            ID    , app_user_id , btitle, bcontent, bpass, bfile,  bip, bhit, created_at
+            from sboard1
+        ) A
+        where A.rnum between  1 and 10;
+
+        1페이지 시작 1,  끝 10
+        2페이지 시작 11, 끝 20
+        3페이지 시작 21, 끝 30
+SQL> desc sboard1
+    이름          널?       유형             
+----------- -------- -------------- 
+ID          NOT NULL NUMBER         
+APP_USER_ID NOT NULL NUMBER         
+BTITLE      NOT NULL VARCHAR2(1000) 
+BCONTENT    NOT NULL CLOB           
+BPASS       NOT NULL VARCHAR2(255)  
+BFILE                VARCHAR2(255)  
+BHIT                 NUMBER(10)     
+BIP         NOT NULL VARCHAR2(255)  
+CREATED_AT           TIMESTAMP(6)   
+
+-----------------------------
+#10.security
+-----------------------------
+
+1. [안전한 복사]
+    spring007_paging 복사해서
+
+
+▶ 1. Security?
+    -애플리케이션의 보안(인증, 인가)를 담당
+    - Filter 흐름에 따라 처리
+
+▶ 2. 인증 vs 인가
+    - 인증 Authentication [본인]이 맞는지 확인
+    - 인가 Authorization 인증된 사용자가 [접근가능]
+
+▶ 3. sequrity 아키텍쳐
+==========================
+       ② [UsernamePasswordAuthentication Token]
+          ↓
+① Http Request  →     [AuthenticationFilter] ③ ...  →  [Authentication  Manager]
+         ↓⑩               ⑨     ←
+          [SecurityContextHolder]
+==========================
+
+-1. 사용자가 로그인 폼태그 시도 ( username + password 전달 )
+-2. ★UsernamePasswordAuthentication  요청정보  Authentication을 생성하고
+-3. Authentication 인증처리
+        
+
+-10. 인증 완료 [사용자정보]  SecurityContextHolder 담기
+    - AuthenticationSuccessHandler 를 실행 (성공)
+    - AuthenticationFailureHandler 를 실행 (실패)
+
+==========================
+[Authentication  Manager]  → [Authentication  Provider(s)]
+==========================
+-4. Authentication  Provider(s) 인증담당.
+1) UsernamePasswordAuthentication Token 은 Provider를 찾는데 사용
+2) AuthenticationProvider   ★ 로그인정보 db정보와 비교
+3) UserDetailsService       ★ db에 있는 [사용자정보]가져오기
+
+[실습1] DB연동
+1. pom.xml - security
+2. security-context.xml
+3. web.xml 스프링구동
+4. SecurityConotroller
+5. 테스트
+
+
+
+## 1. pom.xml
+      <!-- SECURITY -->
+      <!-- SECURITY -->
+      <!-- SECURITY -->
+      <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-core -->
+      <dependency>
+         <groupId>org.springframework.security</groupId>
+         <artifactId>spring-security-web</artifactId>
+         <version>4.2.2.RELEASE</version>
+         <!-- <version>5.0.7.RELEASE</version> -->
+      </dependency>
+      <dependency>
+         <groupId>org.springframework.security</groupId>
+         <artifactId>spring-security-config</artifactId>
+         <version>4.2.2.RELEASE</version>
+      </dependency>
+      <dependency>
+         <groupId>org.springframework.security</groupId>
+         <artifactId>spring-security-core</artifactId>
+         <version>4.2.2.RELEASE</version>
+      </dependency>
+      <dependency>
+         <groupId>org.springframework.security</groupId>
+         <artifactId>spring-security-taglibs</artifactId>
+         <version>4.2.2.RELEASE</version>
+      </dependency>
+      <!-- SECURITY -->
+      <!-- SECURITY -->
+      <!-- SECURITY -->
+
+
+## 2. security-context.xml
+new - spring - security-context.xml
+
+
+## 3. web.xml 스프링구동
+## 4. SecurityConotroller
+## 5. 테스트
+
+
+[실습2] DB연동
+1. security-context.xml <bean id="" class="BCrypt" />
+2. appuser-mapper.xml  / AppUserDao / mybatis-config.xml (Dto)
+    1) 권한 삽입
+    insert into authorities(email, auth) values ('1@1', 'ROLE_MEMBER')
+    insert into authorities(email, auth) values ('1@1', 'ROLE_ADMIN')
+
+    2) email,  password, 권한
+    select  u.email, password, auth
+    from    appuser u left join authorities a on (u.email = a.email)
+    where   u.email = '1@1';
+
+    3) 회원가입 insert
+3. TEST    
+
+[실습3] 로그인
+1. security-context.xml
+    로그인폼
+    로그인성공
+    로그인실패
+    유저정보
+2. 설정내용 com.thejoa703.security
+3. Controller - 로그인
+4. view       - login.jsp
+
+
+
 
 
 
@@ -783,6 +1056,7 @@ controller 작성 예시
 </dependencies>
 <!-- 수정 -->
 <!-- 수정 -->  
+
 
 
 

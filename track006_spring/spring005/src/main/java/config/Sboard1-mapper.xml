@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thejoa703.dao.Sboard1Dao">
+
+	<resultMap id="Sboard1Map" type="Sboard1Dto">
+		<result property="id" column="id"/>
+		<result property="appUserId" column="app_user_id"/>
+		<result property="btitle" column="btitle"/>
+		<result property="bcontent" column="bcontent"/>
+		<result property="bpass" column="bpass"/>
+		<result property="bfile" column="bfile"/>
+		<result property="bhit" column="bhit"/>
+		<result property="bip" column="bip"/>
+		<result property="createAt" column="create_at"/>
+	</resultMap>
+	
+  <insert id="insert" parameterType="com.thejoa703.dto.Sboard1Dto">
+  	insert into sboard1 (id,app_user_id,btitle,bcontent,bpass,bip)
+  	values (sboard1_seq.NEXTVAL, #{appUserId}, #{btitle}, #{bcontent}, #{bpass}, #{bip})
+  </insert>
+  <insert id="insert2" parameterType="com.thejoa703.dto.Sboard1Dto">
+  	insert into sboard1 (id,app_user_id,btitle,bcontent,bpass,bfile,bip)
+  	values (sboard1_seq.NEXTVAL, #{appUserId}, #{btitle}, #{bcontent}, #{bpass}, #{bfile}, #{bip})
+  </insert>
+  <select resultMap="Sboard1Map" id="selectAll"><!-- resultType="Sboard1Dto" -->
+  	select * from sboard1
+  </select>
+  <select resultMap="Sboard1Map" id="select"><!-- resultType="Sboard1Dto" -->
+  	select * from sboard1 where id=#{id}
+  </select>
+  <update id="update" parameterType="com.thejoa703.dto.Sboard1Dto">
+  	update sboard1
+  	set btitle=#{btitle}, bcontent=#{bcontent}
+  	where id=#{id} and bpass=#{bpass}
+  </update>
+  
+  <update id="update2" parameterType="com.thejoa703.dto.Sboard1Dto">
+  	update sboard1
+  	set btitle=#{btitle}, bcontent=#{bcontent}, bfile=#{bfile}
+  	where id=#{id} and bpass=#{bpass}
+  </update>
+  
+  <update id="updateHit" parameterType="int">
+  	update sboard1
+  	set bhit = bhit + 1
+  	where id=#{id}
+  </update>
+  <delete id="delete" parameterType="com.thejoa703.dto.Sboard1Dto">
+  	delete from sboard1 where id=#{id} and bpass=#{bpass}
+  </delete>
+  <!-- ajax - search -->
+  <select resultMap = "Sboard1Map" id="selectSearch" parameterType="java.util.HashMap">
+  	select * from sboard1 where btitle like #{search}
+  </select>
+</mapper>
