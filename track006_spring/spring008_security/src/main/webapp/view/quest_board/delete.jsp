@@ -8,6 +8,7 @@
 	  <%-- <form action="${pageContext.request.contextPath}/delete.do?id=${param.id}"     method="post">  --%> 
 	  <form action="${pageContext.request.contextPath}/delete.quest"  method="post">  
 	      <input type="hidden"   name="id"  value="${param.id}"> 
+	      <input  type="hidden" name="${_csrf.parameterName}"  value="${_csrf.token}" />
 		  <div class="my-3">
 		    <label for="bpass" class="form-label">PASS:</label>
 		    <input type="password" class="form-control" 

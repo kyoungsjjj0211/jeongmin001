@@ -40,9 +40,9 @@
 			<div class="mb-3">
 			<a href="${pageContext.request.contextPath}/delete.quest?id=${dto.id}" class="btn btn-secondary form-control">글삭제</a>
 			</div>  
-		  <div class="mb-3">
+		  	<div class="mb-3">
 		  	<a href="${pageContext.request.contextPath}/list.quest" class="btn btn-primary form-control">목록보기</a>
-		  </div>
+		  	</div>
 	 </div>
    </div> 
 <%@include file="../inc/footer.jsp" %>

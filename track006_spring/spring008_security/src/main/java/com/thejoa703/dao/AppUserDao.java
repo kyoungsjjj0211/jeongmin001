@@ -2,6 +2,8 @@ package com.thejoa703.dao;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.thejoa703.dto.AppUserAuthDto;
 import com.thejoa703.dto.AppUserDto;
 import com.thejoa703.dto.AuthDto;
@@ -34,4 +36,10 @@ public interface AppUserDao {
 	/* security */
 	public int insertAuth(AuthDto dto);
 	public AppUserAuthDto readAuth(AppUserAuthDto dto);
+	
+	/*join*/
+	public int insert3(MultipartFile file, AppUserDto dto);
+	
+	/*delete*/ 
+	public int  delete3(MultipartFile file, AppUserDto dto);
 }

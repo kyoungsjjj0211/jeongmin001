@@ -854,7 +854,13 @@ new - spring - security-context.xml
 4. view       - login.jsp
 
 
-
+---------------------------
+[포폴 프로젝트 만들기]
+Q1. project2 프로젝트만들기
+   1. dynamic web project - project2
+   2. configure  - [Convert to Maven Project]
+   3. spring      - add Spring project Nature 
+   4. java se-11 / project facts, build path
 
 
 

@@ -5,7 +5,8 @@
      <h3 class="card-header"> MBTI QUEST 글수정</h3>
   <form action="${pageContext.request.contextPath}/updateEdit.quest"  
   		method="post"  encType="multipart/form-data"  > 
-     <input type="hidden"   name="id"  value="${dto.id}">  
+     <input type="hidden"   name="id"  value="${dto.id}">
+       <input  type="hidden" name="${_csrf.parameterName}"  value="${_csrf.token}" />  
 	  <div class="mb-3 mt-3">
 	    <label for="btitle" class="form-label">TITLE:</label>
 	    <input type="text" class="form-control" id="btitle" 
@@ -31,6 +32,7 @@
 	  	<button type="submit" class="btn btn-primary">글수정</button>
 	  	<a href="javascript:history.go(-1)"  class="btn btn-danger">BACK</a>
 	  </div>
+	
  </form>
   </div>
    
