@@ -6,13 +6,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.thejoa703.dto.AppUserAuthDto;
-import com.thejoa703.service.AppUserService;
+import com.thejoa703.service.AppUserSecurityService;
 
 
 
 public class CustomUsersDetailsService implements UserDetailsService{
 	
-	@Autowired AppUserService service;
+	@Autowired AppUserSecurityService service; //##
 								 // 아이디 , email
 	@Override public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		//email.password. 권한

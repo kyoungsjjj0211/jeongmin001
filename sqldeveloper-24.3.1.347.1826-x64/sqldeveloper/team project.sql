@@ -1,3 +1,4 @@
+
 CREATE TABLE CATEGORYTB (
     categoryId   NUMBER(3)       PRIMARY KEY,   -- 카테고리 ID
     categoryName VARCHAR2(50)    NOT NULL       -- 카테고리명 (예: 한식, 양식, 중식, 일식)
@@ -9,11 +10,6 @@ INSERT INTO CATEGORYTB (categoryId, categoryName) VALUES (3, '중식');
 INSERT INTO CATEGORYTB (categoryId, categoryName) VALUES (4, '일식');
 
 COMMIT;
-select * from users;
-
- SELECT f.foodId, f.name, f.categoryId, c.categoryName, f.kcal, f.protein, f.carb, f.fat,
-	                     f.recipe, f.imageUrl, f.regDate FROM FOODTB f JOIN CATEGORYTB c ON f.categoryId = c.categoryId
-	                      order by id desc;
 
 CREATE TABLE FOODTB (
     foodId      NUMBER(6)        PRIMARY KEY,       -- 음식 고유번호 (PK)
@@ -100,24 +96,7 @@ SELECT
 FROM FOODTB f
 JOIN CATEGORYTB c
 ON f.categoryId = c.categoryId;
-    
-DELETE FROM FOODTB;
 
 --선택적 사항
 --DROP TABLE FOODTB CASCADE CONSTRAINTS;  --삭제 코드
 --DROP SEQUENCE FOODSEQ; --삭제 코드
-
-
-
-
-CREATE TABLE users (
-    APPUSERID    NUMBER     PRIMARY KEY,           
-    PASSWORD    VARCHAR2(100)    NOT NULL,              
-    NICKNAME    VARCHAR2(50)     NOT NULL,               
-    EMAIL         VARCHAR2(100)    UNIQUE,                  
-    MOBILE      VARCHAR2(20)    UNIQUE,                   
-    JOINDATE   DATE            DEFAULT SYSDATE              
-);
-
-commit;
-select * from users;

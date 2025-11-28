@@ -2,6 +2,12 @@
     pageEncoding="UTF-8"%> 
 
 <%@  include file="../inc/header.jsp" %>  
+   <!-- 로그인시 에러가 비어있지않다면 -->
+<c:if test="${not empty loginError}"> 
+<script>
+	alert("${loginError}");
+</script>
+</c:if>
    <script>
    $(function(){
 	   let result = '${success}';
@@ -11,7 +17,6 @@
 	   else if(result.length  != 0 ){  alert(result); }  //아까 처음 값이없을때 공백 
    }); 
    </script>
-
 <div class="container mt-5">
 	<h3> 로그인</h3>
 	<form action="${pageContext.request.contextPath}/login"  method="post">

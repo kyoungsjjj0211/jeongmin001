@@ -27,7 +27,7 @@ from appuser left join authorities using(email)
 where email = '1@1';
 
 
-select * from authorities;
+
 
 drop table authorities;
 

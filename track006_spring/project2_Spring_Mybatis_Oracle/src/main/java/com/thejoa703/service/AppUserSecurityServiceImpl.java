@@ -7,8 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
 import com.thejoa703.dao.AppUserMapper;
-import com.thejoa703.dto.*;
+import com.thejoa703.dto.AppUser;
+import com.thejoa703.dto.AppUserAuthDto;
+import com.thejoa703.dto.AuthDto;
 
 
 
@@ -18,6 +21,10 @@ public class AppUserSecurityServiceImpl implements AppUserSecurityService{
 	@Autowired PasswordEncoder pwencoder;
 	
 	@Override public int insert(MultipartFile file, AppUser dto) {
+		//0. 권한 (ROLE_MEMBER)
+			AuthDto adto = new AuthDto();
+			adto.setEmail(dto.getEmail()); adto.setAuth("ROLE_MEMBER");
+			dao.insertAuth(adto);  //권한주기
 			//1. 파일올리기
 		   String fileName   = null;
 		   if(  !file.isEmpty() ) {  // 파일이 비어있는게 아니라면
@@ -54,6 +61,7 @@ public class AppUserSecurityServiceImpl implements AppUserSecurityService{
 			   return dao.update(dto);
 		}else {return 0;}
 	}
+	
 	@Override public int delete(AppUser dto) {
 		//db에서 사용자정보조회
 		AppUserAuthDto dbUser = dao.readAuth(dto);

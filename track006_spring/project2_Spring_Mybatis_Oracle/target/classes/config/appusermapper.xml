@@ -3,16 +3,22 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.thejoa703.dao.AppUserMapper">
+
+  <insert  id="insertAuth"    parameterType="AuthDto">
+  	insert into  authorities  (email, auth)  values (#{email} , #{auth})
+  </insert>   
   <insert id="insert" parameterType="AppUser">
   insert into appuser(APP_USER_ID, EMAIL, PASSWORD, MBTI_TYPE_ID, UFILE, MOBILE, NICKNAME) 
   values (appuser_seq.nextval ,#{email},#{password},#{mbtiTypeId},#{ufile, jdbcType=VARCHAR},#{mobile},#{nickname})
   </insert>
   <update id="update" parameterType="AppUser">
-  update appuser  set  MBTI_TYPE_ID=#{mbtiTypeId}, UFILE=#{ufile, jdbcType=VARCHAR} , MOBILE=#{mobile}, NICKNAME=#{nickname} where app_user_id=#{appUserId}
-  </update>
+  update appuser  set  MBTI_TYPE_ID=#{mbtiTypeId}, UFILE=#{ufile, jdbcType=VARCHAR}, MOBILE=#{mobile}, NICKNAME=#{nickname}  where app_user_id=#{appUserId}
+  </update> 
+  
   <delete id="delete" parameterType="AppUser">
   delete from appuser  where app_user_id=#{appUserId}  
   </delete>
+  
   <resultMap type="AppUser" id="appUserMap">
   	<result		property="appUserId" column="APP_USER_ID"	/>
   	<result		property="email" column="EMAIL"	/>

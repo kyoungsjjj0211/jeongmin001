@@ -19,8 +19,13 @@
 	<bean id="customUsersDetailsService" class="com.thejoa703.security.CustomUsersDetailsService"/>
 	
 	<security:http>
-		<security:intercept-url pattern="/security/all" 	access="permitAll"/>
-		<security:intercept-url pattern="/security/member"  access="hasRole('ROLE_MEMBER')"/>
+		<!-- 마이페이지와 수정 기능은 인증 필수 session 연결 -->
+		<security:intercept-url pattern="/security/all" 		access="permitAll"/>
+		<security:intercept-url pattern="/security/member"  	access="hasRole('ROLE_MEMBER')"/>
+		<security:intercept-url pattern="/security/login" 		access="permitAll"/>
+		<security:intercept-url pattern="/security/join" 		access="permitAll"/>
+		<security:intercept-url pattern="/security/iddouble"	access="permitAll"/>
+		<security:intercept-url pattern="/security/**" 			access="isAuthenticated()"/>
 		
 		<!-- 마이페이지와 수정 기능은 인증 필수 -->
 		<security:form-login
