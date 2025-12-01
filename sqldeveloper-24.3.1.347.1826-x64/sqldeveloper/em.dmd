@@ -1,0 +1,8 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<OSDM_Design class="oracle.dbtools.crest.model.design.Design" name="em" id="DA35A102-BBCC-EC27-93D2-9100B1DA7EFC" version="3.5">
+<createdBy>TJ-BU-703-004PC</createdBy>
+<createdTime>2025-12-01 05:35:02 UTC</createdTime>
+<ownerDesignName>em</ownerDesignName>
+<capitalNames>false</capitalNames>
+<designId>DA35A102-BBCC-EC27-93D2-9100B1DA7EFC</designId>
+</OSDM_Design>

@@ -1,0 +1,58 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="9C31297B-0ED0-1083-8150-B5E586A7C354" schemaObject="5B500F63-AFF4-0700-EE15-FA03C94B69D8" name="DEPT_FK">
+<sourceConnName>scott</sourceConnName>
+<sourceObjSchema>SCOTT</sourceObjSchema>
+<sourceObjName>DEPT_FK</sourceObjName>
+<createdBy>TJ-BU-703-004PC</createdBy>
+<createdTime>2025-12-01 05:45:40 UTC</createdTime>
+<ownerDesignName>em</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="DEPTNO" id="1B697A03-1DA7-4383-29BE-041F5E24174E">
+<sourceConnName>scott</sourceConnName>
+<sourceObjSchema>DEPT_FK</sourceObjSchema>
+<sourceObjName>DEPTNO</sourceObjName>
+<createdBy>TJ-BU-703-004PC</createdBy>
+<createdTime>2025-12-01 05:45:40 UTC</createdTime>
+<ownerDesignName>em</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="DNAME" id="4EF0A93A-F9BB-1907-0282-F28138A61E17">
+<sourceConnName>scott</sourceConnName>
+<sourceObjSchema>DEPT_FK</sourceObjSchema>
+<sourceObjName>DNAME</sourceObjName>
+<createdBy>TJ-BU-703-004PC</createdBy>
+<createdTime>2025-12-01 05:45:40 UTC</createdTime>
+<ownerDesignName>em</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50 BYTE</dataTypeSize>
+<ownDataTypeParameters>50 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="C351FF10-9554-B3C6-C0F7-D25DD0558B65" schemaObject="5B500F63-AFF4-0700-EE15-FA03C94B69D8" name="DEPT_FK_PK">
+<sourceConnName>scott</sourceConnName>
+<sourceObjSchema>SCOTT</sourceObjSchema>
+<sourceObjName>SYS_C007020</sourceObjName>
+<createdBy>TJ-BU-703-004PC</createdBy>
+<createdTime>2025-12-01 05:45:40 UTC</createdTime>
+<ownerDesignName>em</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="1B697A03-1DA7-4383-29BE-041F5E24174E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

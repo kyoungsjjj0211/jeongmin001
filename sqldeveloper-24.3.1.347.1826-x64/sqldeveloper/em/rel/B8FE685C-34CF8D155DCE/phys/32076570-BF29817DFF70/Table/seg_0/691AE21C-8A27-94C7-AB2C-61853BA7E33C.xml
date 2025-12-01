@@ -1,0 +1,71 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableProxyOraclev11g class="oracle.dbtools.crest.model.design.storage.oracle.v11g.TableProxyOraclev11g" name="APPUSER" directorySegmentName="seg_0" id="691AE21C-8A27-94C7-AB2C-61853BA7E33C">
+<createdBy>TJ-BU-703-004PC</createdBy>
+<createdTime>2025-12-01 05:45:49 UTC</createdTime>
+<ownerDesignName>em</ownerDesignName>
+<schemaObject>5B500F63-AFF4-0700-EE15-FA03C94B69D8</schemaObject>
+<logging>YES</logging>
+<partitionedRowMovement>DISABLE</partitionedRowMovement>
+<segment>463601FA-8B51-06AE-1A97-08080A73AD0B</segment>
+<tableSpace>1C67E205-EF8C-0EDB-AE85-BCA18DAB9751</tableSpace>
+<temporaryChanged>false</temporaryChanged>
+<accessDriverType>oracle_loader</accessDriverType>
+<rejectLimit></rejectLimit>
+<columnProxies itemClass="oracle.dbtools.crest.model.design.storage.oracle.v12c.ColumnProxyOraclev12c">
+<ColumnProxy name="MBTI_TYPE_ID" id="03B32CC5-20E7-B151-7819-B83E3B0EED19">
+<createdBy>TJ-BU-703-004PC</createdBy>
+<createdTime>2025-12-01 05:45:49 UTC</createdTime>
+<ownerDesignName>em</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="PASSWORD" id="08F5FCFE-C97C-CB56-B33A-65088CEA0272">
+<createdBy>TJ-BU-703-004PC</createdBy>
+<createdTime>2025-12-01 05:45:49 UTC</createdTime>
+<ownerDesignName>em</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="APP_USER_ID" id="69B3E9EF-C451-A02F-6362-D7C98110C925">
+<createdBy>TJ-BU-703-004PC</createdBy>
+<createdTime>2025-12-01 05:45:49 UTC</createdTime>
+<ownerDesignName>em</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="CREATED_AT" id="7F28C0ED-6B0D-4CE4-6529-DB908768BDCB">
+<createdBy>TJ-BU-703-004PC</createdBy>
+<createdTime>2025-12-01 05:45:49 UTC</createdTime>
+<ownerDesignName>em</ownerDesignName>
+<defaultValue>SYSDATE</defaultValue>
+</ColumnProxy>
+<ColumnProxy name="EMAIL" id="9C9D4FF2-B8D3-4FF0-5B5F-3599256269CE">
+<createdBy>TJ-BU-703-004PC</createdBy>
+<createdTime>2025-12-01 05:45:49 UTC</createdTime>
+<ownerDesignName>em</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="NICKNAME" id="A75722DC-4A04-2496-2B7A-D3791D7C73CC">
+<createdBy>TJ-BU-703-004PC</createdBy>
+<createdTime>2025-12-01 05:45:49 UTC</createdTime>
+<ownerDesignName>em</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="UFILE" id="B87F5E1E-6FCE-E7DE-7E9E-00FBECC816B0">
+<createdBy>TJ-BU-703-004PC</createdBy>
+<createdTime>2025-12-01 05:45:49 UTC</createdTime>
+<ownerDesignName>em</ownerDesignName>
+<defaultValue>&apos;thejoa703.png&apos;</defaultValue>
+</ColumnProxy>
+<ColumnProxy name="MOBILE" id="EFD3017B-2CD8-6A30-94A5-F1A5B78EF7EE">
+<createdBy>TJ-BU-703-004PC</createdBy>
+<createdTime>2025-12-01 05:45:49 UTC</createdTime>
+<ownerDesignName>em</ownerDesignName>
+</ColumnProxy>
+</columnProxies>
+<primaryKeys>
+<PrimaryKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.PKProxyOraclev10g" name="APPUSER_PK" id="451F8C91-CEB2-5FA9-6A5C-3603CFD288C6">
+<createdBy>TJ-BU-703-004PC</createdBy>
+<createdTime>2025-12-01 05:45:49 UTC</createdTime>
+<ownerDesignName>em</ownerDesignName>
+<schemaObject>5B500F63-AFF4-0700-EE15-FA03C94B69D8</schemaObject>
+<segment>683C87B0-E317-100B-CC50-AAFD129EFC0E</segment>
+<tableSpace>1C67E205-EF8C-0EDB-AE85-BCA18DAB9751</tableSpace>
+<indexSegment>683C87B0-E317-100B-CC50-AAFD129EFC0E</indexSegment>
+<indexSort>SORTED</indexSort>
+<usingIndex>BY INDEX NAME</usingIndex>
+</PrimaryKey>
+</primaryKeys>
+</TableProxyOraclev11g>

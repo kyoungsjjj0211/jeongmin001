@@ -1,0 +1,152 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="691AE21C-8A27-94C7-AB2C-61853BA7E33C" schemaObject="5B500F63-AFF4-0700-EE15-FA03C94B69D8" name="APPUSER">
+<sourceConnName>scott</sourceConnName>
+<sourceObjSchema>SCOTT</sourceObjSchema>
+<sourceObjName>APPUSER</sourceObjName>
+<createdBy>TJ-BU-703-004PC</createdBy>
+<createdTime>2025-12-01 05:45:49 UTC</createdTime>
+<ownerDesignName>em</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="APP_USER_ID" id="69B3E9EF-C451-A02F-6362-D7C98110C925">
+<sourceConnName>scott</sourceConnName>
+<sourceObjSchema>APPUSER</sourceObjSchema>
+<sourceObjName>APP_USER_ID</sourceObjName>
+<createdBy>TJ-BU-703-004PC</createdBy>
+<createdTime>2025-12-01 05:45:49 UTC</createdTime>
+<ownerDesignName>em</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,5,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="EMAIL" id="9C9D4FF2-B8D3-4FF0-5B5F-3599256269CE">
+<sourceConnName>scott</sourceConnName>
+<sourceObjSchema>APPUSER</sourceObjSchema>
+<sourceObjName>EMAIL</sourceObjName>
+<createdBy>TJ-BU-703-004PC</createdBy>
+<createdTime>2025-12-01 05:45:49 UTC</createdTime>
+<ownerDesignName>em</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100 BYTE</dataTypeSize>
+<ownDataTypeParameters>100 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PASSWORD" id="08F5FCFE-C97C-CB56-B33A-65088CEA0272">
+<sourceConnName>scott</sourceConnName>
+<sourceObjSchema>APPUSER</sourceObjSchema>
+<sourceObjName>PASSWORD</sourceObjName>
+<createdBy>TJ-BU-703-004PC</createdBy>
+<createdTime>2025-12-01 05:45:49 UTC</createdTime>
+<ownerDesignName>em</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>255 BYTE</dataTypeSize>
+<ownDataTypeParameters>255 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="MBTI_TYPE_ID" id="03B32CC5-20E7-B151-7819-B83E3B0EED19">
+<sourceConnName>scott</sourceConnName>
+<sourceObjSchema>APPUSER</sourceObjSchema>
+<sourceObjName>MBTI_TYPE_ID</sourceObjName>
+<createdBy>TJ-BU-703-004PC</createdBy>
+<createdTime>2025-12-01 05:45:49 UTC</createdTime>
+<ownerDesignName>em</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>3</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,3,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CREATED_AT" id="7F28C0ED-6B0D-4CE4-6529-DB908768BDCB">
+<sourceConnName>scott</sourceConnName>
+<sourceObjSchema>APPUSER</sourceObjSchema>
+<sourceObjName>CREATED_AT</sourceObjName>
+<createdBy>TJ-BU-703-004PC</createdBy>
+<createdTime>2025-12-01 05:45:49 UTC</createdTime>
+<ownerDesignName>em</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<dataTypeSize>7</dataTypeSize>
+<defaultValue>SYSDATE</defaultValue>
+<ownDataTypeParameters>7,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="UFILE" id="B87F5E1E-6FCE-E7DE-7E9E-00FBECC816B0">
+<sourceConnName>scott</sourceConnName>
+<sourceObjSchema>APPUSER</sourceObjSchema>
+<sourceObjName>UFILE</sourceObjName>
+<createdBy>TJ-BU-703-004PC</createdBy>
+<createdTime>2025-12-01 05:45:49 UTC</createdTime>
+<ownerDesignName>em</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>255 BYTE</dataTypeSize>
+<defaultValue>&apos;thejoa703.png&apos;</defaultValue>
+<ownDataTypeParameters>255 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="MOBILE" id="EFD3017B-2CD8-6A30-94A5-F1A5B78EF7EE">
+<sourceConnName>scott</sourceConnName>
+<sourceObjSchema>APPUSER</sourceObjSchema>
+<sourceObjName>MOBILE</sourceObjName>
+<createdBy>TJ-BU-703-004PC</createdBy>
+<createdTime>2025-12-01 05:45:49 UTC</createdTime>
+<ownerDesignName>em</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50 BYTE</dataTypeSize>
+<ownDataTypeParameters>50 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="NICKNAME" id="A75722DC-4A04-2496-2B7A-D3791D7C73CC">
+<sourceConnName>scott</sourceConnName>
+<sourceObjSchema>APPUSER</sourceObjSchema>
+<sourceObjName>NICKNAME</sourceObjName>
+<createdBy>TJ-BU-703-004PC</createdBy>
+<createdTime>2025-12-01 05:45:49 UTC</createdTime>
+<ownerDesignName>em</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50 BYTE</dataTypeSize>
+<ownDataTypeParameters>50 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="451F8C91-CEB2-5FA9-6A5C-3603CFD288C6" schemaObject="5B500F63-AFF4-0700-EE15-FA03C94B69D8" name="APPUSER_PK">
+<sourceConnName>scott</sourceConnName>
+<sourceObjSchema>SCOTT</sourceObjSchema>
+<sourceObjName>SYS_C007007</sourceObjName>
+<createdBy>TJ-BU-703-004PC</createdBy>
+<createdTime>2025-12-01 05:45:49 UTC</createdTime>
+<ownerDesignName>em</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="69B3E9EF-C451-A02F-6362-D7C98110C925"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

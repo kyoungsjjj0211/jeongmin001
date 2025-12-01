@@ -1,0 +1,146 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="09565A12-DCFB-6E29-649D-9724CE332C14" schemaObject="5B500F63-AFF4-0700-EE15-FA03C94B69D8" name="POST">
+<sourceConnName>scott</sourceConnName>
+<sourceObjSchema>SCOTT</sourceObjSchema>
+<sourceObjName>POST</sourceObjName>
+<createdBy>TJ-BU-703-004PC</createdBy>
+<createdTime>2025-12-01 05:46:40 UTC</createdTime>
+<ownerDesignName>em</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="ID" id="98FAF4EF-C893-D867-1E11-F522334C1518">
+<sourceConnName>scott</sourceConnName>
+<sourceObjSchema>POST</sourceObjSchema>
+<sourceObjName>ID</sourceObjName>
+<createdBy>TJ-BU-703-004PC</createdBy>
+<createdTime>2025-12-01 05:46:40 UTC</createdTime>
+<ownerDesignName>em</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="APP_USER_ID" id="030AA556-3D6F-D63C-F8CE-0B054C370117">
+<sourceConnName>scott</sourceConnName>
+<sourceObjSchema>POST</sourceObjSchema>
+<sourceObjName>APP_USER_ID</sourceObjName>
+<createdBy>TJ-BU-703-004PC</createdBy>
+<createdTime>2025-12-01 05:46:40 UTC</createdTime>
+<ownerDesignName>em</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="F1C4CFD9-D022-7E7F-F2E9-90AD9516AB3D" referredColumn="69B3E9EF-C451-A02F-6362-D7C98110C925"/>
+</associations>
+</Column>
+<Column name="TITLE" id="00BA5CC8-1D44-4EF0-EDAA-DAED5CB8B919">
+<sourceConnName>scott</sourceConnName>
+<sourceObjSchema>POST</sourceObjSchema>
+<sourceObjName>TITLE</sourceObjName>
+<createdBy>TJ-BU-703-004PC</createdBy>
+<createdTime>2025-12-01 05:46:40 UTC</createdTime>
+<ownerDesignName>em</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>200 BYTE</dataTypeSize>
+<ownDataTypeParameters>200 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CONTENT" id="4F1F24F3-7078-64B3-59D0-450DDBC7B5FE">
+<sourceConnName>scott</sourceConnName>
+<sourceObjSchema>POST</sourceObjSchema>
+<sourceObjName>CONTENT</sourceObjName>
+<createdBy>TJ-BU-703-004PC</createdBy>
+<createdTime>2025-12-01 05:46:40 UTC</createdTime>
+<ownerDesignName>em</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT028</logicalDatatype>
+<dataTypeSize>4000</dataTypeSize>
+<ownDataTypeParameters>4000,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PASS" id="2907DB4E-F78F-09E6-55EC-FA363D8CBE71">
+<sourceConnName>scott</sourceConnName>
+<sourceObjSchema>POST</sourceObjSchema>
+<sourceObjName>PASS</sourceObjName>
+<createdBy>TJ-BU-703-004PC</createdBy>
+<createdTime>2025-12-01 05:46:40 UTC</createdTime>
+<ownerDesignName>em</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100 BYTE</dataTypeSize>
+<ownDataTypeParameters>100 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CREATED_AT" id="1B153DDB-CBF3-EEE7-DA3A-223411071BA5">
+<sourceConnName>scott</sourceConnName>
+<sourceObjSchema>POST</sourceObjSchema>
+<sourceObjName>CREATED_AT</sourceObjName>
+<createdBy>TJ-BU-703-004PC</createdBy>
+<createdTime>2025-12-01 05:46:40 UTC</createdTime>
+<ownerDesignName>em</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<dataTypeSize>7</dataTypeSize>
+<defaultValue>sysdate</defaultValue>
+<ownDataTypeParameters>7,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="HIT" id="1E914DFB-2869-9780-0A3C-A066488DE55D">
+<sourceConnName>scott</sourceConnName>
+<sourceObjSchema>POST</sourceObjSchema>
+<sourceObjName>HIT</sourceObjName>
+<createdBy>TJ-BU-703-004PC</createdBy>
+<createdTime>2025-12-01 05:46:40 UTC</createdTime>
+<ownerDesignName>em</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<defaultValue>0</defaultValue>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="18F24C2D-E9BC-33A8-4D6B-0B211C0D504D" schemaObject="5B500F63-AFF4-0700-EE15-FA03C94B69D8" name="POST_PK">
+<sourceConnName>scott</sourceConnName>
+<sourceObjSchema>SCOTT</sourceObjSchema>
+<sourceObjName>SYS_C007012</sourceObjName>
+<createdBy>TJ-BU-703-004PC</createdBy>
+<createdTime>2025-12-01 05:46:40 UTC</createdTime>
+<ownerDesignName>em</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="98FAF4EF-C893-D867-1E11-F522334C1518"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="A5433671-A02E-1894-9229-301C6BBC0547" name="FK_POST_APPUSER">
+<createdBy>TJ-BU-703-004PC</createdBy>
+<createdTime>2025-12-01 05:46:40 UTC</createdTime>
+<ownerDesignName>em</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="030AA556-3D6F-D63C-F8CE-0B054C370117"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>
