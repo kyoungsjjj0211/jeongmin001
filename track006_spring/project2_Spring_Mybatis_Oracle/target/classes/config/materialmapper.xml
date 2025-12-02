@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thejoa703.dao.AppUserMapper">
+  <insert id= "insertMaterial" parameterType="MaterialDto">
+    insert into material (materialid, title, imageurl, season, temperature,calories100g, efficacy, buyguide, trimguide, storeguide)
+    values (material_seq.nextval, #{title}, #{imageurl}, #{season}, #{temperature}, #{calories100g}, #{efficacy}, #{buyguide}, #{trimguide},#{storeguide})
+  </insert>
+  <select id= "selectMaterialList" resultType="MaterialDto">
+   select *from amterial order by materialid desc
+  </select>
+  <select id="selectMaterial" parameterType="int" resultType="MaterialDto">
+  select *from material where materialid = #{materialid}
+  </select>
+  <update id="updateMaterial" parameterType="MaterialDto">
+  update material set title=#{title}, imageurl=#{imageurl}, season=#{season}, temperature=#{temperature}, calories100g=#{calories100g}, efficacy=#{efficact}, buyguide=#{buyguide}, trimguide=#{trimguide}, storeguide=#{storeguide}
+  where materialid =#{materialid}
+  </update>
+  <delete id="deleteMaterial" parameterType="int">
+  delete from material where materialid=#{materialid}
+  </delete>
+</mapper>

@@ -21,6 +21,7 @@
 		<property name="configLocation"  value="classpath:config/mybatis-config.xml"  />
 		<property name="mapperLocations" >
 			<list>
+				<value>classpath:config/materialmapper.xml</value>
 				<value>classpath:config/test-mapper.xml</value>
 				<value>classpath:config/appusermapper.xml</value>
 		</list>

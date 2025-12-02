@@ -108,8 +108,13 @@ System.out.println("총 급여 : " + total + "원");
 public class error{
     public static void main(String[] args){
 //변수
+int stock;
+Scanner sc = Scanner(System.in);
 //입력
+System.out.println("재고를 입력해주세요");
+int stock  = sc.nextInt();
 //처리
+if (stock == stock)
 //출력
     }
 }

@@ -27,7 +27,7 @@ public class TestDB {
 	@Autowired PasswordEncoder pwencoder;
 	@Autowired AppUserSecurityService service;
 	
-	@Test public void test5() {
+	@Ignore @Test public void test5() {
 		//select
 		//System.out.println(service.readAuth("1@1"));
 		//select
@@ -79,8 +79,9 @@ public class TestDB {
 //		System.out.println(dao.insert(dto)); 
 	}
 	
-	@Ignore @Test public void test1() {System.out.println(context); }
-	@Ignore @Test public void test2() {System.out.println(ds); }
-	@Ignore @Test public void test3() {System.out.println(sqlSession); }
+	 @Test public void test1() {System.out.println(context); }
+	
+	 @Test public void test2() {System.out.println(ds); }
+	 @Test public void test3() {System.out.println(sqlSession); }
 	
 }
