@@ -65,7 +65,8 @@
 	      		
       	  </ul></td></tr>	
       	</tfoot>
-      </table> 
+      </table>  
+         <%-- <sec:authorize access="hasRole('ROLE_ADMIN')"> --%>
      	 <sec:authorize access="isAuthenticated()">
 		<p class="text-end">
 			<a href="${pageContext.request.contextPath}/write.quest" class="btn btn-primary">글쓰기</a>

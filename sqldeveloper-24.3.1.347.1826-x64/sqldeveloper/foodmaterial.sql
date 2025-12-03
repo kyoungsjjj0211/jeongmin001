@@ -192,6 +192,7 @@ CREATE TABLE recipes_ingre_map (
     FOREIGN KEY (RECIPE_ID) REFERENCES recipes(RECIPE_ID)
 );
 
+
 CREATE TABLE recipes_ingre (
     INGRE_MAP_ID NUMBER,
     INGRE_NAME   VARCHAR2(100),
@@ -212,3 +213,7 @@ create table material (
     trimguide           VARCHAR2(1000),                         -- 손질법
     storeguide          VARCHAR2(1000)                         -- 보관법
 );
+select * from BUG;
+select * from authorities;
+insert into authorities values ('1@1', 'ROLE_ADMIN');
+commit;
