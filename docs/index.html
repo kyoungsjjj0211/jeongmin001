@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>김정민 — 포트폴리오</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f6f8f1;
+      --panel:#0b1220;
+      --muted:#58605a;
+      --accent:#a8ff60;
+      --accent-2:#caff8c;
+      --card:#ffffff;
+      --shadow:0 10px 30px rgba(16,24,32,0.06);
+      --glow:0 0 15px rgba(168,255,96,0.4);
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    html,body{
+      height:100%;font-family:"Noto Sans KR","Inter",system-ui;
+      background:var(--bg);color:var(--panel);scroll-behavior:smooth;
+    }
+    a{color:inherit;text-decoration:none;}
+    h2{font-size:28px;margin-bottom:16px;font-weight:800;}
+    .wrap{max-width:1100px;margin:0 auto;padding:48px 20px 120px;}
+
+    /* 상단 버튼 */
+    .top-controls{position:fixed;right:18px;top:18px;z-index:60;display:flex;gap:10px;}
+    .icon-btn{
+      width:44px;height:44px;border-radius:10px;
+      border:1px solid rgba(0,0,0,0.06);
+      background:linear-gradient(180deg,#fff,#f2f2f2);
+      display:grid;place-items:center;cursor:pointer;
+      box-shadow:var(--shadow);
+      transition:all .3s ease;
+    }
+    .icon-btn:hover{box-shadow:var(--glow);transform:translateY(-2px) scale(1.05);}
+
+    /* Hero */
+    .hero{
+      height:70vh;display:flex;align-items:center;justify-content:center;
+      text-align:center;margin-bottom:40px;
+    }
+    .hero-card{
+      max-width:900px;border-radius:18px;padding:48px 40px;background:#fff9;
+      box-shadow:var(--shadow);backdrop-filter:blur(6px);
+    }
+    .hero-title{
+      font-size:clamp(28px,4.5vw,48px);
+      font-weight:800;
+      background:linear-gradient(90deg,var(--accent),var(--accent-2));
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+      animation:glowText 3s ease-in-out infinite alternate;
+    }
+    .hero-sub{
+      color:var(--muted);font-size:18px;margin-top:8px;
+      min-height:26px;
+    }
+    .btn{
+      background:linear-gradient(90deg,var(--accent),var(--accent-2));
+      color:#082018;padding:10px 18px;border-radius:999px;font-weight:700;border:none;
+      cursor:pointer;box-shadow:var(--shadow);transition:all .3s ease;
+    }
+    .btn:hover{transform:translateY(-3px) scale(1.05);box-shadow:var(--glow);}
+
+    section{margin-bottom:80px;}
+    .reveal{opacity:0;transform:translateY(40px);transition:all 1s ease;}
+    .reveal.revealed{opacity:1;transform:none;}
+
+    .about-card{display:flex;gap:20px;align-items:center;background:var(--card);
+      padding:24px;border-radius:16px;box-shadow:var(--shadow);}
+    .about-card:hover{box-shadow:var(--glow);}
+    .photo{
+      width:120px;height:120px;border-radius:14px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));
+      display:grid;place-items:center;
+      font-weight:900;font-size:36px;color:#06230b;
+    }
+
+    .skill-grid{display:flex;flex-wrap:wrap;gap:18px;justify-content:center;margin-top:12px;}
+    .skill-card{
+      background:#fff;padding:14px 18px;border-radius:12px;min-width:120px;text-align:center;
+      font-weight:700;box-shadow:var(--shadow);position:relative;overflow:hidden;transition:all .3s ease;
+    }
+    .skill-card::after{
+      content:"";position:absolute;top:0;left:-75%;width:50%;height:100%;
+      background:linear-gradient(120deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.4) 50%,rgba(255,255,255,0) 100%);
+      transition:all .5s ease;
+    }
+    .skill-card:hover::after{left:125%;}
+    .skill-card:hover{box-shadow:var(--glow);transform:translateY(-5px);}
+
+    /* =============================
+       💼 프로젝트 (플립 카드)
+    ============================= */
+    .project-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:24px;
+    }
+    .project-card{
+      perspective:1000px;
+      height:500px; /* 기존 대비 약 5배 크기 */
+    }
+    .project-inner{
+      position:relative;
+      width:100%;
+      height:100%;
+      transition:transform 1s;
+      transform-style:preserve-3d;
+    }
+    .project-card:hover .project-inner{
+      transform:rotateY(-180deg);
+    }
+    .project-front, .project-back{
+      position:absolute;
+      width:100%;
+      height:100%;
+      border-radius:16px;
+      backface-visibility:hidden;
+      box-shadow:var(--shadow);
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      padding:20px;
+      background:var(--card);
+      transition:all .3s ease;
+    }
+    .project-front h3{
+      font-size:22px;
+      color:var(--panel);
+      text-align:center;
+    }
+    .project-front:hover{
+      box-shadow:var(--glow);
+    }
+    .project-back{
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));
+      color:#0b1220;
+      transform:rotateY(180deg);
+      text-align:center;
+    }
+
+    .contact-card{background:var(--card);padding:24px;border-radius:12px;box-shadow:var(--shadow);}
+    .contact-form input,.contact-form textarea{
+      width:100%;padding:12px;border-radius:10px;border:1px solid rgba(0,0,0,0.06);
+      margin-bottom:12px;transition:border-color .3s ease;
+    }
+    .contact-form input:focus,.contact-form textarea:focus{
+      outline:none;border-color:var(--accent);
+      box-shadow:0 0 0 3px rgba(168,255,96,0.25);
+    }
+    .contact-form button{
+      background:linear-gradient(90deg,var(--accent),var(--accent-2));
+      color:#082018;padding:10px 16px;border-radius:10px;border:none;
+      font-weight:800;cursor:pointer;transition:all .3s ease;
+    }
+    .contact-form button:hover{transform:translateY(-3px) scale(1.05);box-shadow:var(--glow);}
+    footer{text-align:center;color:gray;padding:28px 0;}
+
+    @keyframes glowText{
+      0%{text-shadow:0 0 10px rgba(168,255,96,0.4);}
+      100%{text-shadow:0 0 25px rgba(168,255,96,0.8);}
+    }
+  </style>
+</head>
+<body>
+  <div class="top-controls">
+    <button class="icon-btn" id="toggleTheme" title="테마 토글">🌗</button>
+    <button class="icon-btn" id="downloadResume" title="이력서 다운로드">📄</button>
+  </div>
+
+  <section class="hero">
+    <div class="hero-card">
+      <div class="hero-title">김정민</div>
+      <div class="hero-sub"><span id="typingText"></span></div>
+      <div style="margin-top:14px">
+        <button class="btn" id="scrollAbout">About me</button>
+      </div>
+    </div>
+  </section>
+
+  <main class="wrap">
+    <section id="about" class="reveal">
+      <h2>About Me</h2>
+      <div class="about-card">
+        <div class="photo">Me</div>
+        <div>
+          <div style="font-size:20px;font-weight:800;">김정민</div>
+          <div style="color:var(--accent);font-weight:700;">Frontend Developer</div>
+          <div style="margin:8px 0;color:gray;">
+            📧 <a href="mailto:kyoungsjjj0513@gmail.com">kyoungsjjj0513@gmail.com</a><br>
+            🔗 <a href="https://github.com/kyoungsjjj0211" target="_blank">https://github.com/kyoungsjjj0211</a><br>
+            ▶️ <a href="https://www.youtube.com/@mi_ya__01" target="_blank">YouTube</a><br>
+            📍 Seoul, South Korea
+          </div>
+          <div style="color:gray;">사용자 경험을 중심으로 성장하는 개발자 김정민입니다.  
+          직관적인 UI와 깨끗한 코드를 추구하며, 팀과 함께 발전하는 것을 즐깁니다.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" class="reveal">
+      <h2>Skills</h2>
+      <div class="skill-grid">
+        <div class="skill-card">HTML5</div>
+        <div class="skill-card">CSS3</div>
+        <div class="skill-card">JavaScript</div>
+        <div class="skill-card">React</div>
+        <div class="skill-card">TypeScript</div>
+        <div class="skill-card">Node.js</div>
+        <div class="skill-card">Git / GitHub</div>
+      </div>
+    </section>
+
+    <section id="portfolio" class="reveal">
+      <h2>Projects</h2>
+      <div class="project-grid">
+        <!-- 프로젝트 카드 8개 -->
+        <div class="project-card">
+          <div class="project-inner">
+            <div class="project-front"><h3>ALT Dashboard</h3><p>기업 내부용 데이터 시각화 시스템</p></div>
+            <div class="project-back"><p>React + D3.js 기반 대시보드로, 실시간 생산 데이터를 시각화.</p>
+            <p>React · D3.js · Node.js</p></div>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-inner">
+            <div class="project-front"><h3>Smart Todo</h3><p>Firebase 기반 일정 관리 앱</p></div>
+            <div class="project-back"><p>Firebase로 동기화되는 일정 관리 웹앱.</p><p>실시간 동기화와 오프라인 캐시 기능을 지원하는 To-do 웹앱.</p>
+            <p>React · Firebase · PWA</p></div>
+            </div>
+        </div>
+        <div class="project-card">
+          <div class="project-inner">
+            <div class="project-front"><h3>Personal Blog</h3><p>Markdown 기반 블로그 플랫폼</p></div>
+            <div class="project-back"><p>Markdown 기반 블로그 플랫폼, SEO 최적화.</p><p>Next.js를 활용해 SEO 최적화와 다크모드 전환을 구현.</p>
+            <p>Next.js · TailwindCSS · Markdown</p></div>
+            </div>
+        </div>
+        <div class="project-card">
+          <div class="project-inner">
+            <div class="project-front"><h3>Weather Now</h3><p>실시간 날씨 정보 앱</p></div>
+            <div class="project-back"><p>OpenWeather API를 이용한 실시간 날씨 앱 및 지역별 기상정보 시각화.</p><p>JavaScript · API · Chart.js</p></div>
+            </div>
+        </div>
+        <div class="project-card">
+          <div class="project-inner">
+            <div class="project-front"><h3>Music Player</h3><p>React Hooks 음악 스트리밍 UI</p></div>
+            <div class="project-back"><p>React Hooks로 만든 음악 스트리밍 UI.</p><p>재생목록 관리, 애니메이션 기반 플레이어 UI 제공.</p>
+            <p>React · Styled-components</p></div>
+            </div>
+        </div>
+        <div class="project-card">
+          <div class="project-inner">
+            <div class="project-front"><h3>Portfolio v2</h3><p>개인 포트폴리오 리뉴얼</p></div>
+            <div class="project-back"><p>Next.js 기반 개인 포트폴리오 2.0 버전.</p><p>Framer Motion으로 인터랙티브 전환을 구현한 리뉴얼 버전.</p>
+            <p>Next.js · Framer Motion</p></div>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-inner">
+            <div class="project-front"><h3>Chat Connect</h3><p>실시간 채팅 앱</p></div>
+            <div class="project-back"><p>Socket.io 기반 실시간 채팅 및 파일 전송 기능 지원 애플리케이션.</p><p>Node.js · Socket.io · Express</p></div>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-inner">
+            <div class="project-front"><h3>Design Hub</h3><p>UI 디자인 리소스 공유 플랫폼</p></div>
+            <div class="project-back"><p>UI 리소스를 공유하고 피드백하는 커뮤니티 플랫폼.</p><p>사용자 업로드, 북마크 기능 및 필터 검색 시스템을 구현.</p>
+            <p>React · Firebase · CSS Grid</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="reveal">
+      <h2>Contact</h2>
+      <p style="color:gray">협업 또는 프로젝트 제안은 이쪽으로 문의부탁드립니다 :) </p>
+      <div class="contact-card">
+        <form class="contact-form" id="contactForm">
+          <input type="text" name="name" placeholder="이름" required>
+          <input type="email" name="email" placeholder="이메일" required>
+          <input type="text" name="title" placeholder="제목" required>
+          <textarea name="message" rows="5" placeholder="메시지" required></textarea>
+          <button type="submit">메일 보내기</button>
+        </form>
+      </div>
+    </section>
+
+    <footer>© 2025 김정민</footer>
+  </main>
+
+  <script>
+    // 타이핑 애니메이션
+    const text = "Web Developer · 함께 성장하는 프론트엔드 엔지니어";
+    const typingText = document.getElementById("typingText");
+    let idx = 0;
+    function typing(){
+      if(idx < text.length){
+        typingText.textContent += text.charAt(idx);
+        idx++;
+        setTimeout(typing, 80);
+      }
+    }
+    window.onload = typing;
+
+    // 스크롤 등장 효과
+    const observer = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting) entry.target.classList.add('revealed');
+      });
+    },{threshold:0.15});
+    document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+    document.getElementById('scrollAbout').addEventListener('click',()=>{
+      document.getElementById('about').scrollIntoView({behavior:'smooth'});
+    });
+  </script>
+</body>
+</html>

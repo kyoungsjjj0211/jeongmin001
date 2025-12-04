@@ -1,0 +1,51 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableProxyOraclev11g class="oracle.dbtools.crest.model.design.storage.oracle.v11g.TableProxyOraclev11g" name="EMP_FK" directorySegmentName="seg_0" id="687631F5-1854-C5A3-8D5E-403AC0716791">
+<createdBy>TJ-BU-703-004PC</createdBy>
+<createdTime>2025-12-01 05:45:29 UTC</createdTime>
+<ownerDesignName>em</ownerDesignName>
+<schemaObject>5B500F63-AFF4-0700-EE15-FA03C94B69D8</schemaObject>
+<logging>YES</logging>
+<partitionedRowMovement>DISABLE</partitionedRowMovement>
+<segment>463601FA-8B51-06AE-1A97-08080A73AD0B</segment>
+<tableSpace>1C67E205-EF8C-0EDB-AE85-BCA18DAB9751</tableSpace>
+<temporaryChanged>false</temporaryChanged>
+<accessDriverType>oracle_loader</accessDriverType>
+<rejectLimit></rejectLimit>
+<columnProxies itemClass="oracle.dbtools.crest.model.design.storage.oracle.v12c.ColumnProxyOraclev12c">
+<ColumnProxy name="DEPTNO" id="8E3E64FF-07C9-6EB5-75E2-6E1749BB34C0">
+<createdBy>TJ-BU-703-004PC</createdBy>
+<createdTime>2025-12-01 05:45:29 UTC</createdTime>
+<ownerDesignName>em</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="EMPNO" id="C173D3BD-EE21-4BFF-89B1-6546575C6593">
+<createdBy>TJ-BU-703-004PC</createdBy>
+<createdTime>2025-12-01 05:45:29 UTC</createdTime>
+<ownerDesignName>em</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="ENAME" id="FE2F10EA-C1FE-6D21-C695-9ABD62B49FBE">
+<createdBy>TJ-BU-703-004PC</createdBy>
+<createdTime>2025-12-01 05:45:29 UTC</createdTime>
+<ownerDesignName>em</ownerDesignName>
+</ColumnProxy>
+</columnProxies>
+<foreignKeys>
+<ForeignKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.FKProxyOraclev10g" name="FK_DEPT" id="24B6ED19-497B-D6F5-7FBC-44AF1A6284E7">
+<createdBy>TJ-BU-703-004PC</createdBy>
+<createdTime>2025-12-01 05:45:30 UTC</createdTime>
+<ownerDesignName>em</ownerDesignName>
+</ForeignKey>
+</foreignKeys>
+<primaryKeys>
+<PrimaryKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.PKProxyOraclev10g" name="EMP_FK_PK" id="5B560D76-B8BC-ADCC-8164-923C45F24114">
+<createdBy>TJ-BU-703-004PC</createdBy>
+<createdTime>2025-12-01 05:45:29 UTC</createdTime>
+<ownerDesignName>em</ownerDesignName>
+<schemaObject>5B500F63-AFF4-0700-EE15-FA03C94B69D8</schemaObject>
+<segment>683C87B0-E317-100B-CC50-AAFD129EFC0E</segment>
+<tableSpace>1C67E205-EF8C-0EDB-AE85-BCA18DAB9751</tableSpace>
+<indexSegment>683C87B0-E317-100B-CC50-AAFD129EFC0E</indexSegment>
+<indexSort>SORTED</indexSort>
+<usingIndex>BY INDEX NAME</usingIndex>
+</PrimaryKey>
+</primaryKeys>
+</TableProxyOraclev11g>

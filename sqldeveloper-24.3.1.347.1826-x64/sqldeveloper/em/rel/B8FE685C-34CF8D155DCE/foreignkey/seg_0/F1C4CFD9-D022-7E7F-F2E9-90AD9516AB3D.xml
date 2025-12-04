@@ -1,0 +1,21 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="F1C4CFD9-D022-7E7F-F2E9-90AD9516AB3D" containerWithKeyObject="09565A12-DCFB-6E29-649D-9724CE332C14" localFKIndex="A5433671-A02E-1894-9229-301C6BBC0547" name="FK_POST_APPUSER">
+<sourceConnName>scott</sourceConnName>
+<sourceObjSchema>SCOTT</sourceObjSchema>
+<sourceObjName>FK_POST_APPUSER</sourceObjName>
+<createdBy>TJ-BU-703-004PC</createdBy>
+<createdTime>2025-12-01 05:46:40 UTC</createdTime>
+<ownerDesignName>em</ownerDesignName>
+<referredTableLongName>SCOTT.APPUSER</referredTableLongName>
+<deleteRule>CASCADE</deleteRule>
+<referredTableID>691AE21C-8A27-94C7-AB2C-61853BA7E33C</referredTableID>
+<keyObject>451F8C91-CEB2-5FA9-6A5C-3603CFD288C6</keyObject>
+<referredKeyID>451F8C91-CEB2-5FA9-6A5C-3603CFD288C6</referredKeyID>
+<mandatory>false</mandatory>
+<refColNames>APP_USER_ID</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<discriminatorColumn>69B3E9EF-C451-A02F-6362-D7C98110C925</discriminatorColumn>
+<discriminatorValue>NUMBER(5)</discriminatorValue>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>
