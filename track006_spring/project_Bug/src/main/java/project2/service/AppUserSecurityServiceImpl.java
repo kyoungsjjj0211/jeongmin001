@@ -60,17 +60,37 @@ public class AppUserSecurityServiceImpl implements AppUserSecurityService {
 
     @Override
     public int update(MultipartFile file, AppUserDto dto) {
+        // DB에서 현재 사용자 정보 조회
         AppUserAuthDto dbUser = dao.readAuth(dto);
         if (dbUser == null) return 0;
 
-        if (pwencoder.matches(dto.getPassword(), dbUser.getPassword())) {
-            String fileName = handleFileUpload(file);
-            dto.setBfile(fileName);
-            return dao.update(dto);
-        } else {
+        // 현재 비밀번호 검증
+        if (!pwencoder.matches(dto.getPassword(), dbUser.getPassword())) {
             return 0;
         }
+
+        // 닉네임 수정
+        dto.setNickname(dto.getNickname());
+
+        // 새 비밀번호가 입력된 경우 변경
+        if (dto.getNewPassword() != null && !dto.getNewPassword().isEmpty()) {
+            if (!dto.getNewPassword().equals(dto.getConfirmPassword())) {
+                return 0; // 새 비밀번호 불일치
+            }
+            dto.setPassword(pwencoder.encode(dto.getNewPassword()));
+        } else {
+            // 새 비밀번호 없으면 기존 비밀번호 유지
+            dto.setPassword(dbUser.getPassword());
+        }
+
+        // 파일 업로드 처리 (선택적으로 유지 가능)
+        String fileName = handleFileUpload(file);
+        if (fileName != null) {
+            dto.setBfile(fileName);
+        }
+        return dao.update(dto);
     }
+
 
     @Override
     public int delete(AppUserDto dto) {
@@ -121,6 +141,16 @@ public class AppUserSecurityServiceImpl implements AppUserSecurityService {
     public int selectMobile(String mobile) {
         return dao.selectMobile(mobile);
     }
+
+    @Override
+    public String selectUserNickname(int appUserId) {
+        return dao.selectNicknameByUserId(appUserId);
+    }
+
+	@Override
+	public String selectNicknameByUserId(int appUserId) {
+		 return dao.selectNicknameByUserId(appUserId);
+	}
     
     
 }

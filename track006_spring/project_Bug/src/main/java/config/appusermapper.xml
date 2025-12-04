@@ -81,6 +81,10 @@
 		UPDATE bug SET PASSWORD = #{password} WHERE EMAIL = #{email} AND MOBILE =
 		#{mobile}
 	</update>
+	
+	<update id="updateNickname">
+       UPDATE bug SET NICKNAME = #{nickname} WHERE APPUSERID = #{appUserId}
+   </update>
 
 	<select resultType="int" id="nickdouble"
 		parameterType="project2.dto.AppUserDto">
@@ -118,5 +122,7 @@
 	<delete id="deleteAuthByEmail" parameterType="string">
 		delete from authorities where EMAIL=#{email}
 	</delete>
+	
+	
 
 </mapper>

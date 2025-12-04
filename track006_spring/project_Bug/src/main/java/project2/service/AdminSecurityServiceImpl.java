@@ -34,4 +34,9 @@ public class AdminSecurityServiceImpl implements AdminSecurityService {
         dao.deleteAuthByEmail(dto.getEmail()); 
         return dao.delete(dto);              
     }
+
+    @Override
+    public int updateNickname(int appUserId, String nickname) {
+        return dao.updateNickname(appUserId, nickname);
+    }
 }

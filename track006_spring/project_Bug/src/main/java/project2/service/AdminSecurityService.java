@@ -1,7 +1,6 @@
 package project2.service;
 
 import java.util.List;
-
 import project2.dto.AppUserDto;
 
 public interface AdminSecurityService {
@@ -9,4 +8,6 @@ public interface AdminSecurityService {
     AppUserDto select(int appUserId);
     int update(AppUserDto dto);
     int delete(AppUserDto dto);
+   int updateNickname(int appUserId, String nickname);
+
 }

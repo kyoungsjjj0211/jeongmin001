@@ -2,6 +2,7 @@ package project2.controller;
 
 import java.security.Principal;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +16,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,13 +26,33 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import project2.dao.AppUserMapper;
 import project2.dto.AppUserDto;
+import project2.dto.PagingDto;
+import project2.dto.RecipeDto;
 import project2.service.AppUserSecurityService;
+import project2.service.RecipeService;
 
 @Controller
 @RequestMapping("/security/*")
 public class AppUserSecurityController {
 	
 	@Autowired AppUserSecurityService service;
+	@Autowired RecipeService recipeService;
+	
+	@GetMapping("/main")
+    public String main(
+        Model model, 
+        @RequestParam(value = "pstartno", defaultValue = "1") int pstartno // 현재 페이지 번호 받기 (기본값 1)
+    ) { 
+        // 1. Service를 통해 현재 페이지의 레시피 목록을 조회
+        List<RecipeDto> recipeList = recipeService.selectRecipeListPaging(pstartno);
+        model.addAttribute("list", recipeList);
+        
+        // 2. 전체 개수를 조회하여 PagingDto 생성 후 View로 전달
+        int totalCount = recipeService.getTotalRecipeCount();
+        model.addAttribute("paging", new PagingDto(totalCount, pstartno));
+        
+        return "/member/main"; 
+    }
 	
 	// 이메일 찾기 페이지 (GET, JSP 렌더링)
     @RequestMapping(value="/findEmail", method=RequestMethod.GET)
@@ -165,16 +187,16 @@ public class AppUserSecurityController {
 	   
 	   
 	   @PreAuthorize("isAuthenticated()")
-	   @RequestMapping(value="/update", method=RequestMethod.POST, headers=("content-type=multipart/*"))   //수정 
-	   public String update(@RequestParam("file") MultipartFile file, AppUserDto dto, RedirectAttributes rttr) {
-	      String result = "비밀번호를 확인해주세요";
-	      if(service.update(file, dto) > 0) {
-	         result = "수정 성공";
-	      }
-	      rttr.addFlashAttribute("success", result);
+	      @RequestMapping(value="/update", method=RequestMethod.POST, headers=("content-type=multipart/*"))   //수정 
+	      public String update(@RequestParam("file") MultipartFile file, AppUserDto dto, RedirectAttributes rttr) {
+	         String result = "비밀번호를 확인해주세요";
+	         if(service.update(file, dto) > 0) {
+	            result = "수정 성공";
+	         }
+	         rttr.addFlashAttribute("success", result);
 
-	      return"redirect:/security/mypage";
-	      }
+	         return"redirect:/security/mypage";
+	         }
 
 		// 삭제
 		@RequestMapping("/delete") 

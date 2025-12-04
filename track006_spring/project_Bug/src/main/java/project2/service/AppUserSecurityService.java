@@ -16,5 +16,8 @@ public interface AppUserSecurityService {
 	public int findPassword(String email, String mobile, String newPassword);  // 비밀번호 찾기
 	public int selectNickname(String email);
 	public int selectMobile(String mobile);
+	
+    public String selectUserNickname(int appUserId);
+    public String selectNicknameByUserId(int appUserId);
 
 }

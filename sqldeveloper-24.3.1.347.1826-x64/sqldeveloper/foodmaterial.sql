@@ -33,6 +33,36 @@ CREATE TABLE recipes (
     FOREIGN KEY (APPUSERID) REFERENCES BUG(APPUSERID),
     FOREIGN KEY (CATEGORY)  REFERENCES CATEGORY(CATEGORY)
 );
+CREATE SEQUENCE recipes_ingre_map_seq
+START WITH 100
+INCREMENT BY 1
+NOCACHE;
+
+CREATE TABLE recipes_ingre_map (
+    RECIPE_ID    NUMBER,
+    INGRE_MAP_ID NUMBER PRIMARY KEY,
+    FOREIGN KEY (RECIPE_ID) REFERENCES recipes(RECIPE_ID) ON DELETE CASCADE
+);
+
+CREATE SEQUENCE recipes_ingre_map_seq
+START WITH 1
+INCREMENT BY 1
+NOCACHE;
+
+CREATE SEQUENCE recipes_seq
+START WITH 1
+INCREMENT BY 1
+NOCACHE;
+
+select * from CATEGORY;
+INSERT INTO CATEGORY VALUES (1, '전체');
+INSERT INTO CATEGORY VALUES (2, '한식');
+INSERT INTO CATEGORY VALUES (3, '양식');
+INSERT INTO CATEGORY VALUES (4, '중식');
+INSERT INTO CATEGORY VALUES (5, '일식');
+INSERT INTO CATEGORY VALUES (6, '디저트');
+INSERT INTO CATEGORY VALUES (7, '건강식');
+INSERT INTO CATEGORY VALUES (8, '기타');
 
 CREATE TABLE  (
     RECIPE_ID NUMBER,
@@ -213,6 +243,9 @@ create table material (
     trimguide           VARCHAR2(1000),                         -- 손질법
     storeguide          VARCHAR2(1000)                         -- 보관법
 );
+select * from material;
+delete from material;
+commit;
 select * from BUG;
 select * from authorities;
 insert into authorities values ('1@1', 'ROLE_ADMIN');

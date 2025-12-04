@@ -83,6 +83,15 @@ public class MaterialController {
 	        return "redirect:/admin/materiallist"; //admin/materialdelete?materialid=2
 	    }
 
+	    @GetMapping("/materialtitle") //materialdetail?materialid=2
+	    public String selecttitle(@RequestParam(value="title") String title, Model model) {
+	        MaterialDto dto = Service.selectTitle(title);
+	        model.addAttribute("dto", dto);
+	        return "material/materialdetail";  //유저 연결용
+	    }
+	    
+	    ///materialtitle?title=
+	  
 //	    // 관리자 판별 함수
 //	    private boolean isAdmin(HttpSession session) {
 //	        Object role = session.getAttribute("role");

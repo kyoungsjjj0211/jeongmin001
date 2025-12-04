@@ -28,7 +28,7 @@ public class TestDB2 {
     @Autowired MaterialDao dao;
     @Autowired PasswordEncoder pwencoder;
     @Autowired AppUserSecurityService service;
-    
+   
     
 	
 
@@ -65,7 +65,7 @@ public class TestDB2 {
 	} 
 	
     @Ignore @Test public void test1() {
-    	int materialid =2;
+    	int materialid =20;
 		MaterialDto dto = dao.selectMaterial(materialid);
 		System.out.println(dto);
 		//select * from material
@@ -102,12 +102,25 @@ public class TestDB2 {
 	
 	@Ignore @Test public void test3() {
 //		delete from material where materialid=1;
-		int materialid =2;
+		int materialid =17;
 		System.out.println(dao.deleteMaterial(materialid));		
 	}
+
+	@Test public void test4() {
+		
+	 String title = "메밀묵";
+	 MaterialDto dto = dao.selectTitle(title);
+	 if(dto != null) {
+	        System.out.println("조회 성공!");
+	        System.out.println(dto);
+	    } else {
+	        System.out.println("조회 실패: 데이터 없음");
+	    }
+	 
+	 
+ }
+	
 }
-
-
 /*
  insert into material(
     materialid, title, imageurl, season, temperature, calories100g,

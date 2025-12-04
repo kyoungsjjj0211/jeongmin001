@@ -45,5 +45,8 @@
   <select resultMap="materialMap" id="selectMaterial" parameterType="int" >
   select *from material where MATERIALID =#{materialid}
   </select>
+  <select resultMap="materialMap" id="selectTitle" parameterType="string" >
+  select *from material where TITLE =#{title}
+  </select>
   
 </mapper>

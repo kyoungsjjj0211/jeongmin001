@@ -11,6 +11,8 @@ public class AppUserDto {
 	private String  mobile;
 	private String  joindate;
 	private String  bfile;
+	private String  newPassword;    // 새 비밀번호
+    private String  confirmPassword; // 새 비밀번호 확인
 		
 }
 

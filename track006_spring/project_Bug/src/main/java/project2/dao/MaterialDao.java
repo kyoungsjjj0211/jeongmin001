@@ -13,6 +13,7 @@ public interface MaterialDao {
 	public int deleteMaterial (int materialid);
 	public List<MaterialDto> MaterialList();
 	public MaterialDto selectMaterial(int materialid);
+	public MaterialDto selectTitle(String materialid);
 	public int insert2Material(MultipartFile file, MaterialDto dto);
 	public int update2Material(MultipartFile file, MaterialDto dto);
 }

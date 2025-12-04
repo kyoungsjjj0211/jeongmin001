@@ -11,9 +11,8 @@ public interface MaterialService {
 	public int updateMaterial (MaterialDto dto);
 	public int deleteMaterial (int materialid);
 	public List<MaterialDto> MaterialList();
+	public MaterialDto selectTitle(String title);
 	public MaterialDto selectMaterial(int materialid);
 	public int insert2Material(MultipartFile file, MaterialDto dto);
 	public int update2Material(MultipartFile file, MaterialDto dto);
-	
-
 }

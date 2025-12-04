@@ -2,8 +2,6 @@ package project2.service;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,6 +62,15 @@ public class MaterialServiceImpl implements MaterialService {
 			return null;
 		}
 	}
+	@Override
+	public MaterialDto selectTitle(String title) {
+	try {
+		return dao.selectTitle(title);
+	}catch(DataAccessException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
 
 	@Override
 	public int insert2Material(MultipartFile file, MaterialDto dto) {
