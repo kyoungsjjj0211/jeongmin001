@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import project2.dao.AppUserMapper;
+import project2.dao.RecipeDao;
 import project2.dto.AppUserDto;
 import project2.dto.PagingDto;
 import project2.dto.RecipeDto;
@@ -37,6 +38,7 @@ public class AppUserSecurityController {
 	
 	@Autowired AppUserSecurityService service;
 	@Autowired RecipeService recipeService;
+
 	
 	@GetMapping("/main")
     public String main(
@@ -46,6 +48,7 @@ public class AppUserSecurityController {
         // 1. Service를 통해 현재 페이지의 레시피 목록을 조회
         List<RecipeDto> recipeList = recipeService.selectRecipeListPaging(pstartno);
         model.addAttribute("list", recipeList);
+        
         
         // 2. 전체 개수를 조회하여 PagingDto 생성 후 View로 전달
         int totalCount = recipeService.getTotalRecipeCount();

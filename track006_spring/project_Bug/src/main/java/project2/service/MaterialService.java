@@ -15,4 +15,6 @@ public interface MaterialService {
 	public MaterialDto selectMaterial(int materialid);
 	public int insert2Material(MultipartFile file, MaterialDto dto);
 	public int update2Material(MultipartFile file, MaterialDto dto);
+	public List<MaterialDto> select10(int pstartno);
+	public int selectTotalCnt();
 }

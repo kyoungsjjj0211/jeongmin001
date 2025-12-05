@@ -1,6 +1,7 @@
 package project2.controller;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -11,15 +12,23 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import project2.dto.MaterialDto;
+import project2.dto.PagingDto;
+import project2.service.AppUserSecurityService;
 import project2.service.MaterialService;
+import project2.service.RecipeService;
 
 @Controller
 public class MaterialController {
+	@Autowired 
+	  RecipeService recipeService;
 	
+	@Autowired
+    AppUserSecurityService userService;
 	
 	@Autowired MaterialService Service;
 	
@@ -37,12 +46,20 @@ public class MaterialController {
 	        return "material/materialdetailAjax";   ///materialdetailAjax?materialid=1
 	    }
 	//관리자용 재료 전체 목록
+//	 @GetMapping("/admin/materiallist")
+//	    public String adminMaterialList(Model model, HttpSession session) {
+//	        List<MaterialDto> list = Service.MaterialList();
+//	        model.addAttribute("list", list);
+//	        return "material/materiallist_admin"; ///admin/materiallist 
+//	    }
 	 @GetMapping("/admin/materiallist")
-	    public String adminMaterialList(Model model, HttpSession session) {
-	        List<MaterialDto> list = Service.MaterialList();
-	        model.addAttribute("list", list);
-	        return "material/materiallist_admin"; ///admin/materiallist 
-	    }
+	    public String adminMaterialList(Model model,@RequestParam(value="pstartno", defaultValue="1") int pstartno
+	    		) {
+	        model.addAttribute("list", Service.select10(pstartno));
+	        model.addAttribute("paging", new PagingDto(Service.selectTotalCnt(), pstartno ));
+		        return "material/materiallist_admin"; ///admin/materiallist 
+		    }
+		 
 	 //등록폼
 	 @GetMapping("/admin/materialinsert")
 	    public String materialinsertForm(HttpSession session) {
@@ -89,6 +106,16 @@ public class MaterialController {
 	        model.addAttribute("dto", dto);
 	        return "material/materialdetail";  //유저 연결용
 	    }
+	    
+	    @GetMapping("/materialsearch")
+	    @ResponseBody
+	    public   Map<String, Object>  detail(@RequestParam("recipeId") int recipeId ) { 
+	    	Map<String, Object>   result = new HashMap<>();
+	    	result.put("result", recipeService.selectRecipeDetail(recipeId));
+	    	return result;
+	    }
+	    
+
 	    
 	    ///materialtitle?title=
 	  

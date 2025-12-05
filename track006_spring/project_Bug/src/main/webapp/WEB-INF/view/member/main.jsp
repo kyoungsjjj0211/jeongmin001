@@ -79,8 +79,12 @@
         <c:forEach var="recipe" items="${list}" varStatus="status">
             <c:if test="${status.index < 8}">
                 <div class="col-md-3 mb-4">
-                    <div class="card h-100 shadow-sm position-relative" style="cursor:pointer;" 
-                         data-bs-toggle="modal" data-bs-target="#recipeModal${recipe.recipeId}">
+                    <div class="card h-100 shadow-sm position-relative"
+                     style="cursor:pointer;" 
+                     data-bs-toggle="modal"
+                     data-bs-target="#recipeModal${recipe.recipeId}"
+                     onclick="loadIngredients(${recipe.recipeId})">
+                     
                          
                         <!-- 카테고리 라벨 -->
                         <div class="category-label">
@@ -150,7 +154,9 @@
                             <div class="modal-body">
                                 <p><strong>카테고리:</strong> ${recipe.categoryName}</p>
                                 <p><strong>작성자:</strong> ${recipe.nickname}</p>
-                                <p><strong>재료:</strong> ${recipe.ingredients}</p>
+                                <p><strong>재료:</strong>
+                                <span   id="ingredients-${recipe.recipeId}"></span>
+                                </p>
                                 <p><strong>조리 시간:</strong> ${recipe.cookTime} 분</p>
                                 <p><strong>인분:</strong> ${recipe.servings} 인분</p>
                                 <hr>
@@ -167,13 +173,85 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                            </div>
+                            	</div>
+                             
                         </div>
                     </div>
                 </div>
             </c:if>
         </c:forEach>  
     </div>
+   <script>
+   function loadIngredients(recipeId) {
+	   $.ajax({
+	     url: "${pageContext.request.contextPath}/materialsearch",
+	     type: "GET",
+	     data: { recipeId: recipeId },
+	     success: function(data) {
+	       let target = "#ingredients-" + recipeId;
+	       let arr = data.result.ingredients;
+
+	       for (let i = 0; i < arr.length; i++) {
+	         // 각 재료 버튼 추가
+	         $(target).append(
+	           '<div class="btn btn-primary m-1" ' +
+	             'data-bs-toggle="popover" ' +
+	             'data-bs-trigger="hover focus" ' +
+	             'title="' + arr[i].ingreName + '" ' +
+	             'data-title="' + arr[i].ingreName + '">' +   // 커스텀 속성 추가
+	               arr[i].ingreName + " - " + arr[i].ingreNum +
+	           '</div>'
+	         );
+	       }
+
+	       // Popover 초기화 (Ajax로 내용 채우기)
+	       var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+	       popoverTriggerList.map(function (el) {
+	         return new bootstrap.Popover(el, {
+	           content: function() {
+	             let ingreName = el.getAttribute("data-title");
+	             let content = "불러오는 중...";
+
+	             // Ajax로 상세 데이터 가져오기
+	             $.ajax({
+	               url: "${pageContext.request.contextPath}/materialtitle?title=" + encodeURIComponent(ingreName),
+	               type: "GET",
+	               async: false, // 동기 처리 (간단히 예시용)
+	               success: function(detail) {
+	                 content = detail; // 서버에서 내려주는 내용
+	               },
+	               error: function() {
+	                 content = "불러오기 실패";
+	               }
+	             });
+
+	             return content;
+	           }
+	         });
+	       });
+	     },
+	     error: function() {
+	       $("#ingredients-" + recipeId).html("불러오기 실패");
+	     }
+	   });
+	 }
+
+
+function openMaterialModal(title) {
+    // materialdetail.jsp 를 그대로 띄우는 URL
+    var url = "${pageContext.request.contextPath}/materialtitle?title=" + encodeURIComponent(title);
+
+    // iframe src 변경
+    document.getElementById("materialFrame").src = url;
+
+    // Bootstrap 5 기준
+    var modalEl = document.getElementById("materialModal");
+    var modal = new bootstrap.Modal(modalEl);
+    modal.show();
+    
+    
+}
+</script>
 
     <!-- 페이징 영역 -->
     <div class="mt-4">
@@ -215,6 +293,14 @@
             </c:if>
         </ul>
     </div>
+    
 </div>
-
+<div class="modal fade" id="materialModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <iframe id="materialFrame"
+              style="width:100%; height:600px; border:none;"></iframe>
+    </div>
+  </div>
+</div>
 <%@ include file="../inc/footer.jsp"%>

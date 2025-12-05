@@ -2,6 +2,7 @@ package project2.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,7 +101,15 @@ public class MaterialServiceImpl implements MaterialService {
 		return dao.updateMaterial(dto);
 	}
 
-	
+	@Override
+	public List<MaterialDto> select10(int pstartno) {
+		HashMap<String, Object> para = new HashMap();
+		int start=(pstartno-1)*10 + 1;
+		para.put("start", start);
+		para.put("end", start + 10 -1);
+		return dao.select10(para);
+	}
 
-
+	@Override
+	public int selectTotalCnt() {return dao.selectTotalCnt();}
 }
