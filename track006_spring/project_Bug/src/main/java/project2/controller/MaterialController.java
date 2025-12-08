@@ -106,6 +106,19 @@ public class MaterialController {
 	        model.addAttribute("dto", dto);
 	        return "material/materialdetail";  //유저 연결용
 	    }
+//	    @GetMapping("/materialtitle")
+//	    public String selecttitle(@RequestParam("title") String title, Model model) {
+//
+//	        MaterialDto dto = Service.selectTitle(title);
+//
+//	        // 재료가 없을 경우 404 에러 페이지로 리다이렉트
+//	        if (dto == null) {
+//	            return "error/404"; // 너의 404 JSP 파일 경로
+//	        }
+//
+//	        model.addAttribute("dto", dto);
+//	        return "material/materialdetail";  // 정상 조회 시 상세 페이지
+//	    }
 	    
 	    @GetMapping("/materialsearch")
 	    @ResponseBody
@@ -115,7 +128,12 @@ public class MaterialController {
 	    	return result;
 	    }
 	    
-
+	    @GetMapping("/material/check")
+	    @ResponseBody
+	    public boolean checkMaterial(@RequestParam String title) {
+	        MaterialDto dto = Service.selectTitle(title);
+	        return dto != null;
+	    }
 	    
 	    ///materialtitle?title=
 	  

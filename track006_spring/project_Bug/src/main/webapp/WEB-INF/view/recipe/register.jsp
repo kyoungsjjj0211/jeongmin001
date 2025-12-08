@@ -21,7 +21,7 @@
                 <label for="category" class="form-label">카테고리 *</label>
                 <select id="category" name="category" class="form-select" required>
                     <option value="">-- 선택 --</option>
-                    <option value="1">전체</option>
+                    <!-- <option value="1">전체</option> -->
                     <option value="2">한식</option>
                     <option value="3">양식</option>
                     <option value="4">중식</option>

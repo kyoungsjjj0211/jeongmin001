@@ -90,9 +90,34 @@
         </div>
     </c:if>
     
+    <div class="d-flex justify-content-end mt-4">
+    <a href="${pageContext.request.contextPath}/recipe/list" 
+           class="btn btn-primary me-2">목록보기</a>
+           
+    <%-- ⭐️ 수정 및 삭제 버튼 표시 조건 --%>
+    <%-- 조건: 레시피 작성자 본인이거나, 로그인 사용자가 ROLE_ADMIN 권한을 가진 경우 --%>
+    <sec:authorize access="isAuthenticated()"> <%-- 로그인된 사용자만 검사 --%>
+        <c:set var="isAuthor" value="${loginUser.appUserId == recipe.appUserId}" />
+        <sec:authorize access="hasRole('ROLE_ADMIN')" var="isAdmin" />
+
+        <c:if test="${isAuthor || isAdmin}">
+            <%-- 수정 버튼 (작성자 또는 Admin 모두 수정 가능하도록) --%>
+            <a href="${pageContext.request.contextPath}/recipe/modify?recipeId=${recipe.recipeId}" 
+               class="btn btn-primary me-2">수정</a>
+               
+            <%-- 삭제 버튼 (작성자 또는 Admin 모두 삭제 가능하도록) --%>
+            <form action="${pageContext.request.contextPath}/recipe/delete" method="post">
+                <sec:csrfInput/>
+                <input type="hidden" name="recipeId" value="${recipe.recipeId}">
+                <button type="submit" class="btn btn-danger"
+                        onclick="return confirm('정말 삭제하시겠습니까?');">삭제</button>
+            </form>
+        </c:if>
+    </sec:authorize>
+</div>
 
 
-        <div class="d-flex justify-content-end mt-4">
+        <%-- <div class="d-flex justify-content-end mt-4">
         <a href="${pageContext.request.contextPath}/recipe/list" 
                class="btn btn-primary me-2">목록보기</a>
             <c:if test="${loginUser.appUserId == recipe.appUserId}">
@@ -105,7 +130,7 @@
                         onclick="return confirm('정말 삭제하시겠습니까?');">삭제</button>
             </form>
             </c:if>
-        </div>
+        </div> --%>
     
 </div>
 

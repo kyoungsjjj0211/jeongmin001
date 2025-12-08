@@ -50,10 +50,18 @@ public interface RecipeDao {
     
     // 5. search
     
- // 5. search
-    public List<RecipeDto> selectSearchTitle(HashMap<String, Object> para);
+    // 5. search dao
+    public List<RecipeDto> selectSearchTitle(HashMap<String, String> para);
 
-    public List<RecipeDto> selectSearchCategory(HashMap<String, Object> para);
+    public List<RecipeDto> selectSearchCategory(HashMap<String, String> para);
+    
+    public List<RecipeDto> searchBoth(HashMap<String, String> para);
+    
+ // ⭐️ [검색 페이징 추가]
+    public int searchBothCount(HashMap<String, String> para);
+    public List<RecipeDto> searchBothPaging(HashMap<String, String> para);
+    
+
 
 }
 

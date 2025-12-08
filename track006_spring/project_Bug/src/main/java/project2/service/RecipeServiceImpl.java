@@ -3,8 +3,10 @@ package project2.service;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import project2.dao.AppUserMapper;
 import project2.dao.RecipeDao;
+import project2.dto.PagingDto;
 import project2.dto.RecipeDto;
 import project2.dto.RecipeImage;
 import project2.dto.RecipeIngre;
@@ -330,7 +333,7 @@ public class RecipeServiceImpl implements RecipeService {
     @Override
     public List<RecipeDto> selectRecipeListPaging(int currentPage) {
         java.util.HashMap<String, Object> para = new java.util.HashMap<>();
-        int onepagelist = 10;
+        int onepagelist = 8;
         int start = (currentPage - 1) * onepagelist + 1;
         int end = start + onepagelist - 1;
         para.put("start", start);
@@ -340,33 +343,88 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     public String selectCategoryNameById(int categoryId) {
-        return null;
+        return dao.selectCategoryNameById(categoryId);
     }
-    
+   
+
     @Override
     public List<RecipeDto> selectSearchTitle(String keyword) {
 
-        HashMap<String, Object> para = new HashMap<>();
+        // 🔹 검색어 유효성 검사 추가 (추천)
+        if (keyword == null || keyword.trim().isEmpty()) {
+            return Collections.emptyList();  // 빈 리스트 반환
+        }
+
+        HashMap<String, String> para = new HashMap<>();
         para.put("search", "%" + keyword + "%");
 
         return dao.selectSearchTitle(para);
     }
 
+
     @Override
     public List<RecipeDto> selectSearchCategory(String keyword) {
 
-        HashMap<String, Object> para = new HashMap<>();
+        if (keyword == null || keyword.trim().isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        HashMap<String, String> para = new HashMap<>();
         para.put("search", "%" + keyword + "%");
 
         return dao.selectSearchCategory(para);
     }
     
-	/*
-	 * @Override public List<RecipeDto> selectSearchTitle(String search) { search =
-	 * "%" + search + "%"; return dao.selectSearchTitle(search); }
-	 * 
-	 * @Override public List<RecipeDto> selectSearchCategory(String search) { search
-	 * = "%" + search + "%"; return dao.selectSearchCategory(search); }
-	 */
+    @Override
+    public List<RecipeDto> searchBoth(String keyword) {
+
+        if (keyword == null || keyword.trim().isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        HashMap<String, String> para = new HashMap<>();
+        para.put("search", "%" + keyword + "%");
+
+        return dao.searchBoth(para);
+    }
+    
+    @Override
+    public Map<String, Object> searchBothPaging(String category, String keyword, int page) {
+        
+        HashMap<String, String> para = new HashMap<>(); 
+        
+        // 1. 키워드 및 카테고리 파라미터 설정
+        // SQL LIKE 검색을 위해 % 처리
+        if (keyword != null && !keyword.trim().isEmpty()) {
+            para.put("keyword", "%" + keyword.trim() + "%");
+        }
+        para.put("category", category); // '전체' 또는 특정 카테고리 이름
+        
+        // 2. 전체 개수 조회
+        // DAO의 searchBothCount 메서드 사용 (Mapper에서 추가했던 ID)
+        int totalCount = dao.searchBothCount(para);
+
+        // 3. PagingDto 계산
+        PagingDto paging = new PagingDto(totalCount, page);
+        
+        // 4. DB 조회 범위 설정 (PagingDto의 rStart, rEnd 사용)
+        // DAO에 넘길 Map에 rStart, rEnd 값을 String으로 추가 (MyBatis 파라미터와 일치)
+        para.put("rStart", String.valueOf(paging.getRStart())); 
+        para.put("rEnd", String.valueOf(paging.getREnd()));     
+        
+        // 5. 페이징된 리스트 조회
+        // DAO의 searchBothPaging 메서드 사용 (Mapper에서 추가했던 ID)
+        List<RecipeDto> list = dao.searchBothPaging(para);
+
+        // 6. 결과 Map에 담아 반환
+        Map<String, Object> result = new HashMap<>();
+        result.put("list", list);
+        result.put("paging", paging);
+
+        return result;
+    }
+    
+    
+
 
 }

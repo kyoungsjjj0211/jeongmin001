@@ -1,6 +1,8 @@
 package project2.service;
 
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.web.multipart.MultipartFile;
 import project2.dto.RecipeDto;
 
@@ -74,9 +76,11 @@ public interface RecipeService {
     // 카테고리 이름 조회
     public String selectCategoryNameById(int categoryId);
     
-    // search
-    public List<RecipeDto> selectSearchTitle(String search);
-
-    public List<RecipeDto> selectSearchCategory(String search);
+ // search service
+    public List<RecipeDto> selectSearchTitle(String keyword);
+    public List<RecipeDto> selectSearchCategory(String keyword);
+    public List<RecipeDto> searchBoth(String keyword);
+    
+    public Map<String, Object> searchBothPaging(String category, String keyword, int page);
 
 }

@@ -21,7 +21,10 @@
         <result property="updatedAt" column="UPDATED_AT"/>
         <result property="views" column="VIEWS"/>
         <result property="nickname" column="NICKNAME"/>
-        
+        <result property="ingreMapId" column="INGRE_MAP_ID"/>
+	    <result property="ingreName" column="INGRE_NAME"/> 
+	    <result property="ingreNum" column="INGRE_NUM"/>
+	        
           <!-- JOIN된 CATEGORY -->
     <result property="categoryName" column="CATEGORY_NAME"/>
 
@@ -152,47 +155,91 @@ VALUES (
     <!--  ajax - search	 -->
     <!--  ajax - search	 -->
     <!--  ajax - search	 -->
-   <!-- <select id="selectSearchTitle" resultMap="recipeDtoResultMap">
- 	 SELECT *
- 	 FROM recipes
- 	WHERE title LIKE #{search}
-	</select>
-
-	<select id="selectSearchCategory" resultMap="recipeDtoResultMap">
-  SELECT *
-  FROM recipes
-  WHERE categoryName LIKE #{search}
-	</select>  -->
     
-	 <select id="selectSearchTitle"
-        resultMap="recipeDtoResultMap"
-        parameterType="java.util.HashMap">
-
-    SELECT r.RECIPE_ID,
-           r.APPUSERID,
-           r.TITLE,
-           r.CATEGORY,
-           c.CATEGORY_NAME,
-           r.IMAGE,
-           r.COOK_TIME,
-           r.DIFFICULTY,
-           r.SERVINGS,
-           r.DESCRIPTION,
-           r.INSTRUCTIONS,
-           r.CREATED_AT,
-           r.UPDATED_AT,
-           r.VIEWS,
-           b.NICKNAME AS NICKNAME
-    FROM RECIPES r
+	<select id="selectSearchTitle" resultMap="recipeDtoResultMap"
+		parameterType="java.util.HashMap"> SELECT r.RECIPE_ID, r.APPUSERID, r.TITLE, r.CATEGORY,
+		c.CATEGORY_NAME, r.IMAGE, r.COOK_TIME, r.DIFFICULTY, r.SERVINGS,
+		r.DESCRIPTION, r.INSTRUCTIONS, r.CREATED_AT, r.UPDATED_AT, r.VIEWS,
+		b.NICKNAME AS NICKNAME FROM recipes r LEFT JOIN CATEGORY c ON
+		r.CATEGORY = c.CATEGORY LEFT JOIN BUG b ON r.APPUSERID = b.APPUSERID
+		WHERE r.TITLE LIKE #{search} ORDER BY NVL(r.UPDATED_AT, r.CREATED_AT)
+		DESC </select>
+		
+	<select id="selectSearchCategory" resultMap="recipeDtoResultMap"
+		parameterType="java.util.HashMap"> SELECT r.RECIPE_ID, r.APPUSERID, r.TITLE, r.CATEGORY,
+		c.CATEGORY_NAME, r.IMAGE, r.COOK_TIME, r.DIFFICULTY, r.SERVINGS,
+		r.DESCRIPTION, r.INSTRUCTIONS, r.CREATED_AT, r.UPDATED_AT, r.VIEWS,
+		b.NICKNAME AS NICKNAME FROM recipes r LEFT JOIN CATEGORY c ON
+		r.CATEGORY = c.CATEGORY LEFT JOIN BUG b ON r.APPUSERID = b.APPUSERID
+		WHERE c.CATEGORY_NAME LIKE #{search} ORDER BY NVL(r.UPDATED_AT,
+		r.CREATED_AT) DESC </select>
+		
+	<select id="searchBoth" parameterType="hashmap"
+		resultMap="recipeDtoResultMap">
+		SELECT r.RECIPE_ID, r.APPUSERID, r.TITLE, r.CATEGORY, c.CATEGORY_NAME,
+		r.IMAGE, r.COOK_TIME, r.DIFFICULTY, r.SERVINGS, r.DESCRIPTION,
+		r.INSTRUCTIONS, r.CREATED_AT, r.UPDATED_AT, r.VIEWS, b.NICKNAME AS
+		NICKNAME FROM recipes r LEFT JOIN CATEGORY c ON r.CATEGORY =
+		c.CATEGORY LEFT JOIN BUG b ON r.APPUSERID = b.APPUSERID
+		<!-- ⭐ 여기서 제목 + 카테고리명 동시에 검색 -->
+		WHERE r.TITLE LIKE #{search} OR c.CATEGORY_NAME LIKE #{search} ORDER
+		BY NVL(r.UPDATED_AT, r.CREATED_AT) DESC
+	</select>
+	
+	<select id="searchBothCount" parameterType="hashmap" resultType="int">
+    SELECT COUNT(*)
+    FROM recipes r
     LEFT JOIN CATEGORY c ON r.CATEGORY = c.CATEGORY
-    LEFT JOIN BUG b ON r.APPUSERID = b.APPUSERID
-    WHERE r.TITLE LIKE #{search}
-    ORDER BY NVL(r.UPDATED_AT, r.CREATED_AT) DESC
+    <where>
+        <if test="keyword != null and keyword != ''">
+            (r.TITLE LIKE #{keyword} OR c.CATEGORY_NAME LIKE #{keyword})
+        </if>
+        <if test="category != null and category != '' and category != '전체'">
+            AND c.CATEGORY_NAME = #{category}
+        </if>
+    </where>
 </select>
 
+<select id="searchBothPaging" parameterType="hashmap" resultMap="recipeDtoResultMap">
+    SELECT * FROM (
+        SELECT 
+            ROW_NUMBER() OVER (ORDER BY NVL(r.UPDATED_AT, r.CREATED_AT) DESC) AS rnum,
+            r.RECIPE_ID, r.APPUSERID, r.TITLE, r.CATEGORY, 
+            c.CATEGORY_NAME, r.IMAGE, r.COOK_TIME, 
+            r.DIFFICULTY, r.SERVINGS, r.DESCRIPTION,
+            r.INSTRUCTIONS, r.CREATED_AT, 
+            r.UPDATED_AT, r.VIEWS, 
+            b.NICKNAME AS NICKNAME
+        FROM recipes r
+        LEFT JOIN CATEGORY c ON r.CATEGORY = c.CATEGORY
+        LEFT JOIN BUG b ON r.APPUSERID = b.APPUSERID
+        <where>
+            <if test="keyword != null and keyword != ''">
+                (r.TITLE LIKE #{keyword} OR c.CATEGORY_NAME LIKE #{keyword})
+            </if>
+            <if test="category != null and category != '' and category != '전체'">
+                AND c.CATEGORY_NAME = #{category}
+            </if>
+        </where>
+    ) A
+    WHERE A.rnum BETWEEN #{rStart} AND #{rEnd}
+</select>
+	
+	
+	
+	<select id="selectRecipeListPaging"
+		resultMap="recipeDtoResultMap" parameterType="java.util.HashMap"> SELECT * FROM ( SELECT
+		ROW_NUMBER() OVER (ORDER BY NVL(r.UPDATED_AT, r.CREATED_AT) DESC) AS
+		rnum, r.RECIPE_ID, r.APPUSERID, r.TITLE, r.CATEGORY, c.CATEGORY_NAME,
+		r.IMAGE, r.COOK_TIME, r.DIFFICULTY, r.SERVINGS, r.DESCRIPTION,
+		r.INSTRUCTIONS, r.CREATED_AT, r.UPDATED_AT, r.VIEWS, b.NICKNAME AS
+		NICKNAME FROM recipes r LEFT JOIN CATEGORY c ON r.CATEGORY =
+		c.CATEGORY LEFT JOIN BUG b ON r.APPUSERID = b.APPUSERID ) A WHERE
+		A.rnum BETWEEN #{start} AND #{end} </select>
 
 
-   <select id="selectSearchCategory"
+
+  <!--  <select id="selectSearchCategory"
         resultMap="recipeDtoResultMap"
         parameterType="java.util.HashMap">
 
@@ -237,7 +284,7 @@ VALUES (
         ) A
         WHERE A.rnum BETWEEN #{start} AND #{end}
     </select>
-
+ -->
     <!-- 업데이트 및 삭제 쿼리 -->
     <update id="incrementRecipeViews" parameterType="int">
         UPDATE recipes

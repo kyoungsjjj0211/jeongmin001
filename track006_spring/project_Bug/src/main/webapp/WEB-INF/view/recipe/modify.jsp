@@ -4,7 +4,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
 
-<div class="container mt-5">
+<div class="container mt-5 flex-grow-1">
     <h3>레시피 수정 ✏️</h3>
     
     <form id="modifyForm" action="${pageContext.request.contextPath}/recipe/modify" 
@@ -23,7 +23,7 @@
                 <label class="form-label">카테고리 *</label>
                 <select name="category" class="form-select" required>
                     <option value="">-- 선택 --</option>
-                    <option value="1" ${recipe.category==1?'selected':''}>전체</option>
+                    <%-- <option value="1" ${recipe.category==1?'selected':''}>전체</option> --%>
                     <option value="2" ${recipe.category==2?'selected':''}>한식</option>
                     <option value="3" ${recipe.category==3?'selected':''}>양식</option>
                     <option value="4" ${recipe.category==4?'selected':''}>중식</option>
@@ -294,5 +294,5 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 </script>
-
+<br>
 <%@ include file="../inc/footer.jsp"%>

@@ -26,8 +26,8 @@ public class PagingDto {
 	public PagingDto(int listtotal, int currentPage) {
 		super();
 		this.listtotal = listtotal;
-		this.onepagelist = 10;
-		this.bottomlist = 10;
+		this.onepagelist = 8;
+		this.bottomlist = 8;
 		this.current = currentPage;
         
         if (listtotal <= 0) { listtotal = 1; }

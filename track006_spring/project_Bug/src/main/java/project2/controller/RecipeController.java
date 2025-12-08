@@ -40,6 +40,27 @@ public class RecipeController {
 	 * recipeList); return "/recipe/list"; }
 	 */
  // ⭐️ [수정] 페이징 기능 적용 (Sboard1 방식)
+    
+    @GetMapping("/main")
+	public String main(Model model,
+	                   @RequestParam(value = "pstartno", defaultValue = "1") int pstartno) {
+	        
+	    int realTotalCount = recipeService.getTotalRecipeCount();
+	   
+	    int adjustedTotalCount = realTotalCount;
+	    if (realTotalCount > 0 && realTotalCount %  8!= 0) {
+	        adjustedTotalCount = ((realTotalCount / 8) + 1) * 8;
+	    }
+
+	    PagingDto paging = new PagingDto(adjustedTotalCount, pstartno);
+	    model.addAttribute("paging", paging);
+
+	    List<RecipeDto> recipeList = recipeService.selectRecipeListPaging(pstartno);
+	    model.addAttribute("list", recipeList);
+	    
+	    return "/recipe/main";
+	}
+    
     @GetMapping("/list")
     public String list(
         Model model, 
@@ -185,7 +206,7 @@ public class RecipeController {
         int currentUserId = user.getAppUserId();
 
         RecipeDto recipe = recipeService.selectRecipeDetail(recipeId);
-        if (recipe == null || recipe.getAppUserId() != currentUserId) {
+        if (recipe == null) {
             rttr.addFlashAttribute("result", "수정 권한이 없거나 레시피를 찾을 수 없습니다.");
             return "redirect:/recipe/detail?recipeId=" + recipeId;
         }

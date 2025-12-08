@@ -25,7 +25,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import project2.dao.AppUserMapper;
-import project2.dao.RecipeDao;
 import project2.dto.AppUserDto;
 import project2.dto.PagingDto;
 import project2.dto.RecipeDto;
@@ -38,25 +37,29 @@ public class AppUserSecurityController {
 	
 	@Autowired AppUserSecurityService service;
 	@Autowired RecipeService recipeService;
-
 	
+	/*
 	@GetMapping("/main")
-    public String main(
-        Model model, 
-        @RequestParam(value = "pstartno", defaultValue = "1") int pstartno // 현재 페이지 번호 받기 (기본값 1)
-    ) { 
-        // 1. Service를 통해 현재 페이지의 레시피 목록을 조회
-        List<RecipeDto> recipeList = recipeService.selectRecipeListPaging(pstartno);
-        model.addAttribute("list", recipeList);
-        
-        
-        // 2. 전체 개수를 조회하여 PagingDto 생성 후 View로 전달
-        int totalCount = recipeService.getTotalRecipeCount();
-        model.addAttribute("paging", new PagingDto(totalCount, pstartno));
-        
-        return "/member/main"; 
-    }
-	
+	public String main(Model model,
+	                   @RequestParam(value = "pstartno", defaultValue = "1") int pstartno) {
+	        
+	    int realTotalCount = recipeService.getTotalRecipeCount();
+	   
+	    int adjustedTotalCount = realTotalCount;
+	    if (realTotalCount > 0 && realTotalCount %  8!= 0) {
+	        adjustedTotalCount = ((realTotalCount / 8) + 1) * 8;
+	    }
+
+	    PagingDto paging = new PagingDto(adjustedTotalCount, pstartno);
+	    model.addAttribute("paging", paging);
+
+	    List<RecipeDto> recipeList = recipeService.selectRecipeListPaging(pstartno);
+	    model.addAttribute("list", recipeList);
+	    
+	    return "/member/main";
+	}
+	*/
+
 	// 이메일 찾기 페이지 (GET, JSP 렌더링)
     @RequestMapping(value="/findEmail", method=RequestMethod.GET)
     public String findEmailPage() {

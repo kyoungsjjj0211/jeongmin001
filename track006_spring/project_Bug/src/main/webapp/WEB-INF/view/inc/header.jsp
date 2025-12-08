@@ -36,7 +36,7 @@
 <!-- 헤더 -->
 <div class="p-5 header-green text-white text-center">
   <h1>
-    <a class="nav-link text-white" href="${pageContext.request.contextPath}/security/main">
+    <a class="nav-link text-white" href="${pageContext.request.contextPath}/recipe/main">
       🍴오늘 뭐먹지?
     </a>
   </h1>
@@ -52,12 +52,12 @@
         <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/recipe/list">메뉴관리</a></li>
         <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/admin/materiallist">재료관리</a></li>
       </sec:authorize>
-      <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/security/main">MAIN</a></li>
+      <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/recipe/main">MAIN</a></li>
     </ul>
 
     <ul class="navbar-nav ms-auto">
       <sec:authorize access="isAuthenticated()">
-        <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/recipe/register">요리 등록</a></li>
+        <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/recipe/register">레시피 등록</a></li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="userMenu" role="button" data-bs-toggle="dropdown">
             <sec:authentication property="principal.dto.email"/>
