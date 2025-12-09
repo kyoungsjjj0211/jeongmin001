@@ -22,8 +22,8 @@
 		    <textarea class="form-control" id="bcontent" placeholder="내용을 입력해주세요" name="bcontent"></textarea>
 		  </div> 
 		  <div class="mb-3">
-		    <label for="file" class="form-label">FILE:</label>
-		    <input type="file" class="form-control" id="file" placeholder="파일을 입력해주세요" name="file">
+		    <label for="bfile" class="form-label">FILE:</label>
+		    <input type="file" class="form-control" id="bfile" placeholder="파일을 입력해주세요" name="file">
 		  </div>
 		  <div class="mb-3  text-end">
 		  	<button type="submit" class="btn btn-primary">글쓰기</button>  

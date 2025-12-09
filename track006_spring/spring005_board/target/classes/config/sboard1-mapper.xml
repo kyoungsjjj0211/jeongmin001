@@ -24,7 +24,7 @@
 
 	<insert     id="insert2"  parameterType="Sboard1Dto">
 	insert into sboard1 ( ID    , APP_USER_ID , BTITLE , BCONTENT , BPASS ,BFILE, BIP)  
-	values (sboard1_seq.nextval ,#{appUserId}, #{btitle},#{bcontent},#{bpass},#{bfile}, #{bip})
+	values (sboard1_seq.nextval ,#{appUserId}, #{btitle},#{bcontent},#{bpass},#{bfile, jdbcType=VARCHAR}, #{bip})
 	</insert>
 	
 	<update     id="updateHit"   parameterType="int">
