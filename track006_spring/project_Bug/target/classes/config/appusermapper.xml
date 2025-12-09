@@ -32,7 +32,7 @@
 		#{mobile}, #{bfile})
 	</insert>
 	<update id="update" parameterType="project2.dto.AppUserDto">
-       update bug set nickname = #{nickname}, password = #{password} where APPUSERID = #{appUserId}
+       update bug set nickname = #{nickname}, password = #{password}, bfile=#{bfile} where APPUSERID = #{appUserId}
    </update>
 	<delete id="delete" parameterType="project2.dto.AppUserDto">
 		delete from bug where APPUSERID=#{appUserId}

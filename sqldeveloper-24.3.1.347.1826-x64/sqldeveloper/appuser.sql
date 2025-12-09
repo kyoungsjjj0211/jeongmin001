@@ -90,5 +90,5 @@ select * from appuser where email='1@1'
 select password from appuser   where email='1@1' 
 
 update appuser  set  MBTI_TYPE_ID=2, UFILE='2.png' , MOBILE='1', NICKNAME='1' where app_user_id=1;
-
-delete from appuser  where app_user_id=1; 
+commit;
+delete from appuser  where app_user_id=15; 
