@@ -74,4 +74,23 @@ drop table sboard1;
 		created_at   TIMESTAMP(6)    default sysdate
 		-- create_at   DATE    default sysdate
 		-- created_at TIMESTAMP(6) DEFAULT   SYSTIMESTAMP
-	);
+	)
+    
+    
+    
+create table sboard2(    
+    id number not null primary key,
+    app_user_id number not null ,
+    btitle varchar2(1000) not null ,
+    bcontent clob not null ,
+    bpass varchar2(255) not null ,
+    bfile varchar2(255),
+    bhit number default 0 ,
+    bip varchar2(255) not null, 
+    created_at date default sysdate
+);
+create sequence sboard2_seq;
+commit;
+
+desc sboard2;
+
