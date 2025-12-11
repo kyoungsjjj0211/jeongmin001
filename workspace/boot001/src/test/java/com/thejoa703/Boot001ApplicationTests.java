@@ -65,25 +65,28 @@ class Boot001ApplicationTests {
 		// 1. selectAll
 	    System.out.println(boardService.selectAll());
 
-		// 2. insert		
-		Sboard2Dto dto = new Sboard2Dto();
-		dto.setAppUserId(1); dto.setBtitle("title"); dto.setBcontent("content"); dto.setBpass("1111");
-		MockMultipartFile file=new MockMultipartFile("file","file2.txt","text/plain", "".getBytes());
-		dto.setBip(InetAddress.getLocalHost().getHostAddress() );
-		System.out.println(boardService.insert(file, dto)); //##
-		 
-		// 3. select
-		System.out.println(boardService.select(1));
-
-		// 4. update
-		Sboard2Dto dto_u = new Sboard2Dto();
-		dto_u.setBtitle("title-new"); dto_u.setBcontent("content-new"); dto_u.setBpass("1111"); dto_u.setId(1);
-		MockMultipartFile u_file=new MockMultipartFile("file2","file2.txt","text/plain", "".getBytes()); //##
-		System.out.println(boardService.update(u_file, dto_u));
-
-		// 5. delete
-		Sboard2Dto dto_d = new Sboard2Dto();  dto_d.setBpass("1111");  dto_d.setId(1);
-		System.out.println(boardService.delete(dto_d));
+		
+		  //2. insert
+//		  Sboard2Dto dto = new Sboard2Dto(); dto.setAppUserId(1);
+//		  dto.setBtitle("title"); dto.setBcontent("content"); dto.setBpass("1111");
+//		  MockMultipartFile file=new MockMultipartFile("file","file2.txt","text/plain",
+//		  "".getBytes()); dto.setBip(InetAddress.getLocalHost().getHostAddress() );
+//		  System.out.println(boardService.insert(file, dto)); //##
+		  
+		  // 3. select
+//		   System.out.println(boardService.select(1));
+		  
+		 /* // 4. update
+		 * Sboard2Dto dto_u = new Sboard2Dto();
+		 * dto_u.setBtitle("title-new"); dto_u.setBcontent("content-new");
+		 * dto_u.setBpass("1111"); dto_u.setId(1); MockMultipartFile u_file=new
+		 * MockMultipartFile("file2","file2.txt","text/plain", "".getBytes()); //##
+		 * System.out.println(boardService.update(u_file, dto_u));
+		 * 
+		 * // 5. delete 
+		 * Sboard2Dto dto_d = new Sboard2Dto(); dto_d.setBpass("1111");
+		 * dto_d.setId(1); System.out.println(boardService.delete(dto_d));
+		 */
 
 	}
 

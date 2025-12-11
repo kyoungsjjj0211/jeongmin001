@@ -92,5 +92,6 @@ create table sboard2(
 create sequence sboard2_seq;
 commit;
 
+
 desc sboard2;
 

@@ -27,6 +27,7 @@ public class Sboard2Service2Impl implements Sboard2Service {
 		try {dto.setBip(InetAddress.getLocalHost().getHostAddress());}
 		catch (UnknownHostException e) {e.printStackTrace();}
 		return  dao.insert(dto);}
+	
 	@Override public int update(MultipartFile file, Sboard2Dto dto) {
 		if(!file.isEmpty()) {
 			try {dto.setBfile(upload.fileUpload(file));}
