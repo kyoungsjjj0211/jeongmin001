@@ -25,7 +25,7 @@ select email , auth from authorities;
 SELECT * FROM APPUSER;
 SELECT * FROM AUTHORITIES;
 DESC APPUSER;
-
+commit;
 DROP TABLE authorities;
 
 desc authorities;

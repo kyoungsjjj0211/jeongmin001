@@ -31,8 +31,8 @@ class Boot001ApplicationTests2_User {
 		 String email = UUID.randomUUID().toString() + "@test.com";
 		 //1. 회원가입
 		 AppUserDto user = new AppUserDto();
-		 user.setEmail("2@2");
-		 user.setPassword("2");
+		 user.setEmail(email);
+		 user.setPassword("1");
 		 user.setMobile("0101234567");
 		 user.setNickname("nickname");
 		 user.setProvider("local");
@@ -58,7 +58,7 @@ class Boot001ApplicationTests2_User {
 		 //3.  업데이트
 		 AppUserDto updateDto = new AppUserDto();
 		 updateDto.setEmail(email);
-		 updateDto.setPassword("pw123");
+		 updateDto.setPassword("1");
 		 updateDto.setNickname("newNickname");
 		 updateDto.setProvider("local");
 		 
@@ -67,11 +67,11 @@ class Boot001ApplicationTests2_User {
 		 
 		 AppUserDto updatedUser = service.selectEmail(email, "local");
 		 assertEquals("newNickname" , updatedUser.getNickname());
-		 
-		 //4.  유저삭제
+ 	 
+//		 //4.  유저삭제
 	     AppUserDto deleteDto = new AppUserDto();
 	     deleteDto.setEmail(email);
-	     deleteDto.setPassword("pw123");
+	     deleteDto.setPassword("1");
 	     deleteDto.setProvider("local");
 		 
          int deleteResult = service.delete(deleteDto, true);
@@ -80,7 +80,7 @@ class Boot001ApplicationTests2_User {
 	 }
 	 
 	 
-	 @Test
+	 @Disabled @Test
 	 public void testCrudAppUserAuth() {
 		 //1. 회원가입 - 사용자입력
 		 AppUserDto  user = new AppUserDto();

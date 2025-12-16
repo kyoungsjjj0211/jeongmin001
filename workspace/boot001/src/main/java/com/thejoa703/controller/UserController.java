@@ -1,12 +1,18 @@
 package com.thejoa703.controller;
 
+
+
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -134,7 +140,8 @@ public class UserController {
 
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/delete")
-	public String delete(AppUserDto dto , RedirectAttributes rttr ,Authentication authentication ) {
+	public String delete(AppUserDto dto , RedirectAttributes rttr
+			,Authentication authentication , HttpServletRequest request, HttpServletResponse response) {
 		String email = null, provider = null;
 		Object principal = authentication.getPrincipal();
 		
@@ -144,7 +151,8 @@ public class UserController {
 			provider = userDetails.getUser().getProvider();
 		}
 		dto.setEmail(email); dto.setProvider(provider); //##
-		boolean requirePasswordCheck = "loacl".equalsIgnoreCase(provider);
+		boolean requirePasswordCheck = "local".equalsIgnoreCase(provider);
+		//local
 		if(requirePasswordCheck) {
 			if(dto.getPassword()== null || dto.getPassword().isEmpty()) {
 				rttr.addFlashAttribute("errorMessage" , "회원탈퇴 실패 : 비밀번호를 입력해주세요");
@@ -157,7 +165,7 @@ public class UserController {
 	}
 		if(userService.delete(dto, requirePasswordCheck) > 0 ) { //requirePasswordCheck =true 'local'
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//			if(auth != null) {new SecurityContextLogoutHandler().logout(request, response,auth); }
+			if(auth != null) {new SecurityContextLogoutHandler().logout(request, response, auth); }
 			rttr.addFlashAttribute("errorMessage" , "회원탈퇴가 완료되었습니다.");
 			return "redirect:/users/login";
 		}
