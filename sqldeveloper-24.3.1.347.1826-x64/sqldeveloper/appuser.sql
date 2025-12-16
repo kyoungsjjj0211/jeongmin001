@@ -5,8 +5,42 @@ EMAIL        VARCHAR2(100)  NOT NULL,
 PASSWORD     VARCHAR2(100),
 MBTI_TYPE_ID  NUMBER(3),
 CREATED_AT     DATE,
-ufile        varchar2(255) default 'member.png'
+ufile        varchar2(255) default 'member.png',
+mobile varchar2(50),
+nickname varchar2(50),
+provider  varchar2(50) not null,
+provider_id varchar2(100)
 );
+
+create sequence authorities_seq;
+
+CREATE TABLE authorities (
+    AUTH_ID     NUMBER(5)   NOT NULL,
+    EMAIL       VARCHAR2(255),
+    AUTH        VARCHAR2(255) NOT NULL,
+    APP_USER_ID NUMBER(5)
+);
+select email from appuser;
+select email , auth from authorities;
+SELECT * FROM APPUSER;
+SELECT * FROM AUTHORITIES;
+DESC APPUSER;
+
+DROP TABLE authorities;
+
+desc authorities;
+SELECT constraint_name, table_name
+FROM user_constraints
+WHERE r_constraint_name IN (
+    SELECT constraint_name
+    FROM user_constraints
+    WHERE table_name = 'APPUSER'
+);
+
+
+
+
+create sequence appuser_seq;
 DROP SEQUENCE appuser_seq;
 //create 회원가입 (시퀀스이용)
 create sequence appuser_seq start with 1 increment by 1;
@@ -30,8 +64,6 @@ delete from appuser
 where APP_USER_ID=23 and PASSWORD='1111';
 
 commit;
-
-select * from appuser;
 
 select app_user_id, email, password, mbti_type_id, created_at
 from appuser;

@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
- 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  	  layout:decorate="~{fragments/layout}">
-<!--    #1. layout 렌더링    -->
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{fragments/layout}">
+<!-- 	#1. layout 렌더링	 -->
 <head lang="ko">
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
-   <div layout:fragment="content">
-   	<h3 class="card-header"> MBTI 글삭제</h3>
+	<div layout:fragment="content">
+      <h3 class="card-header"> MBTI 글삭제</h3> 
 	  <form th:action="@{/board/delete}"  method="post">  
 	      <input type="hidden"   name="id"  th:value="${param.id}"> 
 		  <div class="my-3">
@@ -22,8 +22,7 @@
 		  	<a href="javascript:history.go(-1)"  class="btn btn-danger">BACK</a>
 		  </div>
 	 </form>
-   </div>
-   <!--    #2. layout:fragment="content"    -->
-   <!-- http://localhost:8484/boot001/board/list -->
+	</div>  
+	
 </body>
 </html>
