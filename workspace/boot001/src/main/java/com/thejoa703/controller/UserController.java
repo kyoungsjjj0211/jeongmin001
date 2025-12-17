@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -75,24 +77,35 @@ public class UserController {
 	/* 마이페이지 */	
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/mypage")
-	public String mypage(Authentication authentication, Model model) {
-		String email = null, provider = null;
-		Object principal = authentication.getPrincipal();
+	public String mypage( Authentication   authentication  , Model model) { 
+		String email = null , provider = null;
+		Object principal =   authentication.getPrincipal();
 		
 		//1. local 
-		// - Authentication : import orgspringframework.security.core.Authentication;
-		// - CustomUserDetails
-		if(principal instanceof CustomUserDetails) {
-			CustomUserDetails userDetails = (CustomUserDetails)principal;
-			email = userDetails.getUser().getEmail();
-			provider = userDetails.getUser().getProvider();
+		//-  Authentication : import org.springframework.security.core.Authentication;
+		//-  CustomUserDetails
+		if( principal  instanceof CustomUserDetails  ) {
+			CustomUserDetails  userDetails = (CustomUserDetails)principal;
+			email    =  userDetails.getUser().getEmail();
+			provider =  userDetails.getUser().getProvider();
 		}
 		//2. social
-		//else if() {}
-		AppUserDto dto = userService.selectEmail(email, provider);
-		model.addAttribute("dto", dto);		
-		return "users/mypage"; 
+		else if( principal instanceof OAuth2User ) {
+			OAuth2User  oAuth2User = (OAuth2User)principal;
+			email =   (String)oAuth2User.getAttributes().get("email");
+			if(authentication  instanceof OAuth2AuthenticationToken ) {
+				provider = ((OAuth2AuthenticationToken) authentication).getAuthorizedClientRegistrationId();
+			}
 		}
+		AppUserDto dto = userService.selectEmail(email, provider);
+		if(dto == null) {
+			dto = new AppUserDto();
+			dto.setEmail(email);  dto.setProvider(provider);
+		} 
+		model.addAttribute("dto" , dto);
+		return "users/mypage"; 
+	}
+
 
 	/* 회원정보수정 폼, 기능 */
 	@PreAuthorize("isAuthenticated()")
@@ -131,11 +144,17 @@ public class UserController {
 			CustomUserDetails userDetails = (CustomUserDetails)principal;
 			email = userDetails.getUser().getEmail();
 			provider = userDetails.getUser().getProvider();
+		}else if (principal instanceof OAuth2User) {
+		OAuth2User oAuth2User = (OAuth2User)principal;
+		email = (String)oAuth2User.getAttributes().get("email");
+		if(authentication instanceof OAuth2AuthenticationToken) {
+			provider = ((OAuth2AuthenticationToken)authentication).getAuthorizedClientRegistrationId();
+			}
 		}
 		AppUserDto dto = userService.selectEmail(email, provider);
 		model.addAttribute("dto", dto);		
 		return "users/delete"; 
-		}
+	}
 	
 
 	@PreAuthorize("isAuthenticated()")
@@ -150,6 +169,14 @@ public class UserController {
 			email = userDetails.getUser().getEmail();
 			provider = userDetails.getUser().getProvider();
 		}
+		else if( principal instanceof OAuth2User) {
+			OAuth2User oAuth2User = (OAuth2User)principal;
+			email = (String)oAuth2User.getAttributes().get("email");
+			if(authentication instanceof OAuth2AuthenticationToken) {
+				provider = ((OAuth2AuthenticationToken)authentication).getAuthorizedClientRegistrationId();
+			}
+		}//social
+		
 		dto.setEmail(email); dto.setProvider(provider); //##
 		boolean requirePasswordCheck = "local".equalsIgnoreCase(provider);
 		//local
@@ -168,8 +195,9 @@ public class UserController {
 			if(auth != null) {new SecurityContextLogoutHandler().logout(request, response, auth); }
 			rttr.addFlashAttribute("errorMessage" , "회원탈퇴가 완료되었습니다.");
 			return "redirect:/users/login";
+		}else {
+			rttr.addFlashAttribute("errorMessage", "회원탈퇴 실패 : 관리자에게 문의해주세요.");
+			return "redirect:/users.delete";
 		}
-
-		return "users/login";
 	}
 }

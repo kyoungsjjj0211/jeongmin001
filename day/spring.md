@@ -428,6 +428,20 @@ Weaving  -  Target에 부가기능 처리(삽입)하는 과정
 4. api 문서
 https://www.eclipse.org/aspectj/doc/next/runtime-api/
 
+
+######포트폴리오
+※ API 사용
+1. 주제
+2. 주요역할(CRUD) : API아용해서 번뜩이는 아이디어.....
+----
+3. 흐름도
+4. 피그마
+5. ERD
+6. 개발
+- MODEL (자동테스트)
+- SERVICE (자동테스트)
+- CONTROLLER
+
 <!-- https://mvnrepository.com/artifact/org.aspectj/aspectjrt -->
 <dependency>
     <groupId>org.aspectj</groupId>

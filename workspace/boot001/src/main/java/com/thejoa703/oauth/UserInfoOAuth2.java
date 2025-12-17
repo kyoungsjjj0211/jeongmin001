@@ -39,7 +39,8 @@ public interface UserInfoOAuth2 {
 		    resultcode=00, 
 		    message=success, 
 		    response = {
-		        id=pvdq1FSG3VZlD7Cp3JuWfAFi-3xir6A-WPlP5f8kXIo, email=sally03915@naver.com, 
+		        id=pvdq1FSG3VZlD7Cp3JuWfAFi-3xir6A-WPlP5f8kXIo,
+		        email=sally03915@naver.com, 
 		        name=안효정
 		    }
 		}
