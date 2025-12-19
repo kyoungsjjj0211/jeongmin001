@@ -18,5 +18,3 @@ Thumbs.db
 
 # application-oauth.properties 파일 무시
 /workspace/boot001/src/main/resources/application-oauth.properties
-
-
