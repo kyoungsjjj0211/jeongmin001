@@ -1,4 +1,4 @@
-package com.thejoa703.extemal;
+package com.thejoa703.external;
 
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;

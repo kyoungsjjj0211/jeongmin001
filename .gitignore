@@ -16,8 +16,6 @@ eclipse/
 *.DS_Store
 Thumbs.db
 
-# 로그 파일
-*.log작업도움되는 프로그램/*.zip
-작업도움되는 프로그램/*.zip
-작업도움되는 프로그램/*.zip
-작업도움되는 프로그램/*.zip
+# application-oauth.properties 파일 무시
+/boot001/src/main/resources/application-oauth.properties
+
