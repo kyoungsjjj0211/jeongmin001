@@ -55,6 +55,8 @@ public class ApiController {
 		apiEmaiNaver.sendMail(subject , content, email);
 		return 	 "external/mail_result";
 	}
+	
+	
 	/////////////////////// Sms
 	@Autowired ApiCoolSms apiCoolSms;
 	
@@ -66,4 +68,11 @@ public class ApiController {
 	public String sms_api( @RequestParam String to) throws CoolsmsException{
 		return apiCoolSms.phoneNumber(to);	
 	}
+	
+	/////////////////////// PostCode
+	@GetMapping("/postcode")
+	public String postcode() {return "external/postcode";}
+	
+	
+	
 }
