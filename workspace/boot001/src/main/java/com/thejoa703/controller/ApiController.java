@@ -1,8 +1,11 @@
 package com.thejoa703.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +18,9 @@ import com.thejoa703.external.ApiChatGpt;
 import com.thejoa703.external.ApiCoolSms;
 import com.thejoa703.external.ApiEmaiNaver;
 import com.thejoa703.external.ApiKmaWeather;
+import com.thejoa703.external.BookDto;
+import com.thejoa703.external.NaverBookJsonService;
+import com.thejoa703.external.NaverBookXmlService;
 
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
 
@@ -73,6 +79,27 @@ public class ApiController {
 	@GetMapping("/postcode")
 	public String postcode() {return "external/postcode";}
 	
+	/////////////////////// chatbot
+	@GetMapping("/chatbot")
+	public String chatbot() {return "external/chatbot";}
 	
+	/////////////////////// Naver-BookParsing-json
+	@Autowired NaverBookJsonService jsonService;
+	
+	@GetMapping(value = "/naverbook/json" , produces=MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public List<BookDto> naverbookJson(@RequestParam String search) throws UnsupportedEncodingException {
+		return jsonService.getBooks(search);}
+	//https://localhost:8484/api/naverbook/json?search=spring
+	
+	/////////////////////// Naver-BookParsing-xml
+	@Autowired NaverBookXmlService xmlService;
+	
+	@GetMapping(value = "/naverbook/xml" , produces=MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public List<BookDto> naverbookXml(@RequestParam String search) throws UnsupportedEncodingException {
+		return xmlService.getBooks(search);
+	}
+	//https://localhost:8484/api/naverbook/xml?search=spring
 	
 }
