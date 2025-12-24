@@ -15,64 +15,136 @@ create table material3 ( -- 재료 마스터 테이블 생성
  
 create sequence material3_seq; -- material3 자동 증가용 시퀀스
 
-CREATE TABLE material_allergy (
-  allergy_id      NUMBER PRIMARY KEY,
-  materialid      NUMBER NOT NULL,
-  allergen_name   VARCHAR2(100) NOT NULL,
-  note            VARCHAR2(500),
+create table material_allergy (
+  allergy_id      number primary key,
+  materialid      number not null,
+  allergen_name   varchar2(100) not null,
+  note            varchar2(500),
 
-  CONSTRAINT fk_material_allergy
-    FOREIGN KEY (materialid)
-    REFERENCES material3(materialid)
+  constraint fk_material_allergy
+    foreign key (materialid)
+    references material3(materialid)
 );
 
-CREATE TABLE material_alias ( //별칭 테이블 
-  alias_id     NUMBER PRIMARY KEY,
-  materialid   NUMBER NOT NULL,          -- 대표 재료 FK
-  alias_name   VARCHAR2(200) NOT NULL,   -- 저지방우유 / 무지방우유 / 서울우유 등
-  CONSTRAINT fk_material_alias
-    FOREIGN KEY (materialid)
-    REFERENCES material3(materialid)
+create sequence material_allergy_seq;
+
+create table material_alias ( --별칭 테이블 
+  alias_id     number primary key,
+  materialid   number not null,          -- 대표 재료 FK
+  alias_name   varchar2(200) not null,   -- 저지방우유 / 무지방우유 / 서울우유 등
+  
+ constraint fk_material_alias foreign key (materialid) references material3(materialid)
 );
 
-CREATE SEQUENCE material_alias_seq;
+create sequence material_alias_seq;
 
 
-CREATE TABLE buy_click_log (
-  log_id      NUMBER PRIMARY KEY,
-  materialid  NUMBER(6) NOT NULL,
-  mall_name   VARCHAR2(30) DEFAULT '11st' NOT NULL,
-  keyword     VARCHAR2(200) NOT NULL,   -- 예: 양파
-  clicked_at  DATE DEFAULT SYSDATE NOT NULL,
+create table buy_click_log (
+  log_id      number primary key,
+  materialid  number(6) not null,
+  mall_name   varchar2(30) default '11st' not null,
+  keyword     varchar2(200) not null,   -- 예: 양파
+  clicked_at  date default sysdate not null,
 
-  CONSTRAINT fk_buylog_material
-    FOREIGN KEY (materialid) REFERENCES material3(materialid)
-    ON DELETE CASCADE
+  constraint fk_buylog_material
+    foreign key (materialid) references material3(materialid)
+    on delete cascade
 );
 
-CREATE SEQUENCE material3_buy_click_log_seq;
-CREATE INDEX idx_buylog_material ON material3_buy_click_log(materialid, mall_name, clicked_at);
+create sequence buy_click_log_seq;
+
+create index idx_buylog_material
+on buy_click_log(materialid, mall_name, clicked_at);
 
 
 
 
+// 재료 crud
+insert into material3 (
+  materialid, title, imageurl, season, temperature, calories100g, efficacy, buyguide, trimguide, storeguide, category)
+  values ( material3_seq.nextval, '양파', 'defult.png', '사계절', '상온', '40', '항산화 성분 함유', '껍질이 단단한 제품 선택', '껍질 제거 후 세척', '서늘한 곳 보관', '채소');
+  
+insert into material3 (
+  materialid, title, imageurl, season, temperature, calories100g,efficacy, buyguide, trimguide, storeguide, category) 
+  values ( material3_seq.nextval, '우유', 'defult.png', '사계절', '냉장', '60', '칼슘과 단백질 공급', '유통기한 확인', '개봉 후 바로 섭취', '0~4도 냉장 보관','유제품');  
+  
+select * from material3 where materialid = 1;  
 
-//crud
+select materialid, title, category, temperature, created_at from material3
+order by created_at desc;
 
-insert into material3 (materialid, title, category)
-  values (material3_seq.nextval, '양파', '채소');
+update material3 set temperature = '냉장', buyguide    = '단단하고 마른 양파 선택', updated_at  = sysdate
+where materialid = 1;
 
-insert into material3 (materialid, title, category)
- values (material3_seq.nextval, '우유', '유제품');
+delete from material_allergy where materialid = 4; 
+delete from material_alias   where materialid = 4; 
+delete from material3        where materialid = 4;
 
-insert into material_allergy (allergy_id, materialid, allergen_name, note) 
-  values (1, (select materialid from material3 where title = '우유'), '우유', '유당 불내증 주의');
+
+// 알러지 crud
+
+insert into material_allergy (allergy_id, materialid, allergen_name, note)
+  values (material_allergy_seq.nextval, 1, '없음', '일반적으로 주요 알러지 없음');
+  
+select allergy_id, allergen_name, note from material_allergy where materialid = 1;  
+
+select a.allergy_id, m.title, a.allergen_name, a.note 
+from material_allergy a
+join material3 m on m.materialid = a.materialid
+order by a.allergy_id desc;
+
+update material_allergy
+set note = '알러지 유발 사례 거의 없음'
+where materialid = 1
+  and allergen_name = '없음';
+  
+delete from material_allergy
+where materialid = 1
+  and allergen_name = '없음';
+
+// 알리아스 crud
 insert into material_alias (alias_id, materialid, alias_name)
-  values ( material_alias_seq.NEXTVAL, (SELECT materialid FROM material3 WHERE title = '우유'), '저지방우유');
+values (material_alias_seq.nextval, 3, '저지방우유');
 
 insert into material_alias (alias_id, materialid, alias_name)
-  values (material_alias_seq.NEXTVAL,(select materialid from material3 where title = '우유'), '무지방우유');
+values (material_alias_seq.nextval, 3, '무지방우유');
 
-insert into buy_click_log (
-  log_id, materialid, mall_name, keyword)
-  values (material3_buy_click_log_seq.nextval, (select materialid from material3 where title = '양파'), '11st', '양파');
+select alias_id, alias_name
+from material_alias
+where materialid = 3;
+
+select a.alias_id, m.title, a.alias_name
+from material_alias a
+join material3 m on m.materialid = a.materialid
+order by a.alias_id desc;
+
+update material_alias
+set alias_name = '저지방 우유'
+where alias_name = '저지방우유';
+
+delete from material_alias
+where alias_name = '무지방우유';
+
+// buy_click_log crud
+insert into buy_click_log (log_id, materialid, mall_name, keyword)
+  values ( buy_click_log_seq.nextval,1,'11st','양파');
+  
+  //최근 10건
+select * from ( select b.log_id, m.title, b.mall_name, b.keyword, b.clicked_at from buy_click_log b join material3 m on m.materialid = b.materialid order by b.clicked_at desc ) where rownum <= 10;
+//select all
+select b.log_id, m.title, b.mall_name, b.keyword, b.clicked_at
+from buy_click_log b
+join material3 m on m.materialid = b.materialid
+order by b.clicked_at desc;
+
+//update
+update buy_click_log
+set keyword = '양파 1kg'
+where log_id = (select max(log_id) from buy_click_log);
+
+//delete
+delete from buy_click_log
+where log_id = (select max(log_id) from buy_click_log);
+
+
+commit;
