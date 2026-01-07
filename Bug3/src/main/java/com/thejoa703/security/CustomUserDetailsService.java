@@ -1,7 +1,9 @@
 package com.thejoa703.security;
 
+import java.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -23,14 +25,9 @@ public class CustomUserDetailsService implements UserDetailsService {
     private UserStatusDao userStatusDao;
 
     @Override
-    public UserDetails loadUserByUsername(String username)
-            throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        /*
-         * username 형식
-         *  - local 로그인  : email
-         *  - 통합 처리용  : email:provider
-         */
+        // 1. 아이디 및 로그인 방식 분리
         String[] parts = username.split(":");
         String email = parts[0];
         String provider = parts.length > 1 ? parts[1] : "local";
@@ -39,44 +36,47 @@ public class CustomUserDetailsService implements UserDetailsService {
         param.setEmail(email);
         param.setProvider(provider);
 
-        // 🔹 인증 정보 조회 (비밀번호 + 권한)
+        // 2. 인증 및 사용자 정보 조회
         AppUserAuthDto authDto = userDao.readAuthByEmail(param);
         if (authDto == null) {
-            throw new UsernameNotFoundException(
-                "사용자를 찾을 수 없습니다."
-            );
+            throw new UsernameNotFoundException("사용자를 찾을 수 없습니다: " + username);
         }
 
-        // 🔹 사용자 기본 정보 조회
         AppUserDto user = userDao.findByEmail(param);
         if (user == null) {
-            throw new UsernameNotFoundException(
-                "사용자 기본정보를 찾을 수 없습니다."
-            );
+            throw new UsernameNotFoundException("사용자 기본정보를 찾을 수 없습니다: " + username);
         }
 
-        // 🔥🔥🔥 핵심: 회원 정지 상태 체크
-        UserStatusDto status =
-                userStatusDao.findByAppUserId(user.getAppUserId());
-        System.out.println("정지 사유 = [" + 
-                (status != null ? status.getSuspendReason() : "status 자체가 null") 
-        + "]");
+        // 3. [영민님 코드 반영] 콘솔 디버깅 로그 출력
+        System.out.println("----------------------------------------");
+        System.out.println("로그인 시도 이메일: " + email);
+        System.out.println("조회된 유저 ID: " + user.getAppUserId());
+        System.out.println("----------------------------------------");
 
-        if (status != null && "SUSPEND".equals(status.getStatus())) {
+        // 4. [팀원 코드 반영] 정지 상태 확인 및 자동 복구 로직
+        Integer appUserId = user.getAppUserId();
+        UserStatusDto statusDto = userStatusDao.findByAppUserId(appUserId);
 
-            String reason =
-                    status.getSuspendReason() != null
-                            ? status.getSuspendReason()
-                            : "사유 없음";
-            System.out.println("정지 사유 = [" + status.getSuspendReason() + "]");
-            // ❗ 반드시 DisabledException
-            throw new DisabledException(
-                "활동 정지 상태입니다. 관리자에게 문의해주세요. (사유: " + reason + ")"
+        if (statusDto != null && "SUSPEND".equalsIgnoreCase(statusDto.getStatus())) {
+            
+            // 정지 기간이 만료되었는지 확인 후 복구
+            if (statusDto.getSuspendUntil() != null && statusDto.getSuspendUntil().isBefore(LocalDate.now())) {
+                System.out.println(">>> 정지 기간 만료로 인한 자동 복구 진행: " + email);
+                userStatusDao.recoverExpiredSuspension(appUserId);
+                statusDto = userStatusDao.findByAppUserId(appUserId); // 상태 갱신
+            }
+
+            // 여전히 정지 상태라면 로그인 거부
+            if ("SUSPEND".equalsIgnoreCase(statusDto.getStatus())) {
+                String reason = (statusDto.getSuspendReason() != null) ? statusDto.getSuspendReason() : "사유 없음";
+                System.out.println("!!! 차단 시스템 작동: " + email + " 접속 거부 (사유: " + reason + ")");
                 
-            );
+                // 에러 메시지 통합 출력
+                throw new InternalAuthenticationServiceException("정지된 계정입니다. 사유: " + reason);
+            }
         }
 
-        // 정상 사용자
+        // 5. 로그인 성공
         return new CustomUserDetails(user, authDto);
     }
 }

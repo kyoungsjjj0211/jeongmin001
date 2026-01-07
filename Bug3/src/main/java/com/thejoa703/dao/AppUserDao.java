@@ -1,6 +1,7 @@
 package com.thejoa703.dao;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.thejoa703.dto.AppUserAuthDto;
 import com.thejoa703.dto.AppUserDto;
@@ -19,7 +20,22 @@ public interface AppUserDao {
 	/*	 	권한관련			*/
 	public int   insertAuth(AuthDto dto);
 	public int   deleteAuth(AuthDto dto);
+	
+	// 핸드폰 번호로 이메일 조회
+    AppUserDto findByPhone(@Param("mobile") String mobile, @Param("provider") String provider);
+
+    // 이메일+핸드폰으로 회원 조회 (비밀번호 재설정용)
+    AppUserDto findByEmailAndPhone(@Param("email") String email,
+                                   @Param("mobile") String mobile,
+                                   @Param("provider") String provider);
+
+    // 비밀번호 업데이트
+    int updatePassword(@Param("email") String email,
+                       @Param("newPassword") String newPassword,
+                       @Param("provider") String provider);
 } 
+
+	
 /*
 1. 회원가입
 2-1. 로그인 (이메일로 이메일, 비밀번호, 권한가져오기) 

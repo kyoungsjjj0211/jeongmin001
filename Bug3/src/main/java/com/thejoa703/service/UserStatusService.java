@@ -1,19 +1,18 @@
 package com.thejoa703.service;
 
-import java.util.List;
-import com.thejoa703.dto.AdminUserStatusDto;
+import java.util.Map;
 
 public interface UserStatusService {
 
-    /** 관리자 페이지용 전체 사용자 조회 */
-    List<AdminUserStatusDto> getAllUsers();
+    /** 페이징 및 검색이 적용된 사용자 목록 조회 */
+    Map<String, Object> getUserList(String keyword, int page);
 
     /** 정지 해제 */
     void activateUser(int appUserId);
 
-    /** 관리자 정지 */
+    /** 관리자 정지 및 이메일 발송 */
     void suspendUser(int appUserId, String reason, String untilDate);
 
-    /** 최초 회원 생성 시 상태 생성 */
+    /** 회원 가입 시 기본 상태 생성 */
     void createDefaultStatus(int appUserId);
 }

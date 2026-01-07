@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko" 
+      xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+      layout:decorate="~{fragments/layout}">
+      
+      
+
+<div layout:fragment="content" class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold"><i class="bi bi-people-fill text-primary"></i> 회원 관리 시스템</h2>
+    </div>
+    
+    <div class="card shadow border-0" style="border-radius: 15px;">
+        <div class="card-body p-4">
+            <table class="table table-hover align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th class="text-center">ID</th>
+                        <th>이메일</th>
+                        <th>닉네임</th>
+                        <th class="text-center">권한</th>
+                        <th>가입일</th>
+                        <th>가입경로</th>
+                        <th class="text-center">관리</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="user : ${users}">
+                        <td class="text-center" th:text="${user.appUserId}">1</td>
+                        <td th:text="${user.email}">test@test.com</td>
+                        <td th:text="${user.nickname}">닉네임</td>
+                        <td class="text-center">
+                            <span th:classappend="${user.role == 'ADMIN' ? 'badge bg-danger' : 'badge bg-primary'}" 
+                                  th:text="${user.role}" style="border-radius: 5px;">USER</span>
+                        </td>
+                        <td th:text="${#dates.format(user.createdAt, 'yyyy-MM-dd')}">2026-01-02</td>
+                        <td th:text="${user.provider}">GOOGLE</td>
+                        <td class="text-center">
+                            <button class="btn btn-sm btn-outline-secondary me-1">정지</button>
+                            <button class="btn btn-sm btn-outline-danger">권한변경</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</html>

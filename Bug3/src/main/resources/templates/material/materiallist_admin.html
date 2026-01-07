@@ -3,42 +3,132 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 	layout:decorate="~{fragments/layout}">
+<head>
+    <style>
+        .material-wrapper {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 30px;
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        .header-title {
+            color: #2c3e50;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+        /* 검색창 커스텀 */
+        .search-container {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+        .form-control-lg {
+            border-radius: 10px 0 0 10px !important;
+            border: 1px solid #dee2e6;
+            font-size: 1rem;
+        }
+        .btn-search {
+            border-radius: 0 10px 10px 0 !important;
+            background-color: #343a40;
+            border: none;
+        }
+        /* 테이블 커스텀 */
+        .table {
+            border-collapse: separate;
+            border-spacing: 0 8px;
+        }
+        .table thead th {
+            border: none;
+            background-color: #f1f3f5;
+            color: #495057;
+            font-weight: 600;
+            padding: 15px;
+        }
+        .table tbody tr {
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+            transition: all 0.2s;
+        }
+        .table tbody tr:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            background-color: #fcfcfc;
+        }
+        .table td {
+            padding: 15px;
+            border-top: 1px solid #f1f3f5 !important;
+            border-bottom: 1px solid #f1f3f5 !important;
+            vertical-align: middle;
+        }
+        .table td:first-child { border-left: 1px solid #f1f3f5; border-radius: 10px 0 0 10px; }
+        .table td:last-child { border-right: 1px solid #f1f3f5; border-radius: 0 10px 10px 0; }
+
+        .material-img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 2px solid #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .badge-cate {
+            background-color: #e9ecef !important;
+            color: #495057 !important;
+            font-weight: 500;
+            padding: 6px 12px;
+        }
+        /* 페이징 */
+        .pagination .page-link {
+            border: none;
+            color: #6c757d;
+            margin: 0 3px;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+        .pagination .active .page-link {
+            background-color: #343a40;
+            color: white;
+        }
+    </style>
+</head>
 <body>
 	<div layout:fragment="content">
-		<div class="container my-5">
+		<div class="container material-wrapper">
 			
-			<div class="d-flex justify-content-between align-items-center mb-3">
-				<h2 class="mb-0" style="font-weight: bold; color: #333;">
-					재료 목록 <span class="text-muted" style="font-size: 0.6em;">(관리자)</span>
+			<div class="d-flex justify-content-between align-items-center mb-4">
+				<h2 class="header-title mb-0">
+					🥦 재료 목록 <span class="text-muted" style="font-size: 0.5em; vertical-align: middle;">(관리자)</span>
 				</h2>
 				<div sec:authorize="hasRole('ROLE_ADMIN')">
-					<a th:href="@{/material/materialinsert}" class="btn btn-primary shadow-sm" style="font-weight: bold;">
-						재료 추가하기
+					<a th:href="@{/material/materialinsert}" class="btn btn-success shadow-sm px-4 py-2" style="font-weight: bold; border-radius: 10px; background-color: #27ae60; border: none;">
+						+ 재료 추가하기
 					</a>
 				</div>
 			</div>
 
-			<div class="mb-4">
-				<form th:action="@{/material/materiallist}" method="get" class="input-group shadow-sm">
+			<div class="search-container shadow-sm">
+				<form th:action="@{/material/materiallist}" method="get" class="input-group">
 					<input type="text" name="keyword" th:value="${keyword}"
-						class="form-control form-control-lg" 
-						placeholder="찾으시는 재료 이름이나 카테고리를 입력하세요..." 
-						style="border-color: #dee2e6;">
-					<button class="btn btn-dark px-4" type="submit">
+						class="form-control form-control-lg bg-white" 
+						placeholder="찾으시는 재료 이름이나 카테고리를 입력하세요..." >
+					<button class="btn btn-dark px-4 btn-search" type="submit">
 						검색하기
 					</button>
 				</form>
 			</div>
 
 			<div class="table-responsive">
-				<table class="table table-striped table-bordered table-hover">
-					<thead class="table-light text-center">
+				<table class="table">
+					<thead class="text-center">
 						<tr>
-							<th style="width: 5%;">번호</th>
+							<th style="width: 5%;">No.</th>
 							<th style="width: 10%;">이미지</th>
 							<th style="width: 20%;">이름</th>
 							<th style="width: 10%;">카테고리</th>
-							<th style="width: 10%;">계절</th>
+							<th style="width: 10%;">제철</th>
 							<th style="width: 10%;">온도</th>
 							<th style="width: 10%;">칼로리</th>
 							<th style="width: 15%;">등록일</th>
@@ -46,70 +136,69 @@
 						</tr>
 					</thead>
 					
-					<tbody class="text-center align-middle">
+					<tbody class="text-center">
 						<tr th:each="dto, vs : ${list}">
-							<td th:text="${vs.count}">1</td>
+							<td class="text-muted" th:text="${vs.count}">1</td>
 							<td>
 								<img th:src="@{/upload/{img}(img=${dto.imageurl})}"
-									 style="width: 60px; height: 45px; object-fit: cover; border-radius: 4px;" 
-									 onerror="this.src='/upload/defult.png';" />
+									 class="material-img" 
+									 onerror="this.onerror=null; this.src='/upload/default.png';" />
 							</td>
 							<td>
 								<a th:href="@{/material/materialdetail(materialid=${dto.materialid})}"
 								   th:text="${dto.title}" class="fw-bold text-decoration-none text-dark">이름</a>
 							</td>
 							<td>
-								<span class="badge bg-secondary" th:text="${dto.category}">분류</span>
+								<span class="badge badge-cate" th:text="${dto.category}">분류</span>
 							</td>
-							<td th:text="${dto.season}">계절</td>
+							<td><span class="text-success fw-bold" th:text="${dto.season}">계절</span></td>
 							<td th:text="${dto.temperature}">온도</td>
-							<td th:text="${dto.calories100g}">칼로리</td>
-							<td th:text="${dto.created_at != null ? #strings.replace(dto.created_at, 'T', ' ') : '-'}">생성일</td>
+							<td th:text="${dto.calories100g} + ' kcal'">칼로리</td>
+							<td class="text-muted" style="font-size: 0.85rem;" 
+                                th:text="${dto.created_at != null ? #strings.replace(dto.created_at, 'T', ' ') : '-'}">생성일</td>
 							<td>
 								<div sec:authorize="isAuthenticated()">
 									<span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')') or dto.writer == #authentication.name}">
-										<a th:href="@{/material/materialedit(materialid=${dto.materialid})}"
-										   class="btn btn-sm btn-outline-warning">수정</a>
-										<a th:href="@{/material/materialdelete(materialid=${dto.materialid})}"
-										   class="btn btn-sm btn-outline-danger"
-										   onclick="return confirm('삭제할까요?');">삭제</a>
+										<div class="d-flex gap-1 justify-content-center">
+                                            <a th:href="@{/material/materialedit(materialid=${dto.materialid})}"
+                                               class="btn btn-sm btn-outline-warning" style="border-radius: 6px;">수정</a>
+                                            <a th:href="@{/material/materialdelete(materialid=${dto.materialid})}"
+                                               class="btn btn-sm btn-outline-danger" style="border-radius: 6px;"
+                                               onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
+                                        </div>
 									</span>
 								</div>
 							</td>
 						</tr>
 						<tr th:if="${#lists.isEmpty(list)}">
 							<td colspan="9" class="py-5 text-muted text-center">
-								데이터가 존재하지 않습니다.
+								존재하는 데이터가 없습니다.
 							</td>
 						</tr>
 					</tbody>
-
-					<tfoot>
-						<tr>
-							<td colspan="9">
-								<ul class="pagination justify-content-center mb-0 py-2">
-									<li class="page-item" th:if="${paging.start > 10}">
-										<a class="page-link" 
-										   th:href="@{/material/materiallist(pstartno=${paging.start-1}, keyword=${keyword})}">이전</a>
-									</li>
-
-									<li class="page-item" th:each="i : ${#numbers.sequence(paging.start, paging.end)}"
-										th:classappend="${i == paging.current} ? 'active'">
-										<a class="page-link" 
-										   th:href="@{/material/materiallist(pstartno=${i}, keyword=${keyword})}"
-										   th:text="${i}">1</a>
-									</li>
-
-									<li class="page-item" th:if="${paging.pagetotal > paging.end}">
-										<a class="page-link" 
-										   th:href="@{/material/materiallist(pstartno=${paging.end+1}, keyword=${keyword})}">다음</a>
-									</li>
-								</ul>
-							</td>
-						</tr>
-					</tfoot>
 				</table>
 			</div>
+
+            <nav class="mt-4">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item" th:if="${paging.start > 10}">
+                        <a class="page-link shadow-sm" 
+                           th:href="@{/material/materiallist(pstartno=${paging.start-1}, keyword=${keyword})}">이전</a>
+                    </li>
+
+                    <li class="page-item" th:each="i : ${#numbers.sequence(paging.start, paging.end)}"
+                        th:classappend="${i == paging.current} ? 'active'">
+                        <a class="page-link shadow-sm" 
+                           th:href="@{/material/materiallist(pstartno=${i}, keyword=${keyword})}"
+                           th:text="${i}">1</a>
+                    </li>
+
+                    <li class="page-item" th:if="${paging.pagetotal > paging.end}">
+                        <a class="page-link shadow-sm" 
+                           th:href="@{/material/materiallist(pstartno=${paging.end+1}, keyword=${keyword})}">다음</a>
+                    </li>
+                </ul>
+            </nav>
 		</div>
 	</div>
 </body>

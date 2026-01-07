@@ -91,54 +91,90 @@ public class MaterialServiceImpl implements MaterialService {
 
 	@Override
 	public int insert2Material(MultipartFile file, MaterialDto dto) {
-	    // 1. file이 null이 아니고 비어있지 않을 때만 로직 실행
-	    if(file != null && !file.isEmpty()) { 
-	        String fileName   = file.getOriginalFilename(); 
-	        String uploadPath = "C:/file/";
-	        
-	        // 폴더가 없으면 생성하는 코드 추가 (안전장치)
-	        File folder = new File(uploadPath);
-	        if(!folder.exists()) folder.mkdirs();
 
-	        File img = new File(uploadPath + fileName);
-	        try { 
-	            file.transferTo(img); 
-	            dto.setImageurl(fileName); 
-	        } catch (IOException e) { e.printStackTrace(); }
-	    } else {
-	        // 2. 파일을 안 올렸을 때 기본 이미지 설정 (선택사항)
-	        if(dto.getImageurl() == null || dto.getImageurl().isEmpty()) {
-	            dto.setImageurl("defult.png");
+	    // 업로드 폴더
+	    String uploadPath = "C:/upload/";
+	    File folder = new File(uploadPath);
+	    if (!folder.exists()) folder.mkdirs();
+
+	    // 파일 업로드 안 했으면 기본 이미지
+	    if (file == null || file.isEmpty()) {
+	        if (dto.getImageurl() == null || dto.getImageurl().trim().isEmpty()) {
+	            dto.setImageurl("default.png");
 	        }
+	        return dao.insertMaterial(dto);
 	    }
+
+	    // ✅ 저장할 파일명 만들기 (UUID_원본파일명.확장자)
+	    String original = file.getOriginalFilename();
+	    if (original == null) original = "upload.png";
+
+	    // 확장자 추출
+	    String ext = "";
+	    int dot = original.lastIndexOf('.');
+	    if (dot >= 0) ext = original.substring(dot); // .png 같은 형태
+
+	    // 파일명(확장자 제외)만 추출
+	    String base = (dot >= 0) ? original.substring(0, dot) : original;
+
+	    // 파일명에 위험한 문자 제거(공백/특수문자 등)
+	    base = base.replaceAll("[\\\\/:*?\"<>|\\s]+", "_");
+
+	    // 저장 파일명
+	    String savedName = java.util.UUID.randomUUID().toString() + "_" + base + ext;
+
+	    try {
+	        file.transferTo(new File(uploadPath + savedName));
+	        dto.setImageurl(savedName); // ✅ DB에도 저장 파일명으로 넣기
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	        dto.setImageurl("default.png");
+	    }
+
 	    return dao.insertMaterial(dto);
 	}
 	
 	@Override
 	public int update2Material(MultipartFile file, MaterialDto dto) {
-	    // 1. 새 파일이 업로드 되었는지 확인
-	    if (file != null && !file.isEmpty()) {
-	        String fileName = file.getOriginalFilename();
-	        String uploadPath = "C:/file/";
-	        
-	        File folder = new File(uploadPath);
-	        if (!folder.exists()) folder.mkdirs();
 
-	        File img = new File(uploadPath + fileName);
-	        try {
-	            file.transferTo(img);
-	            dto.setImageurl(fileName); // 새 파일명 세팅
-	        } catch (IOException e) {
-	            e.printStackTrace();
+	    String uploadPath = "C:/upload/";
+	    File folder = new File(uploadPath);
+	    if (!folder.exists()) folder.mkdirs();
+
+	    // ✅ 새 파일 업로드가 없으면 기존 이미지 유지
+	    if (file == null || file.isEmpty()) {
+	        MaterialDto existing = dao.selectMaterial(dto.getMaterialid());
+	        if (existing != null && existing.getImageurl() != null && !existing.getImageurl().isEmpty()) {
+	            dto.setImageurl(existing.getImageurl());
+	        } else {
+	            dto.setImageurl("default.png");
 	        }
-	    } else {
-	        MaterialDto existingMaterial = dao.selectMaterial(dto.getMaterialid()); 
-	        if (existingMaterial != null) {
-	            dto.setImageurl(existingMaterial.getImageurl()); // 기존 파일명 유지
-	        }
+	        return dao.updateMaterial(dto);
 	    }
 
-	    // 3. 최종 업데이트 실행
+	    // ✅ 새 파일 업로드가 있으면 새 파일 저장 + DB 업데이트
+	    String original = file.getOriginalFilename();
+	    if (original == null) original = "upload.png";
+
+	    String ext = "";
+	    int dot = original.lastIndexOf('.');
+	    if (dot >= 0) ext = original.substring(dot);
+
+	    String base = (dot >= 0) ? original.substring(0, dot) : original;
+	    base = base.replaceAll("[\\\\/:*?\"<>|\\s]+", "_");
+
+	    String savedName = java.util.UUID.randomUUID().toString() + "_" + base + ext;
+
+	    try {
+	        file.transferTo(new File(uploadPath + savedName));
+	        dto.setImageurl(savedName); // ✅ DB에도 저장 파일명으로 넣기
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	        // 업로드 실패하면 기존 이미지 유지
+	        MaterialDto existing = dao.selectMaterial(dto.getMaterialid());
+	        if (existing != null) dto.setImageurl(existing.getImageurl());
+	    }
+
 	    return dao.updateMaterial(dto);
 	}
 
@@ -167,7 +203,7 @@ public class MaterialServiceImpl implements MaterialService {
 	}
 	@Autowired
     private MaterialDao materialDao;
-	
+	 
 	@Override
 	public void saveTrendData(int materialId, String keyword, String jsonResponse) {
 	    // 1. 변수명이 중복되지 않게 map이라는 이름을 사용

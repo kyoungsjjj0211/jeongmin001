@@ -33,9 +33,7 @@ public class SecurityConfig {
                     "/images/**",
                     "/api/**"
                 ).permitAll()
-                .antMatchers("/material/materiallist", "/material/materialdetail/**").permitAll() //병합시추가
-                .antMatchers("/admin/**", "/material/materialinsert", "/material/materialedit", "/material/materialdelete").hasRole("ADMIN") //병합시추가
-                //.antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers(
                     "/users/mypage",
                     "/users/update",

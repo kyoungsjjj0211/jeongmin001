@@ -15,7 +15,7 @@
     <img th:src="@{/upload/{img}(img=${dto.imageurl})}"
          alt="img"
          style="width:200px; margin-bottom:15px;"
-         onerror="this.src='/upload/defult.png';" />
+         onerror="this.src='/upload/default.png';" />
 
     <p><strong>계절:</strong> <span th:text="${dto.season}">-</span></p>
     <p><strong>온도:</strong> <span th:text="${dto.temperature}">-</span></p>

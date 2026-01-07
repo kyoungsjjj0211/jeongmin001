@@ -28,38 +28,50 @@ public class MaterialController {
 
     /////////////////////// User - Detail
     // /materialdetail?materialid=2
+    @GetMapping("/materialdetail")
+    public String materialDetail(
+        @RequestParam(value="materialid", required=false) Integer materialid, 
+        @RequestParam(value="title", required=false) String title, 
+        Model model) {
+
+        MaterialDto dto = null;
+
+        // 1. materialid(숫자)가 넘어온 경우
+        if (materialid != null) {
+            dto = service.selectMaterial(materialid);
+        } 
+        // 2. title(이름)이 넘어온 경우 (현재 사용자님 상황)
+        else if (title != null && !title.isEmpty()) {
+            dto = service.selectTitle(title);
+        }
+
+        // 만약 둘 다 없거나 데이터를 못 찾으면 리스트로 튕기기 (400 에러 방지)
+        if (dto == null) return "redirect:/material/materiallist";
+
+        model.addAttribute("dto", dto);
+        return "material/materialdetail"; 
+    }
+	/* @GetMapping("/materialdetail") public String
+	 * detail(@RequestParam("materialid") int materialid, Model model) { MaterialDto
+	 * dto = service.selectMaterial(materialid);
+	 * 
+	 * model.addAttribute("dto", dto); return "material/materialdetail"; }
+	 */
+	
 	/*
 	 * @GetMapping("/materialdetail") public String
-	 * detail(@RequestParam("materialid") int materialid, Model model) { MaterialDto
-	 * dto = service.selectMaterial(materialid); model.addAttribute("dto", dto);
+	 * materialDetail(@RequestParam("materialid") int materialid, Model model) { //
+	 * service.selectDetail -> service.selectMaterial로 변경 MaterialDto dto =
+	 * service.selectMaterial(materialid);
+	 * 
+	 * model.addAttribute("dto", dto);
+	 * 
 	 * return "material/materialdetail"; }
 	 */
-    @GetMapping("/materialdetail")
-    public String materialDetail(@RequestParam("materialid") int materialid, Model model) {
-        // service.selectDetail -> service.selectMaterial로 변경
-        MaterialDto dto = service.selectMaterial(materialid); 
-        
-        model.addAttribute("dto", dto);
-        
-        return "material/materialdetail";
-    }
-    //가져오는 코드
-//    <td>
-//    <a th:href="@{/material/materialdetail(materialid=${dto.materialid})}" 
-//       th:text="${dto.title}" 
-//       class="fw-bold text-decoration-none text-primary">
-//       재료명
-//    </a>
-//	  </td>
-    //버튼 형태
-//    <a th:href="@{/material/materialdetail(materialid=${dto.materialid})}" 
-//    class="btn btn-sm btn-info text-white">
-//    상세보기
-//    </a>
+
    
 
     /////////////////////// User - Detail(Ajax)
-    // /materialdetailAjax?materialid=1
     @GetMapping("/materialdetailAjax")
     public String materialdetailAjax(@RequestParam("materialid") int materialid, Model model) {
         MaterialDto dto = service.selectMaterial(materialid);
@@ -76,28 +88,40 @@ public class MaterialController {
             @RequestParam(value = "pstartno", defaultValue = "1") int pstartno,
             @RequestParam(value = "keyword", required = false) String keyword) {
 
-        // 1. 서비스에 검색어와 페이지 번호를 전달하여 리스트 조회
-        // (service.select10 내부에서 keyword 유무에 따라 쿼리를 분기하도록 수정 필요)
+        // 1. 서비스에서 검색어(keyword)를 포함해 10개씩 가져옴
         model.addAttribute("list", service.select10(pstartno, keyword));
 
-        // 2. 전체 개수 조회 시에도 검색어가 있으면 검색된 결과의 개수만 가져와야 페이징이 정확합니다.
+        // 2. 검색어에 맞는 전체 개수로 페이징 처리
         int totalCnt = service.selectTotalCnt(keyword);
         model.addAttribute("paging", new PagingDto(totalCnt, pstartno));
         
-        // 3. 뷰에서 검색어를 유지하기 위해 다시 넘겨줌
+        // 3. 검색창에 검색어가 남도록 다시 넘겨줌
         model.addAttribute("keyword", keyword);
 
-        return "material/materiallist_admin";
+        return "material/materiallist_admin"; // 2번 이미지의 관리자 목록 페이지
     }
 	/*
+	 * @PreAuthorize("hasRole('ROLE_ADMIN')")
+	 * 
 	 * @GetMapping("/materiallist") public String adminMaterialList( Model model,
 	 * 
-	 * @RequestParam(value = "pstartno", defaultValue = "1") int pstartno) {
+	 * @RequestParam(value = "pstartno", defaultValue = "1") int pstartno,
 	 * 
-	 * model.addAttribute("list", service.select10(pstartno));
-	 * model.addAttribute("paging", new PagingDto(service.selectTotalCnt(),
-	 * pstartno)); return "material/materiallist_admin"; }
+	 * @RequestParam(value = "keyword", required = false) String keyword) {
+	 * 
+	 * // 1. 서비스에 검색어와 페이지 번호를 전달하여 리스트 조회 // (service.select10 내부에서 keyword 유무에 따라
+	 * 쿼리를 분기하도록 수정 필요) model.addAttribute("list", service.select10(pstartno,
+	 * keyword));
+	 * 
+	 * // 2. 전체 개수 조회 시에도 검색어가 있으면 검색된 결과의 개수만 가져와야 페이징이 정확합니다. int totalCnt =
+	 * service.selectTotalCnt(keyword); model.addAttribute("paging", new
+	 * PagingDto(totalCnt, pstartno));
+	 * 
+	 * // 3. 뷰에서 검색어를 유지하기 위해 다시 넘겨줌 model.addAttribute("keyword", keyword);
+	 * 
+	 * return "material/materiallist_admin"; }
 	 */
+	
 
     /////////////////////// Admin - Insert Form
     // /admin/materialinsert
@@ -139,7 +163,7 @@ public class MaterialController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping(value = "/materialedit", headers = ("content-type=multipart/*"))
     public String materialedit(
-            @RequestParam("file") MultipartFile file,
+    		@RequestParam(value="file", required=false) MultipartFile file,
             MaterialDto dto,
             HttpSession session,
             RedirectAttributes rttr) {

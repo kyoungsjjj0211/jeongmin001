@@ -40,9 +40,7 @@ public class UserController {
 	@PreAuthorize("permitAll()")
 	@RequestMapping("/iddouble")
 	@ResponseBody
-	public Map<String, Object> iddouble(
-			@RequestParam String email,
-			@RequestParam String provider) {
+	public Map<String, Object> iddouble(@RequestParam String email, @RequestParam String provider) {
 
 		Map<String, Object> result = new HashMap<>();
 		result.put("cnt", userService.iddouble(email, provider));
@@ -55,23 +53,23 @@ public class UserController {
 	}
 
 	@PostMapping("/join")
-	public String join(
-			@RequestParam(value = "file", required = false) MultipartFile file,
-			AppUserDto dto,
-			RedirectAttributes rttr) {
+	public String join(@RequestParam(value = "file", required = false) MultipartFile file, 
+			           @RequestParam("g-recaptcha-response") String recaptchaResponse, // ✅ reCAPTCHA 파라미터 추가
+			           AppUserDto dto,
+			           RedirectAttributes rttr) {
+
+		// 1. reCAPTCHA 검증 (서비스에 구현된 verifyRecaptcha 호출)
+		if (!userService.verifyRecaptcha(recaptchaResponse)) {
+			rttr.addFlashAttribute("errorMessage", "로봇 방지 인증에 실패했습니다. 다시 시도해주세요.");
+			return "redirect:/users/join";
+		}
 
 		try {
 			int result = userService.insert(file, dto);
-			rttr.addFlashAttribute(
-					"successMessage",
-					result > 0 ? "회원가입 성공!" : "회원가입 실패"
-			);
+			rttr.addFlashAttribute("successMessage", result > 0 ? "회원가입 성공!" : "회원가입 실패");
 			return "redirect:/users/login";
 		} catch (Exception e) {
-			rttr.addFlashAttribute(
-					"errorMessage",
-					"회원가입 실패: " + e.getMessage()
-			);
+			rttr.addFlashAttribute("errorMessage", "회원가입 실패: " + e.getMessage());
 			return "redirect:/users/join";
 		}
 	}
@@ -81,14 +79,14 @@ public class UserController {
 	@GetMapping("/login")
 	public String loginPage(HttpSession session, Model model) {
 
-	    String errorMessage = (String) session.getAttribute("errorMessage");
+		String errorMessage = (String) session.getAttribute("errorMessage");
 
-	    if (errorMessage != null) {
-	        model.addAttribute("errorMessage", errorMessage);
-	        session.removeAttribute("errorMessage"); // 한 번만 출력
-	    }
+		if (errorMessage != null) {
+			model.addAttribute("errorMessage", errorMessage);
+			session.removeAttribute("errorMessage"); // 한 번만 출력
+		}
 
-	    return "users/login";
+		return "users/login";
 	}
 
 	/* ================= 마이페이지 ================= */
@@ -112,42 +110,36 @@ public class UserController {
 	@GetMapping("/update")
 	public String updateForm(Authentication authentication, Model model) {
 
-	    // ✅ 로그인 정보 기준
-	    AppUserDto loginUser = resolveLoginUser(authentication);
+		// ✅ 로그인 정보 기준
+		AppUserDto loginUser = resolveLoginUser(authentication);
 
-	    if (loginUser == null) {
-	        return "redirect:/login";
-	    }
+		if (loginUser == null) {
+			return "redirect:/login";
+		}
 
-	    // ✅ email + provider 정확히 조회
-	    AppUserDto dto =
-	            userService.selectEmail(loginUser.getEmail(), loginUser.getProvider());
+		// ✅ email + provider 정확히 조회
+		AppUserDto dto = userService.selectEmail(loginUser.getEmail(), loginUser.getProvider());
 
-	    model.addAttribute("dto", dto);
-	    return "users/update";
+		model.addAttribute("dto", dto);
+		return "users/update";
 	}
+
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/update")
-	public String update(
-	        @RequestParam(value = "file", required = false) MultipartFile file,
-	        AppUserDto dto,
-	        Authentication authentication,
-	        RedirectAttributes rttr) {
+	public String update(@RequestParam(value = "file", required = false) MultipartFile file, AppUserDto dto,
+			Authentication authentication, RedirectAttributes rttr) {
 
-	    // 🔥🔥🔥 핵심: 폼 값 무시하고 로그인 정보로 덮어쓰기
-	    AppUserDto loginUser = resolveLoginUser(authentication);
+		// 🔥🔥🔥 핵심: 폼 값 무시하고 로그인 정보로 덮어쓰기
+		AppUserDto loginUser = resolveLoginUser(authentication);
 
-	    dto.setEmail(loginUser.getEmail());
-	    dto.setProvider(loginUser.getProvider());
+		dto.setEmail(loginUser.getEmail());
+		dto.setProvider(loginUser.getProvider());
 
-	    int result = userService.update(file, dto);
+		int result = userService.update(file, dto);
 
-	    rttr.addFlashAttribute(
-	            "successMessage",
-	            result > 0 ? "회원정보 수정 성공" : "회원정보 수정 실패"
-	    );
+		rttr.addFlashAttribute("successMessage", result > 0 ? "회원정보 수정 성공" : "회원정보 수정 실패");
 
-	    return "redirect:/users/mypage";
+		return "redirect:/users/mypage";
 	}
 
 	/* ================= 회원탈퇴 ================= */
@@ -167,12 +159,8 @@ public class UserController {
 
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/delete")
-	public String delete(
-			AppUserDto dto,
-			RedirectAttributes rttr,
-			Authentication authentication,
-			HttpServletRequest request,
-			HttpServletResponse response) {
+	public String delete(AppUserDto dto, RedirectAttributes rttr, Authentication authentication,
+			HttpServletRequest request, HttpServletResponse response) {
 
 		AppUserDto loginUser = resolveLoginUser(authentication);
 		if (loginUser == null) {
@@ -182,42 +170,27 @@ public class UserController {
 		dto.setEmail(loginUser.getEmail());
 		dto.setProvider(loginUser.getProvider());
 
-		boolean requirePasswordCheck =
-				"local".equalsIgnoreCase(loginUser.getProvider());
+		boolean requirePasswordCheck = "local".equalsIgnoreCase(loginUser.getProvider());
 
 		if (requirePasswordCheck) {
 			if (dto.getPassword() == null || dto.getPassword().isEmpty()) {
-				rttr.addFlashAttribute(
-						"errorMessage",
-						"회원탈퇴 실패: 비밀번호를 입력해주세요"
-				);
+				rttr.addFlashAttribute("errorMessage", "회원탈퇴 실패: 비밀번호를 입력해주세요");
 				return "redirect:/users/delete";
 			}
 
-			if (!userService.matchesPassword(
-					dto.getEmail(),
-					dto.getProvider(),
-					dto.getPassword())) {
+			if (!userService.matchesPassword(dto.getEmail(), dto.getProvider(), dto.getPassword())) {
 
-				rttr.addFlashAttribute(
-						"errorMessage",
-						"회원탈퇴 실패: 비밀번호가 일치하지 않습니다."
-				);
+				rttr.addFlashAttribute("errorMessage", "회원탈퇴 실패: 비밀번호가 일치하지 않습니다.");
 				return "redirect:/users/delete";
 			}
 		}
 
 		if (userService.delete(dto, requirePasswordCheck) > 0) {
-			Authentication auth =
-					SecurityContextHolder.getContext().getAuthentication();
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 			if (auth != null) {
-				new SecurityContextLogoutHandler()
-						.logout(request, response, auth);
+				new SecurityContextLogoutHandler().logout(request, response, auth);
 			}
-			rttr.addFlashAttribute(
-					"successMessage",
-					"회원탈퇴가 완료되었습니다."
-			);
+			rttr.addFlashAttribute("successMessage", "회원탈퇴가 완료되었습니다.");
 		}
 
 		return "redirect:/users/login";
@@ -231,23 +204,17 @@ public class UserController {
 
 		// local
 		if (principal instanceof CustomUserDetails) {
-			CustomUserDetails userDetails =
-					(CustomUserDetails) principal;
+			CustomUserDetails userDetails = (CustomUserDetails) principal;
 			return userDetails.getUser();
 		}
 
 		// social
-		if (principal instanceof OAuth2User
-				&& authentication instanceof OAuth2AuthenticationToken) {
+		if (principal instanceof OAuth2User && authentication instanceof OAuth2AuthenticationToken) {
 
 			OAuth2User oAuth2User = (OAuth2User) principal;
-			String email = (String) oAuth2User
-					.getAttributes()
-					.get("email");
+			String email = (String) oAuth2User.getAttributes().get("email");
 
-			String provider =
-					((OAuth2AuthenticationToken) authentication)
-							.getAuthorizedClientRegistrationId();
+			String provider = ((OAuth2AuthenticationToken) authentication).getAuthorizedClientRegistrationId();
 
 			AppUserDto dto = new AppUserDto();
 			dto.setEmail(email);
@@ -257,4 +224,40 @@ public class UserController {
 
 		return null;
 	}
+
+	/* ================= 이메일 찾기 (AJAX) ================= */
+	@PostMapping("/find-email")
+	@ResponseBody 
+	public Map<String, Object> findEmail(@RequestParam String phoneNumber) {
+		Map<String, Object> result = new HashMap<>();
+		String email = userService.findEmailByPhone(phoneNumber);
+		
+		if (email != null) {
+			result.put("success", true);
+			result.put("message", "찾으시는 이메일은 [" + email + "] 입니다.");
+		} else {
+			result.put("success", false);
+			result.put("message", "해당 번호로 등록된 이메일이 없습니다.");
+		}
+		return result;
+	}
+
+	/* ================= 비밀번호 재설정 (AJAX) ================= */
+	@PostMapping("/reset-password")
+	@ResponseBody
+	public Map<String, Object> resetPassword(@RequestParam String email, @RequestParam String phoneNumber,
+			@RequestParam String newPassword) {
+		Map<String, Object> result = new HashMap<>();
+		boolean success = userService.resetPassword(email, phoneNumber, newPassword);
+		
+		if (success) {
+			result.put("success", true);
+			result.put("message", "비밀번호가 성공적으로 변경되었습니다.");
+		} else {
+			result.put("success", false);
+			result.put("message", "정보가 일치하지 않아 변경에 실패했습니다.");
+		}
+		return result;
+	}
+
 }

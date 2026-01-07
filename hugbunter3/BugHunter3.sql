@@ -1,7 +1,8 @@
 create table material3 ( -- 재료 마스터 테이블 생성
  materialid number(6) primary key, -- 재료 고유번호 (PK)
  title varchar2(200) not null, -- 재료명 (필수)
- imageurl varchar2(300) default 'defult.png', -- 이미지 경로/URL (기본값)
+ imageurl varchar2(300) default 'default.png', -- 이미지 경로/URL (기본값)
+ allergy varchar2(1000),
  season varchar2(100), -- 제철 정보
  temperature varchar2(50), -- 보관 온도
  calories100g varchar2(50), -- 100g당 열량
@@ -13,52 +14,25 @@ create table material3 ( -- 재료 마스터 테이블 생성
  created_at     date default sysdate not null, -- 생성일
  updated_at     date default sysdate not null ); -- 수정일
  
+ select * from material3;
+
 create sequence material3_seq; -- material3 자동 증가용 시퀀스
 
-create table material_allergy (
-  allergy_id      number primary key,
-  materialid      number not null,
-  allergen_name   varchar2(100) not null,
-  note            varchar2(500),
 
-  constraint fk_material_allergy
-    foreign key (materialid)
-    references material3(materialid)
+CREATE TABLE material_trends (
+    trend_id NUMBER PRIMARY KEY,
+    material_id NUMBER, -- 기존 재료 테이블의 ID와 매칭
+    keyword VARCHAR2(100),
+    period_data CLOB, -- JSON 텍스트를 담을 대용량 텍스트 컬럼
+    last_updated DATE DEFAULT SYSDATE
 );
 
-create sequence material_allergy_seq;
+CREATE SEQUENCE trend_seq 
+START WITH 1 
+INCREMENT BY 1 
+NOCACHE;
 
-create table material_alias ( --별칭 테이블 
-  alias_id     number primary key,
-  materialid   number not null,          -- 대표 재료 FK
-  alias_name   varchar2(200) not null,   -- 저지방우유 / 무지방우유 / 서울우유 등
-  
- constraint fk_material_alias foreign key (materialid) references material3(materialid)
-);
-
-create sequence material_alias_seq;
-
-
-create table buy_click_log (
-  log_id      number primary key,
-  materialid  number(6) not null,
-  mall_name   varchar2(30) default '11st' not null,
-  keyword     varchar2(200) not null,   -- 예: 양파
-  clicked_at  date default sysdate not null,
-
-  constraint fk_buylog_material
-    foreign key (materialid) references material3(materialid)
-    on delete cascade
-);
-
-create sequence buy_click_log_seq;
-
-create index idx_buylog_material
-on buy_click_log(materialid, mall_name, clicked_at);
-
-
-
-
+select * from material3;
 // 재료 crud
 insert into material3 (
   materialid, title, imageurl, season, temperature, calories100g, efficacy, buyguide, trimguide, storeguide, category)
@@ -80,71 +54,272 @@ delete from material_allergy where materialid = 4;
 delete from material_alias   where materialid = 4; 
 delete from material3        where materialid = 4;
 
-
-// 알러지 crud
-
-insert into material_allergy (allergy_id, materialid, allergen_name, note)
-  values (material_allergy_seq.nextval, 1, '없음', '일반적으로 주요 알러지 없음');
-  
-select allergy_id, allergen_name, note from material_allergy where materialid = 1;  
-
-select a.allergy_id, m.title, a.allergen_name, a.note 
-from material_allergy a
-join material3 m on m.materialid = a.materialid
-order by a.allergy_id desc;
-
-update material_allergy
-set note = '알러지 유발 사례 거의 없음'
-where materialid = 1
-  and allergen_name = '없음';
-  
-delete from material_allergy
-where materialid = 1
-  and allergen_name = '없음';
-
-// 알리아스 crud
-insert into material_alias (alias_id, materialid, alias_name)
-values (material_alias_seq.nextval, 3, '저지방우유');
-
-insert into material_alias (alias_id, materialid, alias_name)
-values (material_alias_seq.nextval, 3, '무지방우유');
-
-select alias_id, alias_name
-from material_alias
-where materialid = 3;
-
-select a.alias_id, m.title, a.alias_name
-from material_alias a
-join material3 m on m.materialid = a.materialid
-order by a.alias_id desc;
-
-update material_alias
-set alias_name = '저지방 우유'
-where alias_name = '저지방우유';
-
-delete from material_alias
-where alias_name = '무지방우유';
-
-// buy_click_log crud
-insert into buy_click_log (log_id, materialid, mall_name, keyword)
-  values ( buy_click_log_seq.nextval,1,'11st','양파');
-  
-  //최근 10건
-select * from ( select b.log_id, m.title, b.mall_name, b.keyword, b.clicked_at from buy_click_log b join material3 m on m.materialid = b.materialid order by b.clicked_at desc ) where rownum <= 10;
-//select all
-select b.log_id, m.title, b.mall_name, b.keyword, b.clicked_at
-from buy_click_log b
-join material3 m on m.materialid = b.materialid
-order by b.clicked_at desc;
-
-//update
-update buy_click_log
-set keyword = '양파 1kg'
-where log_id = (select max(log_id) from buy_click_log);
-
-//delete
-delete from buy_click_log
-where log_id = (select max(log_id) from buy_click_log);
-
-
 commit;
+
+//희재형님 파트
+
+CREATE TABLE BUG3 (
+    APPUSERID       NUMBER PRIMARY KEY,
+    EMAIL           VARCHAR2(100) NOT NULL UNIQUE,
+    NICKNAME        VARCHAR2(50) NOT NULL,
+    PASSWORD        VARCHAR2(255) NOT NULL,
+    PROVIDER        VARCHAR2(20),
+    PROVIDER_ID     VARCHAR2(100),
+    MOBILE          VARCHAR2(20),
+    ROLE            VARCHAR2(20) DEFAULT 'USER',
+    UFILE           VARCHAR2(255),
+    CREATED_AT      DATE DEFAULT SYSDATE,
+    POSTCODE        VARCHAR2(10),
+    ADDRESS         VARCHAR2(255),
+    DETAIL_ADDRESS  VARCHAR2(255)
+);
+ALTER TABLE bug3 ADD detail_address VARCHAR(255);
+CREATE SEQUENCE BUG3_SEQ
+START WITH 1
+INCREMENT BY 1
+NOCACHE
+NOCYCLE;
+
+CREATE TABLE BUG3_MANAGE (
+    APPUSERID       NUMBER PRIMARY KEY,
+    STATUS          VARCHAR2(20) NOT NULL,
+    SUSPEND_REASON  VARCHAR2(255),
+    SUSPEND_UNTIL   DATE,
+    UPDATED_AT      DATE DEFAULT SYSDATE,
+
+    CONSTRAINT FK_BUG3_MANAGE_USER
+        FOREIGN KEY (APPUSERID)
+        REFERENCES BUG3(APPUSERID)
+        ON DELETE CASCADE
+);
+
+CREATE TABLE BUG3_STATUS_LOG (
+    LOG_ID      NUMBER PRIMARY KEY,
+    APPUSERID   NUMBER NOT NULL,
+    CREATED_AT  DATE DEFAULT SYSDATE,
+
+    CONSTRAINT FK_BUG3_STATUS_USER
+        FOREIGN KEY (APPUSERID)
+        REFERENCES BUG3(APPUSERID)
+        ON DELETE CASCADE
+);
+select * from authorities;
+INSERT INTO authorities (auth_id, email, auth) VALUES (69, '1@1', 'ROLE_ADMIN');
+commit;
+
+CREATE SEQUENCE BUG3_STATUS_LOG_SEQ
+START WITH 1
+INCREMENT BY 1
+NOCACHE
+NOCYCLE;
+
+
+
+
+
+
+
+
+//상현님 파트
+
+-- 카테고리
+CREATE TABLE CATEGORY3 (
+    CATEGORY      NUMBER PRIMARY KEY,
+    CATEGORY_NAME VARCHAR2(100) NOT NULL
+);
+
+-- 레시피
+CREATE TABLE RECIPES3 (
+    RECIPE_ID    NUMBER PRIMARY KEY,
+    APPUSERID    NUMBER NOT NULL,
+    TITLE        VARCHAR2(255) NOT NULL,
+    CATEGORY     NUMBER,
+    IMAGE        VARCHAR2(255) DEFAULT 'no.png',
+    COOK_TIME    NUMBER DEFAULT 0,
+    DIFFICULTY   VARCHAR2(50),
+    SERVINGS     NUMBER DEFAULT 1,
+    DESCRIPTION  VARCHAR2(4000),
+    STATUS       VARCHAR2(20) DEFAULT 'PUBLIC',         
+    CREATED_AT   DATE DEFAULT SYSDATE,
+    UPDATED_AT   DATE,
+    VIEWS        NUMBER DEFAULT 0,
+    R_URL        VARCHAR2(255),
+
+    FOREIGN KEY (APPUSERID) REFERENCES BUG3(APPUSERID),
+    FOREIGN KEY (CATEGORY)  REFERENCES CATEGORY3(CATEGORY)
+);
+-- STATUS : 'PUBLIC', 'PRIVATE', 'DRAFT'
+
+-- 레시피 재료/설명 통합
+CREATE TABLE recipes_ingre3 (
+    INGRE_MAP_ID NUMBER PRIMARY KEY,
+    RECIPE_ID    NUMBER NOT NULL,
+    INGRE_NAME   VARCHAR2(100) NOT NULL,
+    INGRE_NUM    VARCHAR2(50),
+
+    FOREIGN KEY (RECIPE_ID) REFERENCES recipes3(RECIPE_ID) ON DELETE CASCADE
+);
+
+-- 레시피 단계 (설명)
+CREATE TABLE recipes_step3 (
+    STEP_MAP_ID NUMBER PRIMARY KEY,
+    RECIPE_ID   NUMBER NOT NULL,
+    STEP_DESC   VARCHAR2(1000) NOT NULL,
+    STEP_IMAGE  VARCHAR2(255),
+
+    FOREIGN KEY (RECIPE_ID) REFERENCES recipes3(RECIPE_ID) ON DELETE CASCADE
+);
+
+-- 좋아요
+CREATE TABLE RECIPE_LIKES3 (
+    APPUSERID   NUMBER NOT NULL,
+    RECIPE_ID   NUMBER NOT NULL,
+    CREATED_AT  DATE DEFAULT SYSDATE,
+
+    CONSTRAINT uk_user_recipe_like UNIQUE (APPUSERID, RECIPE_ID),
+    FOREIGN KEY (APPUSERID) REFERENCES BUG3(APPUSERID) ON DELETE CASCADE,
+    FOREIGN KEY (RECIPE_ID) REFERENCES recipes3(RECIPE_ID) ON DELETE CASCADE
+);
+
+-- 검색 기록
+CREATE TABLE SEARCH_HISTORY3 (
+    SEARCH_ID   NUMBER PRIMARY KEY,
+    APPUSERID   NUMBER,
+    KEYWORD     VARCHAR2(255) NOT NULL,
+    CREATED_AT  DATE DEFAULT SYSDATE,
+    FOREIGN KEY (APPUSERID) REFERENCES BUG3(APPUSERID)
+);
+
+-- AI 사용 기록 간소화
+CREATE TABLE AI_USAGE_HISTORY3 (
+    AI_HIST_ID  NUMBER PRIMARY KEY,
+    APPUSERID   NUMBER,
+    AI_ACTION   VARCHAR2(30),
+    CREATED_AT  DATE DEFAULT SYSDATE,
+    FOREIGN KEY (APPUSERID) REFERENCES BUG3(APPUSERID)
+);
+
+-- 비속어
+CREATE TABLE BAD_WORDS3 (
+    WORD_ID NUMBER PRIMARY KEY,
+    WORD    VARCHAR2(250) UNIQUE
+);
+
+-- 시퀀스
+CREATE SEQUENCE seq_recipe3;
+CREATE SEQUENCE seq_ingre_map3;
+CREATE SEQUENCE seq_step_map3;
+CREATE SEQUENCE seq_recipe_like3;
+CREATE SEQUENCE seq_search_history3;
+CREATE SEQUENCE seq_ai_usage_history3;
+CREATE SEQUENCE seq_bad_words3;
+
+INSERT INTO CATEGORY3 VALUES (1, '전체');
+INSERT INTO CATEGORY3 VALUES (2, '한식');
+INSERT INTO CATEGORY3 VALUES (3, '양식');
+INSERT INTO CATEGORY3 VALUES (4, '중식');
+INSERT INTO CATEGORY3 VALUES (5, '일식');
+INSERT INTO CATEGORY3 VALUES (6, '디저트');
+INSERT INTO CATEGORY3 VALUES (7, '건강식');
+INSERT INTO CATEGORY3 VALUES (8, '기타');
+
+
+//영민님 파트
+-- 2. 리뷰 테이블 
+CREATE TABLE REVIEW (
+    REVIEW_ID    NUMBER PRIMARY KEY,
+    RECIPE_ID    NUMBER NOT NULL,
+    APP_USER_ID  NUMBER NOT NULL,
+    RATING       NUMBER NOT NULL,
+    COMMENT_TEXT CLOB NOT NULL,
+    CREATED_AT   DATE DEFAULT SYSDATE,
+    UPDATED_AT   DATE,
+    
+    CONSTRAINT fk_review_recipe FOREIGN KEY (RECIPE_ID) REFERENCES RECIPES3(RECIPE_ID),
+    CONSTRAINT fk_review_user   FOREIGN KEY (APP_USER_ID) REFERENCES BUG3(APPUSERID)
+);
+
+-- 3. 댓글 테이블
+CREATE TABLE COMMENTS (
+    COMMENT_ID   NUMBER PRIMARY KEY,
+    REVIEW_ID    NUMBER NOT NULL,
+    APP_USER_ID  NUMBER NOT NULL,
+    CONTENT      CLOB,
+    CREATED_AT   DATE DEFAULT SYSDATE,
+    UPDATED_AT   DATE,
+    PARENT_ID    NUMBER,
+    
+    CONSTRAINT fk_comment_review FOREIGN KEY (REVIEW_ID) REFERENCES REVIEW(REVIEW_ID) ON DELETE CASCADE,
+    CONSTRAINT fk_comment_user   FOREIGN KEY (APP_USER_ID) REFERENCES BUG3(APPUSERID)
+);
+
+
+-- 2. 시퀀스 생성
+CREATE SEQUENCE seq_review START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE seq_comment START WITH 1 INCREMENT BY 1;
+
+//서현님 파트
+
+-- 추천 테이블
+CREATE TABLE recipe_reco (
+    recipe_id      NUMBER,
+    reco_type VARCHAR2(50),   -- FOOD_TYPE / CUISINE / SPICY / MEAL_TIME
+    reco_code VARCHAR2(50),   -- TACOS / MEXICAN / SPICY / DINNER
+    PRIMARY KEY (recipe_id, reco_type, reco_code)
+);
+
+ALTER TABLE recipe_reco
+ADD CONSTRAINT fk_recipe_reco_recipe
+FOREIGN KEY (recipe_id)
+REFERENCES RECIPES3 (RECIPE_ID);
+
+
+-- 주간 식단 테이블
+CREATE TABLE meal_plan (
+  item_id      NUMBER PRIMARY KEY,
+  appuserid    NUMBER NOT NULL,
+  week_key     VARCHAR2(8) NOT NULL,
+  day_of_week  NUMBER(1) NOT NULL,
+  meal_slot    VARCHAR2(10) NOT NULL,
+  recipe_id    NUMBER,
+  note         VARCHAR2(200),
+  created_at   DATE DEFAULT SYSDATE
+);
+
+ALTER TABLE meal_plan
+ADD CONSTRAINT fk_meal_plan_user
+FOREIGN KEY (appuserid)
+REFERENCES BUG3 (APPUSERID);
+
+-- 트렌드 추천 테이블
+CREATE TABLE trend_reco (
+  reco_id     NUMBER PRIMARY KEY,
+  keyword     VARCHAR2(100) NOT NULL,
+  recipe_id   NUMBER,        -- 내부 레시피 ID (나중에 FK)
+  created_at  DATE DEFAULT SYSDATE
+);
+
+ALTER TABLE trend_reco
+ADD CONSTRAINT fk_trend_reco_recipe
+FOREIGN KEY (recipe_id)
+REFERENCES RECIPES3 (RECIPE_ID)
+ON DELETE SET NULL;
+
+-- 시퀀스
+CREATE SEQUENCE recipe_reco_seq
+START WITH 1
+INCREMENT BY 1
+NOCACHE
+NOCYCLE;
+
+CREATE SEQUENCE meal_plan_seq
+START WITH 1
+INCREMENT BY 1
+NOCACHE
+NOCYCLE;
+
+CREATE SEQUENCE trend_reco_seq
+START WITH 1
+INCREMENT BY 1
+NOCACHE
+NOCYCLE;

@@ -27,14 +27,23 @@
 	<!-- <select id="selectTotalCnt" resultType="int">
 		SELECT COUNT(*) FROM material3
 	</select> -->
-	<select id="selectTotalCnt" parameterType="string" resultType="int">
+<!-- 	<select id="selectTotalCnt" parameterType="string" resultType="int">
     SELECT COUNT(*) FROM material3
     <where>
         <if test="keyword != null and keyword != ''">
             AND (title LIKE '%' || #{keyword} || '%' OR category LIKE '%' || #{keyword} || '%')
         </if>
     </where>
-	</select>
+	</select> -->
+	<select id="selectTotalCnt" resultType="int">
+    SELECT COUNT(*) FROM material3
+    <where>
+        <if test="keyword != null and keyword != ''">
+            title LIKE '%' || #{keyword} || '%' OR category LIKE '%' || #{keyword} || '%'
+        </if>
+    </where>
+</select>
+	
 
 	<!-- ===== 페이징 목록 ===== parameter: start, end 를 담은 Map -->
 <!-- 	<select id="select10" parameterType="java.util.Map"
@@ -48,7 +57,7 @@
 		)
 		WHERE rnum BETWEEN #{start} AND #{end}
 	</select> -->
-	<select id="select10" parameterType="java.util.Map" resultMap="materialMap">
+	<!-- <select id="select10" parameterType="java.util.Map" resultMap="materialMap">
     SELECT *
     FROM (
         SELECT
@@ -62,8 +71,17 @@
         </where>
     )
     WHERE rnum BETWEEN #{start} AND #{end}
-	</select>
-
+	</select> -->
+<select id="select10" resultMap="materialMap">
+    SELECT * FROM (
+        SELECT ROW_NUMBER() OVER (ORDER BY created_at DESC) AS rnum, m.* FROM material3 m
+        <where>
+            <if test="keyword != null and keyword != ''">
+                title LIKE '%' || #{keyword} || '%' OR category LIKE '%' || #{keyword} || '%'
+            </if>
+        </where>
+    ) WHERE rnum BETWEEN #{start} AND #{end}
+</select>
 	<!-- ===== 상세 ===== -->
 	<!-- <select id="selectMaterial" parameterType="int" resultMap="materialMap">
 		SELECT * FROM material3

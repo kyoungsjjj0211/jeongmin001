@@ -8,7 +8,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling
 public class Bug3Application { 
 	public static void main(String[] args) {
-		SpringApplication.run(Bug3Application.class, args);
+		SpringApplication.run(Bug3Application.class, args);  
 	}
 
 }
@@ -18,4 +18,4 @@ public class Bug3Application {
   insert into sboard2 ( ID    , APP_USER_ID , btitle, bcontent, bpass, bfile,  bip )
   select  sboard2_seq.nextval , APP_USER_ID , btitle, bcontent, bpass, bfile,  bip   from sboard2;
 
-*/
+*/	
