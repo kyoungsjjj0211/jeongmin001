@@ -1,0 +1,15 @@
+package com.thejoa703.entity;
+
+import java.time.LocalDateTime;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
+
+@Entity   //JPA 엔티티 선언
+@Table(name= "IMAGES")
+@Getter  @Setter 
+public class Image {
+
+}

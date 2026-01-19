@@ -1,0 +1,6 @@
+package com.thejoa703.mapper;
+
+@Mapper
+public interface DeptUserMapper {
+
+}

@@ -1,0 +1,9 @@
+package com.thejoa703.entity;
+
+import jakarta.persistence.Entity;
+
+@Entity
+@Getter
+public class AppUser {
+	private long id;
+}

@@ -1,0 +1,5 @@
+package com.thejoa703.util;
+
+public class FileStorageService {
+
+}

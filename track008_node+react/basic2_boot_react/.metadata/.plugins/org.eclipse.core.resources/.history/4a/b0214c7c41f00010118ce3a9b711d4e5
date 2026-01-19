@@ -1,0 +1,43 @@
+package com.thejoa703.entity;
+
+import jakarta.persistence.*; //JPA관련 어노테이션
+import lombok.Getter;
+import lombok.Setter;
+
+
+/***
+ * 사용자 엔티티
+ */
+@Entity //JPA 엔티티 선언
+@Getter
+@Setter
+@Table( name= "APPUSER")
+public class AppUser {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE , generator = "appuser_seq") //시퀀스 사용
+	@SequenceGenerator(name = "appuser_seq", sequenceName = "APPUSER_SEQ" , allocationSize = 1)
+	@Column(name="APP_USER_ID")
+	private long id; //PK
+	
+	@Column(length = 120 , nullable = false)
+	private String email; //이에일 (필수)
+	
+	@Column(length = 200 , nullable = true)
+	private String password; // 소셜 로그인 null허용
+	
+	@Column(length = 50 , nullable = false)
+	private String nickname; //닉네임
+	
+	@Column(name="MBTI_TYPE_ID")
+	private Integer mtbitype;
+	
+	@Column(length = 255)
+	private String ufile;
+	
+	@Column(length = 30)
+	private String mobile;
+	
+	@Column(nullable = false , length = 30)
+	private String provider="local";
+}

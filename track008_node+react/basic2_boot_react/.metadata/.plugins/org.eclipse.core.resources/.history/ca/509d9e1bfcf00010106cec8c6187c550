@@ -1,0 +1,22 @@
+package com.thejoa703.repository;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.thejoa703.entity.Post;
+
+@Repository //★
+public interface PostRepository extends JpaRepository <Post, Long> { //Entity , PK ★
+	// 해쉬태그 이름으로 게스글 검색
+	List<Post> findByHashtags_
+}
+
+/*
+CREATE : sava - INSERT INTO 테이블명 (컬럼1,컬럼2,,)  values (?,?,,)
+READ : findAll - SELECT * from 테이블명 
+       findById - SELECT * from 테이블명 where id=?
+UPDATE : save - update 테이블명 set 컬럼1=? , 컬럼2=? where id=?
+DELETE : deleteById - delete from 테이블명
+*/

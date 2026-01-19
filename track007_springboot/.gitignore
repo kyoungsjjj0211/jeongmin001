@@ -1,0 +1,4 @@
+/.metadata/
+
+# 해당폴더의 properties파일무시
+boot001/src/main/resources/application-oauth.properties

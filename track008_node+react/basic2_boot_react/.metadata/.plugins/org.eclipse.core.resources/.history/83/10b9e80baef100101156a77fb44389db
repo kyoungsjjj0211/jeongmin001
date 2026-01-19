@@ -1,0 +1,7 @@
+package com.thejoa703.domain;
+
+@Entity
+@Table(name = "DEPTUSER") //테이블 이름지정
+public class DeptUser {
+
+}

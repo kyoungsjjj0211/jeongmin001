@@ -1,0 +1,8 @@
+package com.thejoa703.util;
+
+import org.springframework.stereotype.Service;
+
+@Service
+public class FileStorageService {
+
+}

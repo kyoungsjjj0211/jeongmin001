@@ -1,0 +1,15 @@
+package com.thejoa703.security;
+
+// 토큰 (출입증)
+@ConfigurationProperties(prefix = "jwt")
+public class JwtProperties {
+    private String issuer;
+    private String secret;
+    private int accessTokenExpSeconds;
+    private int refreshTokenExpSeconds;
+    private String header;
+    private String prefix;
+}
+public class JwtProperties {
+
+}

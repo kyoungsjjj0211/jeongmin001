@@ -1,0 +1,6 @@
+package com.thejoa703.security;
+
+//보안 게이트
+public class JwtAuthenticationFilter {
+
+}

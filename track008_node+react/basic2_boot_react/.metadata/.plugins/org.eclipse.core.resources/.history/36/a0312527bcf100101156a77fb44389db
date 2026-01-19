@@ -1,0 +1,12 @@
+package com.thejoa703.util;
+
+import org.springframework.stereotype.Service;
+
+/**
+ * 파일 저장 서비스
+ * - 업로드된 파일을 로컬 uploads 폴더에 저장
+ */
+@Service
+public class FileStorageService {
+
+}
