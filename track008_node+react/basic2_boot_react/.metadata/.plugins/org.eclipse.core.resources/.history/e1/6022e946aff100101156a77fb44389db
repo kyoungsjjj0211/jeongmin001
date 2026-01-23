@@ -1,9 +1,0 @@
-package com.thejoa703.mapper;
-
-import org.apache.ibatis.annotations.Mapper;
-
-@Mapper
-public interface DeptUserMapper {
-
-	List<DeptUser> findByNameKeyword(String keyword);
-}

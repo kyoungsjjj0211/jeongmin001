@@ -1,9 +1,0 @@
-package com.thejoa703.config;
-
-import org.springframework.context.annotation.Configuration;
-
-@Configuration
-public class PasswordConfig {
-
-	@Bean
-}

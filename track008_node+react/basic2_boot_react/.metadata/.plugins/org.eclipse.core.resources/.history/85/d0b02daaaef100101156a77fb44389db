@@ -1,8 +1,0 @@
-package com.thejoa703.repository;
-
-import org.springframework.stereotype.Repository;
-
-@Repository
-public interface DeptUserRepository extends JpaRepository<DeptUser, Long>{
-
-}

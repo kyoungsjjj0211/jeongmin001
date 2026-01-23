@@ -1,0 +1,47 @@
+package com.thejoa703.security;
+
+//보안 게이트
+public class JwtAuthenticationFilter extends OncePerRequestFilter {
+
+    private final JwtProvider jwtProvider;
+
+    public JwtAuthenticationFilter(JwtProvider jwtProvider) {
+        this.jwtProvider = jwtProvider;
+    }
+
+    @Override
+    protected void doFilterInternal(HttpServletRequest request,
+                                    HttpServletResponse response,
+                                    FilterChain chain)
+            throws ServletException, IOException {
+
+        String header = request.getHeader("Authorization");
+
+        if (StringUtils.hasText(header) && header.startsWith("Bearer ")) {
+            String token = header.substring(7);
+            try {
+                Claims claims = jwtProvider.parse(token).getBody();
+ 
+                Long userId = Long.parseLong(claims.getSubject());
+                String role = claims.get("role", String.class);
+ 
+                CustomOAuth2User userPrincipal = new CustomOAuth2User(userId, role);
+
+                UsernamePasswordAuthenticationToken auth =
+                        new UsernamePasswordAuthenticationToken(
+                                userPrincipal, null, userPrincipal.getAuthorities()
+                        );
+
+                SecurityContextHolder.getContext().setAuthentication(auth);
+ 
+                // log.debug("JWT 인증 성공: userId={}, role={}", userId, role);
+
+            } catch (Exception e) {
+                SecurityContextHolder.clearContext();
+                // log.warn("JWT 인증 실패: {}", e.getMessage());
+            }
+        }
+
+        chain.doFilter(request, response);
+    }
+}

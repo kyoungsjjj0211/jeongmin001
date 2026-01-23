@@ -1,6 +1,0 @@
-package com.thejoa703.config;
-
-@Configuration
-public class PasswordConfig {
-
-}

@@ -1,5 +1,0 @@
-package com.thejoa703.repository;
-
-public interface AppUserRepository {
-
-}

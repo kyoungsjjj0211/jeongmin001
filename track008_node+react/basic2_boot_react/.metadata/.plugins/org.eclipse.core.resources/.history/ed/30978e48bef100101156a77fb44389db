@@ -1,6 +1,0 @@
-package com.thejoa703.service;
-
-@Service
-public class AppUserService {
-
-}

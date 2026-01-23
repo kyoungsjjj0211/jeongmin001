@@ -1,6 +1,0 @@
-package com.thejoa703.util;
-
-@Service
-public class FileStorageService {
-
-}

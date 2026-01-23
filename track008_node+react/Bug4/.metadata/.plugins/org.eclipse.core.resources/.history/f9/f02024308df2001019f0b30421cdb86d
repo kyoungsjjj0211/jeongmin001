@@ -1,0 +1,6 @@
+package com.thejoa703.oauth2;
+
+
+public interface OAuth2SuccessHandler {
+
+}

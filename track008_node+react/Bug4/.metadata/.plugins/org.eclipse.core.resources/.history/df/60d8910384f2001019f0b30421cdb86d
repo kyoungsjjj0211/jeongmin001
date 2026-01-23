@@ -1,0 +1,7 @@
+package com.thejoa703.security;
+
+// 토큰 (출입증)
+
+public class JwtProperties {
+
+}
