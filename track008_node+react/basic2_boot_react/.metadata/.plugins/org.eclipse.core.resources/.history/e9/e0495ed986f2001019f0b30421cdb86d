@@ -1,6 +1,0 @@
-package com.thejoa703.security;
-
-// 토큰냉장고 - redis
-public class TokenStore {
-
-}

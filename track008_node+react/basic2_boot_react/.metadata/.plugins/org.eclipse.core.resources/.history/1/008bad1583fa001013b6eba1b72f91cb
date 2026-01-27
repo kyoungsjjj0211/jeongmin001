@@ -1,0 +1,21 @@
+@SpringBootTest
+class MaterialServiceTest {
+
+    @Autowired
+    private MaterialService materialService;
+
+    @Test
+    void 재료저장_테스트() {
+        // Given
+        MaterialSaveRequestDto requestDto = new MaterialSaveRequestDto();
+        requestDto.setTitle("테스트 양파");
+        requestDto.setCategory("채소");
+        // ... 나머지 필드 세팅
+
+        // When
+        int result = materialService.saveMaterial(requestDto, null); // 파일 없이 테스트
+
+        // Then
+        assertThat(result).isEqualTo(1);
+    }
+}

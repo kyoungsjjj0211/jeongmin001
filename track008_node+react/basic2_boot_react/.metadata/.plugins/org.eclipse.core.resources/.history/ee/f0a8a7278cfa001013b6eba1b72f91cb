@@ -1,0 +1,14 @@
+package com.thejoa703.repository;
+
+import com.thejoa703.entity.Material;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository // 이제 @Mapper 대신 @Repository를 씁니다!
+public interface MaterialRepository extends JpaRepository<Material, Long> {
+    
+    // 제목에 키워드가 포함된 데이터를 페이징 처리해서 가져오는 메서드 (JPA가 자동 생성)
+    Page<Material> findByTitleContaining(String keyword, Pageable pageable);
+}

@@ -1,0 +1,16 @@
+package com.thejoa703.repository;
+
+import com.thejoa703.entity.Material;
+import org.apache.ibatis.annotations.Mapper;
+import java.util.List;
+import java.util.Map;
+
+@Mapper
+public interface MaterialRepository {
+    int save(Material material);
+    int update(Material material);
+    int deleteById(int id);
+    Material findById(int id);
+    List<Material> findAll(Map<String, Object> params);
+    int countAll(String keyword);
+}

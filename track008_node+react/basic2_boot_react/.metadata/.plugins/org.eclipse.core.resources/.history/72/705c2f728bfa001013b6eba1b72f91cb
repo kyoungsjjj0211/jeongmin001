@@ -1,0 +1,33 @@
+@RestController
+@RequestMapping("/api/material")
+@RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:3000")
+public class MaterialController {
+
+    private final MaterialService materialService;
+
+    @GetMapping("/list")
+    public Map<String, Object> list(@RequestParam(value = "page", defaultValue = "1") int page,
+                                    @RequestParam(value = "keyword", defaultValue = "") String keyword) {
+        
+        Map<String, Object> response = new HashMap<>();
+        
+        // Service에서 List<MaterialResponseDto>를 반환하도록 로직 확인 필요
+        List<MaterialResponseDto> list = materialService.getMaterialList(page, keyword);
+        
+        // Service에 아래 메서드가 없다면 추가하거나 Page객체를 활용해야 합니다.
+        long totalCnt = materialService.getTotalCount(keyword); 
+        
+        response.put("list", list);
+        response.put("totalCnt", totalCnt);
+        
+        return response;
+    }
+
+    @PostMapping("/insert")
+    public ResponseEntity<String> insert(MaterialSaveRequestDto requestDto, 
+                                         @RequestParam(value = "file", required = false) MultipartFile file) {
+        materialService.saveMaterial(requestDto, file);
+        return ResponseEntity.ok("success");
+    }
+}

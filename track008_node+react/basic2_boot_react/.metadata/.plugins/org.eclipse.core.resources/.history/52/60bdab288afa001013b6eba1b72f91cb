@@ -1,0 +1,92 @@
+package com.thejoa703.service;
+
+import com.thejoa703.dto.request.MaterialSaveRequestDto;
+import com.thejoa703.dto.response.MaterialResponseDto;
+import com.thejoa703.entity.Material;
+import com.thejoa703.repository.MaterialRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+import java.util.stream.Collectors;
+
+@Service
+@RequiredArgsConstructor 
+public class MaterialService {
+
+    private final MaterialRepository repository;
+
+    // 1. 재료 저장 로직
+    public int saveMaterial(MaterialSaveRequestDto requestDto, MultipartFile file) {
+        // 파일 업로드 처리 호출
+        String savedFileName = handleFileUpload(file); 
+        
+        // Entity 빌드 (Builder 패턴 사용)
+        Material material = Material.builder()
+                .title(requestDto.getTitle())
+                .imageurl(savedFileName)
+                .allergy(requestDto.getAllergy())
+                .season(requestDto.getSeason())
+                .temperature(requestDto.getTemperature())
+                .calories100g(requestDto.getCalories100g())
+                .efficacy(requestDto.getEfficacy())
+                .buyguide(requestDto.getBuyguide())
+                .trimguide(requestDto.getTrimguide())
+                .storeguide(requestDto.getStoreguide())
+                .category(requestDto.getCategory())
+                .build();
+                
+        return repository.save(material);
+    }
+
+    // 2. 재료 목록 조회 (페이징 및 검색)
+    public List<MaterialResponseDto> getMaterialList(int page, String keyword) {
+        // params 변수 선언 및 데이터 세팅
+        Map<String, Object> params = new HashMap<>();
+        params.put("start", (page - 1) * 10 + 1);
+        params.put("end", page * 10);
+        params.put("keyword", keyword);
+
+        // Repository에서 Entity 리스트를 가져와서 DTO 리스트로 변환
+        return repository.findAll(params).stream()
+                .map(MaterialResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
+    // 3. 파일 업로드 처리 메서드 (에러 해결 포인트)
+    private String handleFileUpload(MultipartFile file) {
+        String uploadPath = "C:/upload/";
+        File folder = new File(uploadPath);
+        if (!folder.exists()) folder.mkdirs();
+
+        if (file == null || file.isEmpty()) {
+            return "default.png";
+        }
+
+        String original = file.getOriginalFilename();
+        String ext = original.contains(".") ? original.substring(original.lastIndexOf(".")) : "";
+        String base = original.contains(".") ? original.substring(0, original.lastIndexOf(".")) : "upload";
+        base = base.replaceAll("[\\\\/:*?\"<>|\\s]+", "_");
+
+        String savedName = UUID.randomUUID().toString() + "_" + base + ext;
+
+        try {
+            file.transferTo(new File(uploadPath + savedName));
+            return savedName;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "default.png";
+        }
+    }
+    
+    // 4. 총 개수 확인 (페이징용)
+    public int getTotalCount(String keyword) {
+        return repository.countAll(keyword);
+    }
+}

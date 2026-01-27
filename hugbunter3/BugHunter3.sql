@@ -1,4 +1,4 @@
-create table material3 ( -- 재료 마스터 테이블 생성
+create table material4 ( -- 재료 마스터 테이블 생성
  materialid number(6) primary key, -- 재료 고유번호 (PK)
  title varchar2(200) not null, -- 재료명 (필수)
  imageurl varchar2(300) default 'default.png', -- 이미지 경로/URL (기본값)
@@ -14,9 +14,9 @@ create table material3 ( -- 재료 마스터 테이블 생성
  created_at     date default sysdate not null, -- 생성일
  updated_at     date default sysdate not null ); -- 수정일
  
- select * from material3;
+ select * from material4;
 
-create sequence material3_seq; -- material3 자동 증가용 시퀀스
+create sequence material4_seq; -- material3 자동 증가용 시퀀스
 
 
 CREATE TABLE material_trends (
@@ -32,27 +32,27 @@ START WITH 1
 INCREMENT BY 1 
 NOCACHE;
 
-select * from material3;
+select * from material4;
 // 재료 crud
-insert into material3 (
+insert into material4 (
   materialid, title, imageurl, season, temperature, calories100g, efficacy, buyguide, trimguide, storeguide, category)
-  values ( material3_seq.nextval, '양파', 'defult.png', '사계절', '상온', '40', '항산화 성분 함유', '껍질이 단단한 제품 선택', '껍질 제거 후 세척', '서늘한 곳 보관', '채소');
+  values ( material4_seq.nextval, '양파', 'defult.png', '사계절', '상온', '40', '항산화 성분 함유', '껍질이 단단한 제품 선택', '껍질 제거 후 세척', '서늘한 곳 보관', '채소');
   
-insert into material3 (
+insert into material4 (
   materialid, title, imageurl, season, temperature, calories100g,efficacy, buyguide, trimguide, storeguide, category) 
-  values ( material3_seq.nextval, '우유', 'defult.png', '사계절', '냉장', '60', '칼슘과 단백질 공급', '유통기한 확인', '개봉 후 바로 섭취', '0~4도 냉장 보관','유제품');  
+  values ( material4_seq.nextval, '우유', 'defult.png', '사계절', '냉장', '60', '칼슘과 단백질 공급', '유통기한 확인', '개봉 후 바로 섭취', '0~4도 냉장 보관','유제품');  
   
-select * from material3 where materialid = 1;  
+select * from material4 where materialid = 1;  
 
-select materialid, title, category, temperature, created_at from material3
+select materialid, title, category, temperature, created_at from material4
 order by created_at desc;
 
-update material3 set temperature = '냉장', buyguide    = '단단하고 마른 양파 선택', updated_at  = sysdate
+update material4 set temperature = '냉장', buyguide    = '단단하고 마른 양파 선택', updated_at  = sysdate
 where materialid = 1;
 
 delete from material_allergy where materialid = 4; 
 delete from material_alias   where materialid = 4; 
-delete from material3        where materialid = 4;
+delete from material4        where materialid = 4;
 
 commit;
 

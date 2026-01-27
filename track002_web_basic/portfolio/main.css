@@ -88,13 +88,13 @@
 /* page 3 */
 
 .Process {
-  display: flex;
-  flex-wrap: wrap; 
-  justify-content: center; 
-  gap: 200px; 
-  max-width: 100%;
-  padding: 40px 20px;
-  box-sizing: border-box;
+display: flex;
+flex-wrap: wrap;
+justify-content: center;
+gap: 60px; 
+max-width: 100%;
+padding: 40px 20px;
+box-sizing: border-box;
 }
 
 h1 {
@@ -121,10 +121,10 @@ h1 {
 }
 
 .list_img {
-    width: 300px;
+    width: 100%; 
+    max-width: 250px; 
     height: auto;
-    margin: 7vh 5vh;
-    margin-bottom: 20px auto;
+    margin: 7vh auto 20px; 
 }
 
 .favorites {
@@ -141,14 +141,19 @@ h1 {
 /* page 4 */
 
 .four {
-    text-align: center;
-    align-items: center;
+min-height: 100vh; 
+text-align: center;
+overflow: hidden; 
+padding-top: 60px; 
+box-sizing: border-box;
 }
 
 .contact_img {
-    width: 90%;
-    height: 500px;
-    padding-bottom: 60px;
+width: 90%;
+max-width: 600px; 
+height: auto; 
+display: block;
+margin: 0 auto 40px;
 }
 
 .ct {

@@ -1,5 +1,0 @@
-package com.thejoa703.oauth2;
-
-public interface CustomOAuth2User {
-
-}
