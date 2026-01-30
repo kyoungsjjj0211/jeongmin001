@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.thejoa703.dao.MaterialDao">
+
+	<resultMap id="materialMap" type="com.thejoa703.dto.response.MaterialResponseDto">
+		<id property="materialid" column="MATERIALID" />
+		<result property="title" column="TITLE" />
+		<result property="imageurl" column="IMAGEURL" />
+		<result property="season" column="SEASON" />
+		<result property="temperature" column="TEMPERATURE" />
+		<result property="calories100g" column="CALORIES100G" />
+		<result property="efficacy" column="EFFICACY" />
+		<result property="buyguide" column="BUYGUIDE" />
+		<result property="trimguide" column="TRIMGUIDE" />
+		<result property="storeguide" column="STOREGUIDE" />
+		<result property="category" column="CATEGORY" />
+		<result property="createdat" column="CREATEDAT" />
+		<result property="updatedat" column="UPDATEDAT" />
+		<result property="allergy" column="ALLERGY" />
+	</resultMap>
+
+	<select id="selectTotalCnt" resultType="long">
+		SELECT COUNT(*) FROM material4
+		<where>
+			<if test="keyword != null and keyword != ''">
+				title LIKE '%' || #{keyword} || '%' OR category LIKE '%' || #{keyword} || '%'
+			</if>
+		</where>
+	</select>
+
+	<select id="select10" resultMap="materialMap">
+		SELECT * FROM (
+			SELECT ROW_NUMBER() OVER (ORDER BY createdat DESC) AS rnum, m.* FROM material4 m
+			<where>
+				<if test="keyword != null and keyword != ''">
+					title LIKE '%' || #{keyword} || '%' OR category LIKE '%' || #{keyword} || '%'
+				</if>
+			</where>
+		) WHERE rnum BETWEEN #{start} AND #{end}
+	</select>
+
+	<select id="selectMaterial" parameterType="long" resultMap="materialMap">
+		SELECT 
+			MATERIALID, TITLE, IMAGEURL, SEASON, TEMPERATURE, CALORIES100G, 
+			EFFICACY, BUYGUIDE, TRIMGUIDE, STOREGUIDE, ALLERGY,
+			CATEGORY, CREATEDAT, UPDATEDAT
+		FROM material4
+		WHERE materialid = #{materialid}
+	</select>
+
+	<select id="selectTitle" parameterType="string" resultMap="materialMap">
+		SELECT * FROM material4 WHERE title = #{title}
+	</select>
+
+	<insert id="insertMaterial" parameterType="com.thejoa703.dto.response.MaterialResponseDto">
+		INSERT INTO material4 (
+			materialid, title, imageurl, allergy, season, temperature, calories100g,
+			efficacy, buyguide, trimguide, storeguide, category, 
+			createdat, updatedat
+		) VALUES (
+			material4_seq.NEXTVAL,
+			#{title, jdbcType=VARCHAR},
+			#{imageurl, jdbcType=VARCHAR},
+			#{allergy, jdbcType=VARCHAR},
+			#{season, jdbcType=VARCHAR},
+			#{temperature, jdbcType=VARCHAR},
+			#{calories100g, jdbcType=VARCHAR},
+			#{efficacy, jdbcType=VARCHAR},
+			#{buyguide, jdbcType=VARCHAR},
+			#{trimguide, jdbcType=VARCHAR},
+			#{storeguide, jdbcType=VARCHAR},
+			#{category, jdbcType=VARCHAR},
+			SYSDATE,
+			SYSDATE
+		)
+	</insert>
+
+	<update id="updateMaterial" parameterType="com.thejoa703.dto.response.MaterialResponseDto">
+		UPDATE material4
+		SET
+			title = #{title, jdbcType=VARCHAR},
+			imageurl = #{imageurl, jdbcType=VARCHAR},
+			allergy = #{allergy, jdbcType=VARCHAR},
+			season = #{season, jdbcType=VARCHAR},
+			temperature = #{temperature, jdbcType=VARCHAR},
+			calories100g = #{calories100g, jdbcType=VARCHAR},
+			efficacy = #{efficacy, jdbcType=VARCHAR},
+			buyguide = #{buyguide, jdbcType=VARCHAR},
+			trimguide = #{trimguide, jdbcType=VARCHAR},
+			storeguide = #{storeguide, jdbcType=VARCHAR},
+			category = #{category, jdbcType=VARCHAR},
+			updatedat = SYSDATE
+		WHERE materialid = #{materialid}
+	</update>
+
+	<delete id="deleteMaterial" parameterType="long">
+		DELETE FROM material4 WHERE materialid = #{value}
+	</delete>
+	
+	<!--<insert id="insertTrend" parameterType="java.util.Map">
+		INSERT INTO material_trends (
+			trend_id, material_id, keyword, period_data, last_updated
+		) VALUES (
+			trend_seq.NEXTVAL, 
+			#{materialId, jdbcType=NUMERIC}, 
+			#{keyword, jdbcType=VARCHAR}, 
+			#{periodData, jdbcType=VARCHAR}, 
+			SYSDATE
+		)
+	</insert>-->
+
+</mapper>
