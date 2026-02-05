@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.thejoa703.dao.MaterialDao">
+
+    <insert id="insertMaterial" parameterType="com.thejoa703.dto.MaterialDto">
+        INSERT INTO material4 (
+            materialid, title, imageurl, allergy, season, 
+            temperature, calories100g, efficacy, buyguide, 
+            trimguide, storeguide, category, created_at, updated_at
+        ) VALUES (
+            material4_seq.nextval, #{title}, #{imageurl}, #{allergy}, #{season},
+            #{temperature}, #{calories100g}, #{efficacy}, #{buyguide},
+            #{trimguide}, #{storeguide}, #{category}, sysdate, sysdate
+        )
+    </insert>
+
+    <update id="updateMaterial" parameterType="com.thejoa703.dto.MaterialDto">
+        UPDATE material4 
+        SET title = #{title}, 
+            imageurl = #{imageurl},
+            allergy = #{allergy},
+            season = #{season},
+            temperature = #{temperature},
+            calories100g = #{calories100g},
+            efficacy = #{efficacy},
+            buyguide = #{buyguide},
+            trimguide = #{trimguide},
+            storeguide = #{storeguide},
+            category = #{category},
+            updated_at = sysdate
+        WHERE materialid = #{materialid}
+    </update>
+
+    <delete id="deleteMaterial">
+        DELETE FROM material4 WHERE materialid = #{materialid}
+    </delete>
+
+    <select id="select10" parameterType="map" resultType="com.thejoa703.dto.MaterialDto">
+        SELECT * FROM (
+            SELECT ROWNUM AS rnum, m.* FROM (
+                SELECT * FROM material4 
+                WHERE title LIKE '%' || #{keyword} || '%'
+                ORDER BY created_at DESC
+            ) m
+        ) WHERE rnum BETWEEN #{start} AND #{end}
+    </select>
+
+    <select id="selectTotalCnt" parameterType="string" resultType="int">
+        SELECT COUNT(*) FROM material4 WHERE title LIKE '%' || #{keyword} || '%'
+    </select>
+
+    <select id="selectMaterial" resultType="com.thejoa703.dto.MaterialDto">
+        SELECT * FROM material4 WHERE materialid = #{materialid}
+    </select>
+
+    <insert id="insertTrend" parameterType="map">
+        INSERT INTO material_trends (
+            trend_id, material_id, keyword, period_data, last_updated
+        ) VALUES (
+            trend_seq.nextval, #{materialId}, #{keyword}, #{periodData}, sysdate
+        )
+    </insert>
+
+</mapper>

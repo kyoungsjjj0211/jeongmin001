@@ -7,6 +7,7 @@ import commentReducer       from  './commentReducer';
 import followReducer        from  './followReducer';
 import likeReducer          from  './likeReducer';
 import retweetReducer       from  './retweetReducer';
+import materialReducer      from './materialReducer';
 
 const rootReducer = combineReducers({
     auth: authReducer , 
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
     follow: followReducer , 
     like: likeReducer , 
     retweet: retweetReducer , 
+    material: materialReducer,
 });
 
 export default rootReducer;

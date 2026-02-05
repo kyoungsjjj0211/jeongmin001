@@ -1,0 +1,21 @@
+package com.thejoa703.dto;
+
+import lombok.Data;
+
+@Data // Lombok 사용 시 Getter, Setter 자동 생성
+public class MaterialDto {
+	private int materialid;
+    private String title;
+    private String imageurl;
+    private String allergy;
+    private String season;
+    private String temperature;
+    private String calories100g;
+    private String efficacy;
+    private String buyguide;
+    private String trimguide;
+    private String storeguide;
+    private String category;
+    private String created_at; // DB의 date와 매칭
+    private String updated_at;
+}

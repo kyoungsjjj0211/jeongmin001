@@ -1,0 +1,11 @@
+package com.thejoa703.dto;
+
+import lombok.Data;
+
+@Data // Lombok 사용 시 Getter, Setter 자동 생성
+public class MaterialDto {
+    private int materialid;    // 재료 아이디
+    private String title;      // 재료명
+    private String imageurl;   // 이미지 경로
+    // 필요에 따라 추가 필드(내용, 등록일 등)를 정의하세요.
+}

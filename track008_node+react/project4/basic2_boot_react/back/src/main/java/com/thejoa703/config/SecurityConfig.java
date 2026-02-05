@@ -43,15 +43,18 @@ public class SecurityConfig {
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
+                // ✅ 1. 모든 OPTIONS 요청 허용 (CORS Preflight 해결을 위해 가장 중요)
+                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                
                 .requestMatchers(
                     "/auth/**", "/login/**", "/oauth2/**",
                     "/swagger-ui/**", "/v3/api-docs/**",
                     "/swagger-resources/**", "/webjars/**",
                     "/configuration/**", "/upload/**", "/api/deptusers/**", "/api/likes/**",
-                    "/api/material/**" // ⭐ 재료 등록/조회 경로를 명확히 허용
+                    "/api/materials/**" // ✅ 2. 경로 수정 (material -> materials)
                 ).permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/posts/**").permitAll()
-                .requestMatchers("/api/**").authenticated() // 나머지 api는 인증 필요
+                .requestMatchers("/api/**").authenticated() 
                 .anyRequest().permitAll()
             )
             .oauth2Login(oauth2 -> oauth2.successHandler(oAuth2SuccessHandler))
@@ -68,10 +71,13 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
+        // ✅ 3. 프론트엔드 주소 명시 및 자격 증명 허용
         configuration.setAllowedOrigins(List.of("http://localhost:3000"));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(List.of("*"));
+        configuration.setAllowedHeaders(List.of("Authorization", "Content-Type", "Cache-Control"));
+        configuration.setExposedHeaders(List.of("Authorization")); // 프론트에서 토큰을 읽을 수 있게 노출
         configuration.setAllowCredentials(true);
+        
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;

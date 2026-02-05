@@ -1,0 +1,29 @@
+
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.thejoa703.dto.request.MaterialSaveRequestDto;
+import com.thejoa703.entity.Material;
+import com.thejoa703.repository.MaterialRepository;
+
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
+public class MaterialService {
+    private final MaterialRepository repository;
+
+    public void saveMaterial(MaterialSaveRequestDto dto, MultipartFile file) {
+        String fileName = handleFileUpload(file);
+        
+        // DTO -> Entity 변환 후 저장
+        Material material = Material.builder()
+                .title(dto.getTitle())
+                .imageurl(fileName)
+                .category(dto.getCategory())
+                // ... 나머지 필드
+                .build();
+        
+        repository.save(material); // JPA의 save는 insert/update를 동시에 수행합니다.
+    }
+}

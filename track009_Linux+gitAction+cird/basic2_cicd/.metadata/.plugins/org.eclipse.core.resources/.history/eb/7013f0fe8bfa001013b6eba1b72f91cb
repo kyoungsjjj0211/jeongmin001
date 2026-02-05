@@ -1,0 +1,47 @@
+package com.thejoa703.entity;
+
+import jakarta.persistence.*; // Spring Boot 3 기준
+import lombok.*;
+import java.time.LocalDateTime;
+
+@Entity // JPA가 관리하는 엔티티임을 명시
+@Table(name = "material4") // 매핑할 테이블 이름
+@Getter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class Material {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "mat_seq")
+    @SequenceGenerator(name = "mat_seq", sequenceName = "material4_seq", allocationSize = 1)
+    private Long materialid; // JPA는 보통 Long을 권장합니다.
+
+    @Column(nullable = false)
+    private String title;
+
+    private String imageurl;
+    private String allergy;
+    private String season;
+    private String temperature;
+    private String calories100g;
+
+    @Column(length = 4000) // 내용이 길 경우 설정
+    private String efficacy;
+    private String buyguide;
+    private String trimguide;
+    private String storeguide;
+    private String category;
+
+    @Column(updatable = false)
+    private LocalDateTime createdAt;
+    
+    private LocalDateTime updatedAt;
+
+    // 저장 전 자동으로 날짜 세팅
+    @PrePersist
+    public void prePersist() {
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+    }
+}

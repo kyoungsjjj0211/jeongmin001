@@ -1,96 +1,90 @@
-import { Card, Form, Input, Button, Upload, message, Select } from "antd";
-import { UploadOutlined } from "@ant-design/icons";
-import { useDispatch, useSelector } from "react-redux";
-import { useRouter } from "next/router";
-import { createPostRequest } from "../../reducers/postReducer";
-import { useState, useEffect } from "react"; // useEffect 추가
+import React, { useEffect, useState, useCallback } from 'react';
+import { Card, Form, Input, Button, Upload, Select, Row, Col, message } from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
+import { useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
+import { createMaterialRequest, CREATE_MATERIAL_RESET } from '../../reducers/materialReducer';
 
-export default function NewPostPage() {
-    const router = useRouter();
-    const dispatch = useDispatch();
-    const { user } = useSelector((s) => s.auth);
-    const { loading, error, createPostDone } = useSelector((s) => s.post); // createPostDone 추가 권장
+export default function NewMaterialPage() {
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const [form] = Form.useForm();
+  const { user } = useSelector((s) => s.auth);
+  const { loading, createMaterialDone } = useSelector((s) => s.material);
+  const [fileList, setFileList] = useState([]);
 
-    const [fileList, setFileList] = useState([]);
-
-    // 1. [권한 제어] 1@1 아이디 체크 로직
-    // 로그인이 안 되어 있거나 1@1이 아니면 접근 차단
-    useEffect(() => {
-        if (!user) {
-            message.error("로그인이 필요합니다.");
-            router.push("/login");
-            return;
-        }
-        if (user.email !== '1@1') {
-            message.warning("게시글 작성 권한이 없습니다 (관리자 전용).");
-            router.push("/");
-        }
-    }, [user, router]);
-
-    // 2. [에러 방지] 포스트 작성이 완료되면 그때 이동하도록 처리 (선택 사항)
-    // 현재는 onFinish에서 즉시 이동하므로, 상태 업데이트 충돌을 피하기 위해 setTimeout 사용
-    const onFinish = (values) => {
-        const dto = {
-            content: values.content,
-            hashtags: values.hashtags ? values.hashtags.join(",") : "",
-        };
-        const files = fileList.map((f) => f.originFileObj);
-
-        dispatch(createPostRequest({ dto, files }));
-        message.success("게시글 작성 요청 완료");
-
-        // ✅ 핵심 수정: 페이지 이동과 상태 변경을 아주 약간 뒤로 미뤄서
-        // 현재 컴포넌트의 렌더링 사이클이 안전하게 끝나도록 합니다.
-        setTimeout(() => {
-            setFileList([]);
-            router.push("/");
-        }, 0);
-    };
-
-    if (!user || user.email !== '1@1') {
-        return <Card style={{ textAlign: 'center', marginTop: 50 }}>접근 권한을 확인 중입니다...</Card>;
+  useEffect(() => {
+    // ✅ 관리자 '1@1' 체크 삭제 -> 로그인 여부만 확인
+    if (!user) {
+      message.warning("로그인이 필요한 서비스입니다.");
+      router.push("/login");
     }
+  }, [user]);
 
-    return (
-        <Card title="게시글 작성 (관리자)" style={{ maxWidth: 600, margin: "20px auto" }}>
-            <Form onFinish={onFinish} layout="vertical">
-                <Form.Item
-                    label="내용"
-                    name="content"
-                    rules={[{ required: true, message: '내용을 입력하세요' }]}
-                >
-                    <Input.TextArea rows={4} placeholder="게시글 내용을 입력하세요." />
-                </Form.Item>
+  useEffect(() => {
+    if (createMaterialDone) {
+      message.success('내 냉장고 리스트에 추가되었습니다.');
+      dispatch(CREATE_MATERIAL_RESET());
+      router.push('/materials');
+    }
+  }, [createMaterialDone]);
 
-                <Form.Item label="해시태그" name="hashtags">
-                    {/* Select 모드 설정 시 발생하는 내부 업데이트 충돌 방지 */}
-                    <Select mode="tags" style={{ width: "100%" }} placeholder="해시태그 입력후 Enter" />
-                </Form.Item>
+  const onFinish = useCallback((values) => {
+    dispatch(createMaterialRequest({
+      dto: values, // ✅ 폼에 입력된 모든 필드 전송
+      file: fileList[0]?.originFileObj,
+    }));
+  }, [fileList, dispatch]);
 
-                <Form.Item label="이미지 업로드">
-                    <Upload 
-                        multiple 
-                        beforeUpload={() => false} 
-                        fileList={fileList}
-                        onChange={({ fileList }) => setFileList(fileList)}
-                        listType="picture-card"
-                    >
-                        {fileList.length < 8 && (
-                            <div>
-                                <UploadOutlined />
-                                <div style={{ marginTop: 8 }}>이미지 선택</div>
-                            </div>
-                        )}
-                    </Upload>
-                </Form.Item>
+  return (
+    <Card title="내 냉장고 속 재료 등록" style={{ maxWidth: 800, margin: "20px auto" }}>
+      <Form form={form} layout="vertical" onFinish={onFinish}>
+        <Row gutter={16}>
+          <Col span={12}>
+            <Form.Item name="title" label="재료명" rules={[{ required: true, message: '재료명을 입력하세요' }]}>
+              <Input placeholder="예: 유기농 달걀" />
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item name="category" label="보관 장소">
+              <Select placeholder="장소 선택">
+                <Select.Option value="냉장">냉장</Select.Option>
+                <Select.Option value="냉동">냉동</Select.Option>
+                <Select.Option value="실온">실온</Select.Option>
+              </Select>
+            </Form.Item>
+          </Col>
+        </Row>
+        
+        <Row gutter={16}>
+          <Col span={8}><Form.Item name="season" label="구매날짜/유통기한"><Input placeholder="2023-11-01" /></Form.Item></Col>
+          <Col span={8}><Form.Item name="temperature" label="보관 온도"><Input placeholder="4°C" /></Form.Item></Col>
+          <Col span={8}><Form.Item name="calories100g" label="칼로리(100g)"><Input suffix="kcal" /></Form.Item></Col>
+        </Row>
 
-                <Button type="primary" htmlType="submit" loading={loading} block>
-                    게시글 작성
-                </Button>
-                
-                {/* 에러가 객체일 경우를 대비해 처리 */}
-                {error && <p style={{ color: "red", marginTop: 10 }}>{typeof error === 'object' ? '서버 에러 발생' : error}</p>}
-            </Form>
-        </Card>
-    );
+        <Form.Item name="efficacy" label="재료 상태/참고 사항">
+          <Input.TextArea rows={2} placeholder="현재 상태나 간단한 메모를 적어주세요." />
+        </Form.Item>
+        
+        <Form.Item name="storeguide" label="나만의 보관 꿀팁">
+          <Input.TextArea rows={2} placeholder="다른 사람들에게 공유할 보관법" />
+        </Form.Item>
+
+        <Form.Item label="사진 업로드">
+          <Upload 
+            listType="picture-card" 
+            fileList={fileList} 
+            onChange={({ fileList }) => setFileList(fileList)} 
+            beforeUpload={() => false}
+          >
+            {fileList.length < 1 && <UploadOutlined />}
+          </Upload>
+        </Form.Item>
+
+        <Button type="primary" htmlType="submit" loading={loading} block size="large">
+          냉장고에 넣기
+        </Button>
+      </Form>
+    </Card>
+  );
 }

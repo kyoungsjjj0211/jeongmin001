@@ -1,0 +1,18 @@
+package com.thejoa703.repository;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.thejoa703.entity.Material;
+
+@Repository
+public interface MaterialRepository extends JpaRepository<Material, Long> {
+    
+    // 제목 검색 + 페이징을 위한 메서드
+    Page<Material> findByTitleContaining(String keyword, Pageable pageable);
+
+    // 제목 검색 결과 개수를 가져오는 메서드
+    long countByTitleContaining(String keyword);
+}

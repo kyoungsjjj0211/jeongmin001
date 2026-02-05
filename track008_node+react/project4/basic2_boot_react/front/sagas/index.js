@@ -7,6 +7,7 @@ import commentSaga   from './commentSaga';
 import followSaga    from './followSaga';
 import likeSaga      from './likeSaga';
 import retweetSaga   from './retweetSaga';
+import materialSaga from './materialSaga';
 
 export default  function * rootSaga(){
   yield all([
@@ -16,5 +17,6 @@ export default  function * rootSaga(){
     fork( followSaga ) ,
     fork( likeSaga ) ,
     fork( retweetSaga ) ,
+    fork(materialSaga),
   ]);  
 } 

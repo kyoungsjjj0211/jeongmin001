@@ -1,0 +1,27 @@
+package com.thejoa703.entity;
+
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+
+@Getter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class Material {
+    private int materialid;
+    private String title;
+    private String imageurl;
+    private String allergy;
+    private String season;
+    private String temperature;
+    private String calories100g;
+    private String efficacy;
+    private String buyguide;
+    private String trimguide;
+    private String storeguide;
+    private String category;
+    private String createdAt;
+    private String updatedAt;
+}

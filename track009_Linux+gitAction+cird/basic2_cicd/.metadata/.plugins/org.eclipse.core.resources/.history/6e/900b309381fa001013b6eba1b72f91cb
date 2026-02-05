@@ -1,0 +1,27 @@
+package com.thejoa703.dao;
+
+import java.util.List;
+import java.util.Map;
+import com.thejoa703.dto.MaterialDto;
+import org.apache.ibatis.annotations.Mapper;
+
+@Mapper // MyBatis 매퍼 인터페이스임을 명시
+public interface MaterialDao {
+    
+    // 기본 CRUD
+    int insertMaterial(MaterialDto dto);
+    int updateMaterial(MaterialDto dto);
+    int deleteMaterial(int materialid);
+    
+    // 조회 관련
+    List<MaterialDto> MaterialList();
+    MaterialDto selectMaterial(int materialid);
+    MaterialDto selectTitle(String title);
+    
+    // 페이징 및 검색
+    List<MaterialDto> select10(Map<String, Object> para);
+    int selectTotalCnt(String keyword);
+    
+    // 트렌드 데이터 저장
+    int insertTrend(Map<String, Object> map);
+}

@@ -1,0 +1,20 @@
+package com.thejoa703.dto.response;
+
+import com.thejoa703.entity.Material;
+
+import lombok.Getter;
+
+@Getter
+public class MaterialResponseDto {
+    private int materialid;
+    private String title;
+    private String imageurl;
+    private String category;
+
+    public MaterialResponseDto(Material entity) {
+        this.materialid = entity.getMaterialid();
+        this.title = entity.getTitle();
+        this.imageurl = entity.getImageurl();
+        this.category = entity.getCategory();
+    }
+}

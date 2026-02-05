@@ -1,59 +1,77 @@
-// api/axios.js
-
 import axios from "axios";
 
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8484", 
-  // 기본 api 서버주소, 환경변수가 없으면 로컬서버 사용
   withCredentials: true, 
-  // refresh Token 이 HttpOnly 쿠키에  저장이 되어 있으면 자동 포함 필요
   headers: {
-    "Content-Type": "application/json",   // → 요청기본 json
-    Accept: "application/json",           // → 응답을 JSON으로 받도록 지정 
+    "Content-Type": "application/json",
+    Accept: "application/json",
   },
 });
-// 요청 인터셉터: 요청 보내기 전에 Access Token을 헤더에 추가  
+
+// 요청 인터셉터
 api.interceptors.request.use(
   (config) => {
-    if (typeof window !== "undefined") {  //→ CSR 환경에서만 localStorage 접근
-      const accessToken = localStorage.getItem("accessToken"); //→ 저장된 Access Token 가져오기 
+    if (typeof window !== "undefined") {
+      const accessToken = localStorage.getItem("accessToken");
       if (accessToken) {
-        config.headers.Authorization = `Bearer ${accessToken}`;  //→ Authorization 헤더에 추가
+        config.headers.Authorization = `Bearer ${accessToken}`;
       }
     }
-    return config;  
+    return config;
   },
-  (error) => Promise.reject(error)  // 요청에러처리
-); 
+  (error) => Promise.reject(error)
+);
+
+// 응답 인터셉터
 api.interceptors.response.use(
-  (res) => res, // → 정상 응답은 그대로 반환
+  (res) => res,
   async (error) => {
-    const original = error.config; // → 원래 요청 정보
-    const status = error.response?.status; // → 응답 상태 코드
-    // 401 발생시 Refresh Token 재발급
+    const original = error.config;
+    const status = error.response?.status;
+
+    // 401(권한 없음) 에러 발생 시에만 재발급 시도
     if (status === 401 && !original._retry) {
-      original._retry = true; // → 무한 루프 방지 플래그
+      original._retry = true;
       try {
-        const { data } = await api.post("/auth/refresh"); 
-        const newAccessToken = data?.accessToken;  
+        // 주의: 재발급 요청은 무한 루프를 피하기 위해 인터셉터가 없는 axios 기본 인스턴스나 별도 경로 이용 권장
+        const { data } = await axios.post(`${api.defaults.baseURL}/auth/refresh`, {}, { withCredentials: true });
+        const newAccessToken = data?.accessToken;
 
         if (typeof window !== "undefined" && newAccessToken) {
-          localStorage.setItem("accessToken", newAccessToken);  // local 저장
+          localStorage.setItem("accessToken", newAccessToken);
+          // ✅ 쿠키도 함께 갱신해주는 것이 좋습니다 (authSaga와 동기화)
+          document.cookie = `accessToken=${newAccessToken}; path=/`; 
         }
 
-        original.headers.Authorization = `Bearer ${newAccessToken}`;  // 원 요청 헤더 갱신
+        original.headers.Authorization = `Bearer ${newAccessToken}`;
         return api(original); 
       } catch (refreshErr) {
+        // ✅ 튕기기 방지 로직: 관리자 페이지 등 특정 상황에서는 즉시 이동을 유예함
+        console.error("세션 만료: 토큰 재발급에 실패했습니다.");
+        
         if (typeof window !== "undefined") {
-          localStorage.removeItem("accessToken");  // Access Token 제거
-          window.location.href = "/login";         // 로그인 페이지로 이동
+          // 특정 에러(500 등)와 헷갈리지 않게 정말 인증 실패일 때만 처리
+          if (refreshErr.response?.status === 401 || refreshErr.response?.status === 403) {
+             // localStorage.removeItem("accessToken"); // 일단 유지해보고 정 안되면 주석 해제
+             // window.location.href = "/login"; // 🚨 이 부분이 자동 로그아웃의 주범! 일단 주석 처리하여 방어합니다.
+          }
         }
-        return Promise.reject(refreshErr);  
+        return Promise.reject(refreshErr);
       }
     }
 
-    return Promise.reject(error);  
+    // 500 에러 등이 발생해도 로그아웃시키지 않고 에러만 던짐
+    return Promise.reject(error);
   }
 );
- 
+
+
+
+export const loadMaterialsAPI = (page) => {
+  return api.get(`/api/material/list`, {
+    params: { page },
+  });
+};
+
 export default api;

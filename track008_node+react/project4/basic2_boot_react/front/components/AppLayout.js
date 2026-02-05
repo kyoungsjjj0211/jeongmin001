@@ -81,7 +81,7 @@ function AppLayout({ children, initialUser }){
         ...(user && user.nickname   //로그인한 상태
           ? [
               { key: "new",     label: <Link href="/posts/new">✏️ NEW POST</Link> },
-              { key: "material", label: <Link href="/material">🥕 재료</Link> }, // 재료파트 추가
+              { key: "materials", label: <Link href="/materials">🥕 재료</Link> }, // 재료파트 추가
               { key: "profile", label: <Link href="/mypage">👤 MYPAGE </Link> },
               {
                     key: "logout",

@@ -1,5 +1,4 @@
-.metadata
-
+/.metadata/
 # Node.js 의존성
 node_modules/
 

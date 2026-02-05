@@ -11,7 +11,7 @@ eclipse/
 # IDE 관련
 .idea/
 *.iml
-
+.next/
 # OS별 임시파일
 *.DS_Store
 Thumbs.db

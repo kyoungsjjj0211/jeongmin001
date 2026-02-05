@@ -1,0 +1,19 @@
+package com.thejoa703.service;
+
+import java.util.List;
+import org.springframework.web.multipart.MultipartFile;
+import com.thejoa703.dto.MaterialDto;
+
+public interface MaterialService {
+    int insertMaterial(MaterialDto dto);
+    int updateMaterial(MaterialDto dto);
+    int deleteMaterial(int materialid);
+    List<MaterialDto> MaterialList();
+    MaterialDto selectTitle(String title);
+    MaterialDto selectMaterial(int materialid);
+    int insert2Material(MultipartFile file, MaterialDto dto);
+    int update2Material(MultipartFile file, MaterialDto dto);
+    List<MaterialDto> select10(int pstartno, String keyword);
+    int selectTotalCnt(String keyword);
+    void saveTrendData(int materialId, String keyword, String jsonResponse);
+}
