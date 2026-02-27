@@ -1,4 +1,4 @@
-create table material4 ( -- 재료 마스터 테이블 생성
+create table material3 ( -- 재료 마스터 테이블 생성
  materialid number(6) primary key, -- 재료 고유번호 (PK)
  title varchar2(200) not null, -- 재료명 (필수)
  imageurl varchar2(300) default 'default.png', -- 이미지 경로/URL (기본값)
@@ -14,9 +14,9 @@ create table material4 ( -- 재료 마스터 테이블 생성
  created_at     date default sysdate not null, -- 생성일
  updated_at     date default sysdate not null ); -- 수정일
  
- select * from material4;
+ select * from material3;
 
-create sequence material4_seq; -- material3 자동 증가용 시퀀스
+create sequence material3_seq; -- material3 자동 증가용 시퀀스
 
 
 CREATE TABLE material_trends (

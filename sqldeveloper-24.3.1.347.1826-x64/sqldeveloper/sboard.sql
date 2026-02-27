@@ -1,4 +1,4 @@
-create table sboard1(
+create table sboard2(
      ID number NOT NULL ,
       APP_USER_ID NUMBER NOT NULL ,
       BTITLE VARCHAR2(1000) NOT NULL ,
